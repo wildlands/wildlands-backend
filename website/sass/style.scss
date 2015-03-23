@@ -1,0 +1,332 @@
+@import "colors";
+@import "variables";
+@import "mixins";
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,700");
+$images: "../images";
+
+html {
+	
+	height: 100%;
+	
+}
+
+body {
+	
+	font-family: 'Open Sans', sans-serif;
+	background-color: $zwart;
+	
+	height: 100%;
+
+}
+
+a {
+	
+	color: $groen;
+	
+}
+
+a:hover {
+	
+	color: $zwart;
+	
+}
+
+.chart {
+	
+	text-align: center;
+	position: relative;
+	
+}
+
+.percentage {
+	
+	@include vertical-align(27px, 20px);
+	
+}
+
+.background-image {
+	
+  background: url("#{$images}/background.jpg") no-repeat center center fixed;
+  
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  
+  height: 100%;
+  
+  z-index: -10;
+  
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  animation-duration: 2s;
+
+}
+
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0
+}
+
+.btn-label {
+    position: relative;
+    background: 0 0;
+    background: rgba(0, 0, 0, .15);
+    display: inline-block;
+    padding: 6px 12px;
+    left: -12px;
+    border-radius: 3px 0 0 3px
+}
+
+.btn-label.btn-label-right {
+    left: auto;
+    right: -12px;
+    border-radius: 0 3px 3px 0
+}
+
+.btn-lg .btn-label {
+    padding: 10px 16px;
+    left: -16px;
+    border-radius: 5px 0 0 5px
+}
+
+.btn-lg .btn-label.btn-label-right {
+    left: auto;
+    right: -16px;
+    border-radius: 0 5px 5px 0
+}
+
+.btn-sm .btn-label {
+    padding: 5px 10px;
+    left: -10px;
+    border-radius: 2px 0 0 2px
+}
+
+.btn-sm .btn-label.btn-label-right {
+    left: auto;
+    right: -10px;
+    border-radius: 0 2px 2px 0
+}
+
+.btn-xs .btn-label {
+    padding: 1px 5px;
+    left: -5px;
+    border-radius: 2px 0 0 2px
+}
+
+.btn-xs .btn-label.btn-label-right {
+    left: auto;
+    right: -5px;
+    border-radius: 0 2px 2px 0
+}
+
+.container {
+	
+	margin-top: 40px;
+	
+}
+
+#main {
+	
+	box-shadow: 0px 0px 20px $box-shadow-color;
+	background-color: $wit !important;
+	overflow: auto;
+	
+}
+
+#login {
+	
+	$width: 390px;
+	$height: 333px;
+	width: $width;
+	@include vertical-align($width, $height);
+	padding: 15px;
+			
+	background-color: $wit;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px $box-shadow-color;
+	
+	-webkit-animation-delay: 1s;
+	-moz-animation-delay: 1s;
+	animation-delay: 1s;
+		
+	.fa {
+		
+		width: 15px;
+		
+	}
+	
+}
+
+#header {
+
+	color: $wit;
+	text-align: justify;
+	
+	.logo {
+		
+		background-color: $groen;
+		text-transform: uppercase;
+		
+		p {
+			
+			margin: 0;
+			padding: 5px 0;
+			text-align: center;
+			
+		}
+		
+	}
+	
+	.title {
+		
+		background-color: $zwart;
+		
+		.user-menu {
+			
+			height: 100px;
+			
+			.menu-item {
+				
+				display: table-cell;
+				height: 100px;
+				vertical-align: middle;
+				
+			}
+					
+			.menu-item:hover {
+				
+				color: $wit;
+				text-decoration: none;
+				cursor: pointer;
+				
+			}
+			
+		}
+		
+	}
+	
+	.header-title {
+		
+		height: 100px;
+		padding: 0;
+		margin: 0;
+		font-weight: $font-thin;
+		
+		&:after {
+			
+			content: "";
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+			
+		}
+		
+	}
+	
+}
+
+.white {
+	
+	background-color: $wit;
+	
+}
+
+.menu {
+	
+	background-color: $lichtgrijs;
+	padding: 40px 0;
+	min-height: 500px;
+	
+	ul.nav li a {
+		
+		border-radius: 0;
+		
+	}
+	
+}
+
+.menu .fa {
+	
+	width: 20px;
+	
+}
+
+.content {
+	
+	height: 100%;
+	min-height: 500px;
+	padding-bottom: 40px;
+	
+	.input-group {
+		
+		.form-control.antwoord {
+		
+		border-radius: 0px;
+		
+		}
+		
+		.input-group-addon {
+			
+			border-radius: 0px;
+			
+		}
+		
+		&:first-child { 
+			
+			.form-control.antwoord {
+			
+				border-top-left-radius: 5px;
+			
+			}
+			
+			.input-group-addon {
+				
+				border-top-right-radius: 5px;
+				
+			}
+		
+		}
+		
+		&:last-child  {
+			
+			.form-control.antwoord {
+			
+				border-bottom-left-radius: 5px;
+			
+			}
+			
+			.input-group-addon {
+				
+				border-bottom-right-radius: 5px;
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
+#footer {
+	
+	padding-bottom: 40px;
+	
+	p {
+		
+		color: $wit;
+		
+	}
+	
+}
+
+[data-notify="progressbar"] {
+	
+	display: none;
+}

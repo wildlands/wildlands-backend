@@ -1,0 +1,188 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,700");
+html {
+  height: 100%; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: black;
+  height: 100%; }
+
+a {
+  color: #007e2b; }
+
+a:hover {
+  color: black; }
+
+.chart {
+  text-align: center;
+  position: relative; }
+
+.percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -10px;
+  margin-left: -14px; }
+
+.background-image {
+  background: url("../images/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  z-index: -10;
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  animation-duration: 2s; }
+
+.btn-labeled {
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.btn-label {
+  position: relative;
+  background: 0 0;
+  background: rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  padding: 6px 12px;
+  left: -12px;
+  border-radius: 3px 0 0 3px; }
+
+.btn-label.btn-label-right {
+  left: auto;
+  right: -12px;
+  border-radius: 0 3px 3px 0; }
+
+.btn-lg .btn-label {
+  padding: 10px 16px;
+  left: -16px;
+  border-radius: 5px 0 0 5px; }
+
+.btn-lg .btn-label.btn-label-right {
+  left: auto;
+  right: -16px;
+  border-radius: 0 5px 5px 0; }
+
+.btn-sm .btn-label {
+  padding: 5px 10px;
+  left: -10px;
+  border-radius: 2px 0 0 2px; }
+
+.btn-sm .btn-label.btn-label-right {
+  left: auto;
+  right: -10px;
+  border-radius: 0 2px 2px 0; }
+
+.btn-xs .btn-label {
+  padding: 1px 5px;
+  left: -5px;
+  border-radius: 2px 0 0 2px; }
+
+.btn-xs .btn-label.btn-label-right {
+  left: auto;
+  right: -5px;
+  border-radius: 0 2px 2px 0; }
+
+.container {
+  margin-top: 40px; }
+
+#main {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  background-color: white !important;
+  overflow: auto; }
+
+#login {
+  width: 390px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -167px;
+  margin-left: -195px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s; }
+  #login .fa {
+    width: 15px; }
+
+#header {
+  color: white;
+  text-align: justify; }
+  #header .logo {
+    background-color: #007e2b;
+    text-transform: uppercase; }
+    #header .logo p {
+      margin: 0;
+      padding: 5px 0;
+      text-align: center; }
+  #header .title {
+    background-color: black; }
+    #header .title .user-menu {
+      height: 100px; }
+      #header .title .user-menu .menu-item {
+        display: table-cell;
+        height: 100px;
+        vertical-align: middle; }
+      #header .title .user-menu .menu-item:hover {
+        color: white;
+        text-decoration: none;
+        cursor: pointer; }
+  #header .header-title {
+    height: 100px;
+    padding: 0;
+    margin: 0;
+    font-weight: 100; }
+    #header .header-title:after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle; }
+
+.white {
+  background-color: white; }
+
+.menu {
+  background-color: #e8e8e8;
+  padding: 40px 0;
+  min-height: 500px; }
+  .menu ul.nav li a {
+    border-radius: 0; }
+
+.menu .fa {
+  width: 20px; }
+
+.content {
+  height: 100%;
+  min-height: 500px;
+  padding-bottom: 40px; }
+  .content .input-group .form-control.antwoord {
+    border-radius: 0px; }
+  .content .input-group .input-group-addon {
+    border-radius: 0px; }
+  .content .input-group:first-child .form-control.antwoord {
+    border-top-left-radius: 5px; }
+  .content .input-group:first-child .input-group-addon {
+    border-top-right-radius: 5px; }
+  .content .input-group:last-child .form-control.antwoord {
+    border-bottom-left-radius: 5px; }
+  .content .input-group:last-child .input-group-addon {
+    border-bottom-right-radius: 5px; }
+
+#footer {
+  padding-bottom: 40px; }
+  #footer p {
+    color: white; }
+
+[data-notify="progressbar"] {
+  display: none; }
+
+/*# sourceMappingURL=style.css.map */

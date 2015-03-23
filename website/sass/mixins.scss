@@ -1,0 +1,9 @@
+@mixin vertical-align($boxWidth, $boxHeight) {
+	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -(round($boxHeight / 2));
+	margin-left: -(round($boxWidth / 2));
+	
+}
