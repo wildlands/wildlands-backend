@@ -105,8 +105,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 				<ul class="nav nav-pills nav-stacked">
 					
 					<li><a href="<?php echo BASE_URL; ?>"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-					<li><a href="<?php echo BASE_URL; ?>pinpoints/show"><i class="fa fa-map-marker"></i> Pinpoints</a></li>
-					<li><a href="<?php echo BASE_URL; ?>questions/show"><i class="fa fa-question"></i> Vragen</a></li>
+					<li><a href="<?php echo BASE_URL; ?>pinpoints/show"><i class="fa fa-map-marker"></i> Pinpoints en vragen</a></li>
 					<li><a href="<?php echo BASE_URL; ?>users/show"><i class="fa fa-users"></i> Gebruikers</a></li>
 					
 				</ul>

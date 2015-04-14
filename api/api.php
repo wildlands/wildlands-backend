@@ -1,46 +1,72 @@
 <?php
 /**
- * User: INF2A
+ * Author: INF2A
  * Date: 17.03.2015
  */
 
 require_once('../database.php');
 
+// Create command list
 $commandList = array();
 addAllCommands();
 
+// Return error message if unable to connect to database
 if ($mysqli->connect_errno > 0) {
     errorMessage("Unable to connect to database.");
 }
 
-if (isset($_GET['c'])) {
-    $command = $_GET['c'];
-    if (isset($_GET['p'])) {
-        $parameter = $_GET['p'];
+
+// If 'c' parameter it will be assumed that the script is used
+//  from 'outside' (like from an app)
+// Check if 'c' parameter (command) is set
+if (isset($_GET['c']) || isset($_POST['c'])) {
+    if(isset($_POST['c'])) {
+        // Set command from PHP POST parameter
+        $command = $_POST['c'];
     } else {
+        // Set command from PHP GET parameter
+        $command = $_GET['c'];
+    }
+
+    // Check if 'p' parameter (parameter) is set
+    if (isset($_POST['p'])) {
+        // Set parameter from PHP POST parameter
+        $parameter = $_POST['p'];
+    } else {
+        // If no 'p' parameter isn't set, then set 'parameter' to null
+        //  to indicate 'no parameter'
         $parameter = null;
     }
 
+    // Execute the given command (with the given parameter)
     executeCommand($command, $parameter);
 }
 
+// Function: Execute the given command with the given parameter
 function executeCommand($command, $parameter)
 {
+    // Get the global variable '$commandList' to be accessible
+    //  in this function
     global $commandList;
 
+    // Check if the command exists at all
     if (!isset($commandList[$command])) {
         errorMessage("Command not found.");
     }
 
+    // Execute the command and return the 'return' as json
     returnJson($commandList[$command]->execute($parameter));
 }
 
+// Function: Generate an error message with given message,
+//  return it as json and exit the script
 function errorMessage($message)
 {
     returnJson(array("error" => $message));
     exit;
 }
 
+// Function: Add all commands to the command list
 function addAllCommands()
 {
     new GetAllPinpoints();
@@ -51,39 +77,50 @@ function addAllCommands()
     new SetQuestion();
     new SetPinpoint();
     new SetType();
+    new GetDatabaseChecksum();
 }
 
+// Function: Generate json from '$output' and print it
+//  (if the script is used from 'outside') or return it
 function returnJson($output)
 {
     $return = json_encode($output);
     if(isset($_GET['c'])) {
+        header('Content-Type: application/json');
         echo $return;
     } else {
         return $return;
     }
-
-    //echo var_dump($output);
 }
 
-// Commands
-
+// Abstract Class: Command
 abstract class Command
 {
 
+    // Constructor
     public function __construct()
     {
+        // Get the global variable '$commandList' to be accessible
+        //  in this function
         global $commandList;
 
+        // Add this command to the global commandlist
         $newCommand = array($this->getCommand() => $this);
         $commandList = array_merge($commandList, $newCommand);
     }
 
+    // Function: Return the command name as string
     abstract public function getCommand();
 
+    // Function: Execute the command
     abstract public function execute($parameter);
 
 }
 
+// Class: GetAllPinpoints
+//  Return all pinpoints from the database
+//
+//  Return: Json array with 'Pinpoint' objects
 class GetAllPinpoints extends Command
 {
 
@@ -94,7 +131,7 @@ class GetAllPinpoints extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT pinpoint.PinID, pinpoint.TypeID, pinpoint.Name, pinpoint.Description, pinpoint.Xpos, pinpoint.Ypos FROM pinpoint;";
+        $query = "SELECT PinID, TypeID, Name, Description, Xpos, Ypos, TypeID, Image FROM pinpoint;";
         $result = query($query);
 
         $pinpoints = array();
@@ -106,7 +143,21 @@ class GetAllPinpoints extends Command
             $pinpoint->description = $row['Description'];
             $pinpoint->xPos = (double)$row['Xpos'];
             $pinpoint->yPos = (double)$row['Ypos'];
-            $pinpoint->typeId = (int)$row['TypeID'];
+
+            $type = new Type();
+
+            $typeQuery = "SELECT TypeID, Name, Unit, Image FROM type WHERE type.TypeID = " . $row['TypeID'] . ";";
+            $typeResult = query($typeQuery);
+
+            while($typeRow = $typeResult->fetch_assoc()) {
+                $type->id = (int)$typeRow['TypeID'];
+                $type->name = $typeRow['Name'];
+                $type->unit = $typeRow['Unit'];
+                $type->image = $typeRow['Image'];
+            }
+
+            $pinpoint->type = $type;
+            $pinpoint->image = $row['Image'];
 
             array_push($pinpoints, $pinpoint);
         }
@@ -116,6 +167,10 @@ class GetAllPinpoints extends Command
 
 }
 
+// Class: GetAllQuestions
+//  Return all questions from the database
+//
+//  Return: Json array with 'Question' objects
 class GetAllQuestions extends Command
 {
 
@@ -126,7 +181,7 @@ class GetAllQuestions extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT pinpoint.PinID FROM pinpoint;";
+        $query = "SELECT PinID FROM pinpoint;";
         $result = query($query);
 
         $questions = array();
@@ -141,12 +196,42 @@ class GetAllQuestions extends Command
             }
         }
 
-        //echo var_dump($questions);
-
         return $questions;
     }
 }
 
+
+// Class: GetDatabaseChecksum
+//  Return checksum from database
+//
+// Return: Json 'Database' object
+class GetDatabaseChecksum extends Command
+{
+    public function getCommand()
+    {
+        return "GetDatabaseChecksum";
+    }
+
+    public function execute($parameter)
+    {
+        $query = "CHECKSUM TABLE answer, pinpoint, question;";
+        $result = query($query);
+
+        $database = new Database();
+        $database->checksum = 0;
+        while ($row = $result->fetch_assoc())
+        {
+            $database->checksum += (int)$row['Checksum'];
+        }
+        return $database;
+    }
+}
+
+
+// Class: GetAllTypes
+//  Return all types from the database
+//
+// Return: Json array with 'Type' objects
 class GetAllTypes extends Command
 {
 
@@ -157,7 +242,7 @@ class GetAllTypes extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT type.TypeID, type.Name, type.Unit FROM type;";
+        $query = "SELECT TypeID, Name, Unit, Image FROM type;";
         $result = query($query);
 
         $types = array();
@@ -168,6 +253,7 @@ class GetAllTypes extends Command
             $type->id = (int) $row['TypeID'];
             $type->name = $row['Name'];
             $type->unit = $row['Unit'];
+            $type->image = $row['Image'];
 
             array_push($types, $type);
         }
@@ -176,6 +262,13 @@ class GetAllTypes extends Command
     }
 }
 
+// Class: GetQuestionsByPinpointId
+//  Return all questions from the database that belong to
+//  the specified pinpoint id
+//
+// Parameter: pinpointId (Int)
+//
+// Return: Json array with 'Question' objects
 class GetQuestionsByPinpointId extends Command
 {
 
@@ -186,7 +279,7 @@ class GetQuestionsByPinpointId extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT question.QuestionID, question.Text, question.Image, question.PinID FROM question WHERE question.PinID = " . $parameter . ";";
+        $query = "SELECT QuestionID, Text, Image, PinID FROM question WHERE question.PinID = " . $parameter . ";";
         $result = query($query);
 
         $questions = array();
@@ -203,13 +296,18 @@ class GetQuestionsByPinpointId extends Command
             array_push($questions, $question);
         }
 
-        //echo var_dump($questions);
-
         return $questions;
     }
 
 }
 
+// Class: GetAnswersByQuestionId
+//  Return all answers (randomized order) from the database that belong to
+//  the specified question id
+//
+// Parameter: questionId (Int)
+//
+//  Return: Json array with 'Answer' objects
 class GetAnswersByQuestionId extends Command
 {
 
@@ -220,7 +318,7 @@ class GetAnswersByQuestionId extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT answer.AnswerID, answer.RightWrong, answer.Text FROM answer WHERE answer.QuestionID = " . $parameter . ";";
+        $query = "SELECT AnswerID, RightWrong, Text FROM answer WHERE answer.QuestionID = " . $parameter . ";";
         $result = query($query);
 
         $answers = array();
@@ -234,12 +332,17 @@ class GetAnswersByQuestionId extends Command
             array_push($answers, $answer);
         }
 
-        //echo var_dump($answers);
+        // Randomize answers
+        shuffle($answers);
 
         return $answers;
     }
 }
 
+// Class: SetQuestion
+//  Set a new question or edit an existing one
+//
+// Parameter: Json array with 'Question' objects
 class SetQuestion extends Command
 {
 
@@ -296,6 +399,10 @@ class SetQuestion extends Command
 
 }
 
+// Class: SetPinpoint
+//  Set a new pinpoint or edit an existing one
+//
+// Parameter: Json array with 'Pinpoint' objects
 class SetPinpoint extends Command
 {
 
@@ -309,10 +416,10 @@ class SetPinpoint extends Command
         $pinpoint = json_decode($parameter);
 
         if (isset($pinpoint->id)) {
-            $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "' WHERE PinID = '" . $pinpoint->id . "';";
+            $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "', Image = '" . $pinpoint->image . "' WHERE PinID = '" . $pinpoint->id . "';";
             $result = query($query);
         } else {
-            $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "');";
+            $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description, Image) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "', '" . $pinpoint->image . "');";
             $result = query($query);
         }
 
@@ -320,6 +427,10 @@ class SetPinpoint extends Command
     }
 }
 
+// Class: SetType
+//  Set a new type or edit an existing one
+//
+// Parameter: Json array with 'Type' objects
 class SetType extends Command
 {
 
@@ -333,7 +444,7 @@ class SetType extends Command
         $type = json_decode($parameter);
 
         if (isset($type->id)) {
-            $query = "UPDATE type SET TypeID = '" . $type->id . "', Name = '" . $type->name . "', Unit = '" . $type->unit . "' WHERE PinID = '" . $pinpoint->id . "';";
+            $query = "UPDATE type SET TypeID = '" . $type->id . "', Name = '" . $type->name . "', Unit = '" . $type->unit . "' WHERE TypeID = '" . $type->id . "';";
             $result = query($query);
         } else {
             $query = "INSERT INTO type (TypeID, Name, Unit) VALUES ('" . $type->id . "', '" . $type->name . "', '" . $type->unit . "');";
@@ -344,8 +455,7 @@ class SetType extends Command
     }
 }
 
-// Model objects
-
+// Model: Pinpoint
 class Pinpoint
 {
 
@@ -354,19 +464,23 @@ class Pinpoint
     public $description;
     public $xPos;
     public $yPos;
-    public $typeId;
+    public $type;
+    public $image;
 
 }
 
+// Model: Type
 class Type
 {
 
     public $id;
     public $name;
     public $unit;
+    public $image;
 
 }
 
+// Model: Question
 class Question
 {
 
@@ -378,6 +492,7 @@ class Question
 
 }
 
+// Model: Answer
 class Answer
 {
 
@@ -387,8 +502,15 @@ class Answer
 
 }
 
-// Utility functions
+// Model: Database
+class Database
+{
 
+    public $checksum;
+
+}
+
+// Utility function: Run the specified query and the result
 function query($query)
 {
     global $mysqli;

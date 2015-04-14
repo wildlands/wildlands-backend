@@ -18,7 +18,6 @@ if ($_GET['action'] == 'show'):
 		<th>#</th>
 		<th>X Positie</th>
 		<th>Y Positie</th>
-                <th>Aanpassen</th>
 		
 	</tr>
 	
@@ -93,7 +92,53 @@ if ($_GET['action'] == 'add'):
 	</div>
 	
         <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
-	
+
+<!--Pagina voor het aanpassen van een vraag-->
 <?php
 endif;
+if ($_GET['action'] == 'aanpassen'):
 ?>
+        
+        <div class="page-header">
+	
+	<h1>Pinpoints <small>aanpassen</small></h1>
+	
+</div>
+
+<form>
+	
+	<div class="form-group">
+		
+                <label>Naam</label>
+                <input class="form-control" type="text" id="name"/>
+                
+                <br>
+                
+		<label>X-Positie pinpoint</label>
+                <input class="form-control" type="text" id="xPos"/>
+                
+                <br>
+                
+                <label>Y-Positie pinpoint</label>
+                <input class="form-control" type="text" id="yPos"/>
+                
+                <br>
+                
+                <label>Omschrijving</label>
+                <input class="form-control" type="text" id="description"/>
+                
+                <br>
+                
+                <label>Type</label>
+		<select class="form-control" id="pinpointType">
+			<option>Selecteer pinpoint type</option>
+		</select>
+                <script>loadPinpointType();</script>
+                
+                <hr>
+		
+	</div>
+	
+        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        
+<?php endif; ?>
