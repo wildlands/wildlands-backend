@@ -68,10 +68,50 @@ if ($_GET['action'] == 'add'):
                 <script>loadPinpointType();</script>
                 
                 <hr>
+        </div>
+    
+        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    </form>
+
+<div class="page-header">
+	
+	<h1>Pagina's <small>toevoegen</small></h1>
+	
+</div>
+
+    <form>
+        
+        <div class="form-group">
+            
+                <label>Koppeling met pinpoint</label>
+		<select class="form-control" id="pinpoints">
+			<option>Selecteer pinpoint</option>
+		</select>
+                <script>loadPinpoints();</script>
+            
+                <br>
+                
+                <label>Titel</label>
+                <input class="form-control" type="text" id="page-title"/>
+                
+                <br>
+                
+                <label>Afbeelding</label>
+                <input type="file"  id="page-image" name="picture"/>
+                
+                <br>
+                
+                <label>Tekst</label>
+                <textarea id="editor1" name="editor1"></textarea>
+                <script type="text/javascript">
+                        CKEDITOR.replace( 'editor1' );
+                </script>
+                
+                <br>
 		
 	</div>
-	
-        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        
+        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-plus"></i></span> Extra pagina</button>
 
 <!--Pagina voor het aanpassen van een vraag-->
 <?php
