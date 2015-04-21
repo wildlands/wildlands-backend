@@ -1,5 +1,5 @@
 globals.php
-.htaccess
+/website/.htaccess
 /website/database/*
 /nbproject/private/
 gitpuller.php

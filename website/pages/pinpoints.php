@@ -68,6 +68,7 @@ if ($_GET['action'] == 'add'):
                 <script>loadPinpointType();</script>
                 
                 <hr>
+                
         </div>
     
         <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
@@ -80,9 +81,9 @@ if ($_GET['action'] == 'add'):
 </div>
 
     <form>
-        
-        <div class="form-group">
             
+        <div class="form-group">
+        
                 <label>Koppeling met pinpoint</label>
 		<select class="form-control" id="pinpoints">
 			<option>Selecteer pinpoint</option>
@@ -112,6 +113,7 @@ if ($_GET['action'] == 'add'):
 	</div>
         
         <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-plus"></i></span> Extra pagina</button>
+    </form>
 
 <!--Pagina voor het aanpassen van een vraag-->
 <?php
