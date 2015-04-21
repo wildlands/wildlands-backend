@@ -1,4 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteBase /wildlandsBackend/website/
-RewriteRule ^([^/]*)/([^/]*)$ ?p=$1&action=$2 [L]
+RewriteBase /wildlands-backend/website/
+RewriteRule ^([^/]*)/([^/]*)/([^/]*)$ ?p=$1&action=$2&id=$3 [L]

@@ -32,6 +32,9 @@ if (isset($_GET['c']) || isset($_POST['c'])) {
     if (isset($_POST['p'])) {
         // Set parameter from PHP POST parameter
         $parameter = $_POST['p'];
+    } else if(isset($_GET['p'])) {
+        // Set parameter from PHP POST parameter
+        $parameter = $_GET['p'];
     } else {
         // If no 'p' parameter isn't set, then set 'parameter' to null
         //  to indicate 'no parameter'
@@ -76,6 +79,7 @@ function addAllCommands()
     new GetQuestionsByPinpointId();
     new SetQuestion();
     new SetPinpoint();
+    new DeletePinpoint();
     new SetType();
     new GetDatabaseChecksum();
 }
@@ -85,7 +89,7 @@ function addAllCommands()
 function returnJson($output)
 {
     $return = json_encode($output);
-    if(isset($_GET['c'])) {
+    if(isset($_GET['c']) || isset($_POST['c'])) {
         header('Content-Type: application/json');
         echo $return;
     } else {
@@ -415,8 +419,8 @@ class SetPinpoint extends Command
     {
         $pinpoint = json_decode($parameter);
 
-        if (isset($pinpoint->id)) {
-            $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "', Image = '" . $pinpoint->image . "' WHERE PinID = '" . $pinpoint->id . "';";
+        if (isset($pinpoint->pinID)) {
+            $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "', Image = '" . $pinpoint->image . "' WHERE PinID = '" . $pinpoint->pinID . "';";
             $result = query($query);
         } else {
             $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description, Image) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "', '" . $pinpoint->image . "');";
@@ -424,6 +428,37 @@ class SetPinpoint extends Command
         }
 
         return $result;
+    }
+}
+
+// Class: DeletePinpoint
+//  Delete a pinpoint
+//
+// Parameter: Json array with 'Pinpoint' objects
+class DeletePinpoint extends Command
+{
+
+    public function getCommand()
+    {
+        return "DeletePinpoint";
+    }
+
+    public function execute($parameter)
+    {
+        $pinpoint = json_decode($parameter);
+
+        if (isset($pinpoint->pinID)) {
+            $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->pinID . "';";
+            $result = query($query);
+        } else {
+            errorMessage("PinID niet gevonden");
+        }
+        
+        if (!$result) {
+            errorMessage("Er is iets fout gegaan.");
+        }
+        
+        return array("success" => "Pinpoint is verwijderd.");
     }
 }
 

@@ -27,10 +27,13 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/animate.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/style.css">
 
+        <script>var ajax_url = "http://localhost/wildlands-backend/";</script>
+        
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/jquery.bootstrap.notify.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/jquery.easypiechart.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/script.js"></script>
 	
 	<style>
@@ -105,8 +108,9 @@ if (isset($_GET['logout']) && $_GET['logout'])
 				<ul class="nav nav-pills nav-stacked">
 					
 					<li><a href="<?php echo BASE_URL; ?>"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-					<li><a href="<?php echo BASE_URL; ?>pinpoints/show"><i class="fa fa-map-marker"></i> Pinpoints en vragen</a></li>
-					<li><a href="<?php echo BASE_URL; ?>users/show"><i class="fa fa-users"></i> Gebruikers</a></li>
+					<li><a href="<?php echo BASE_URL; ?>pinpoints/show/"><i class="fa fa-map-marker"></i> Pinpoints</a></li>
+                                        <li><a href="<?php echo BASE_URL; ?>questions/show/"><i class="fa fa-question"></i> Vragen</a></li>
+					<li><a href="<?php echo BASE_URL; ?>users/show/"><i class="fa fa-users"></i> Gebruikers</a></li>
 					
 				</ul>
 				

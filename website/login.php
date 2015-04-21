@@ -48,7 +48,7 @@ if (isLoggedIn())
 				data : $('.login-form').serialize()
 				
 			}).done(function(data) {
-				
+				console.log(data);
 				if (data.code == 0)
 				{
 					$('#login').addClass('shake');
@@ -64,7 +64,10 @@ if (isLoggedIn())
 					window.location.href = 'index.php';
 				}
 				
-			});
+			}).fail(function(data) {
+                        console.log(data);
+                        
+                        });
 			
 		});
 		

@@ -53,7 +53,47 @@ $(document).ready(function() {
         $('#pinpoint').click(function() {
             addPinpoint();
         });
-	
+        
+        $('#pinpointsTable').on('click', '.deletePinpoint', function(e) {
+    
+            e.preventDefault();
+            var jsonData = JSON.stringify(
+                        {
+                            "pinID": $(this).attr('pinpointid')
+                        });
+
+            var tableRow = $(this).closest('tr');
+            
+            $.ajax({
+                url: ajax_url + 'api/api.php',
+                method: 'post',
+                data: {
+                    c: 'DeletePinpoint',
+                    p: jsonData   
+                },
+                cache: false
+
+            }).done(function(data) {
+                
+                console.log(data);
+                
+                if(data.error){
+                    createErrorMessage(data.error);
+                }
+                else{
+                    createSuccessMessage(data.success);
+                    $(tableRow).animate({
+                        backgroundColor: 'red'
+                    },1000,function(){$(tableRow).fadeOut(1000)});
+                }
+
+            }).fail(function (data) {
+
+                createErrorMessage("API IS KAPOOOT");
+                console.log(data);
+
+            });
+        });
 });
 
 //retrieve all the questions
@@ -61,7 +101,7 @@ function getQuestions()
 {
 
     $.ajax({
-        url: 'http://doornbosagrait.no-ip.org/wildlandsBackend/api/api.php',
+        url: ajax_url + 'api/api.php',
         method: 'get',
         data: {
             c: 'GetAllQuestions'
@@ -86,7 +126,7 @@ function getPinpoints()
 {
    
     $.ajax({
-        url: 'http://doornbosagrait.no-ip.org/wildlandsBackend/api/api.php',
+        url: ajax_url + 'api/api.php',
         method: 'get',
         data: {
             c: 'GetAllPinpoints'
@@ -119,6 +159,20 @@ function createErrorMessage(errorMessage) {
 
 }
 
+//creating success message
+function createSuccessMessage(successMessage) {
+
+    $.notify({
+        icon: 'fa fa-check',
+        message: successMessage
+
+    }, {
+        type: 'success'
+
+    });
+
+}
+
 function answerFieldHTML(nummer) {
 
     return '<div class="input-group"><input class="form-control antwoord" type="text" placeholder="Antwoord ' + nummer + '" name="answer[]" /><div class="input-group-addon"><a href="javascript:void(0);" class="removeAnswer"><i class="fa fa-trash-o"></i></a></div></div>';
@@ -140,7 +194,7 @@ function fillQuestionRow(question)
 {
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
-    row += "<td>" + question.text + "<a href='http://doornbosagrait.no-ip.org/wildlandsBackend/website/questions/aanpassen' class='btn btn-success pull-right'><i class='fa fa-plus'></i></a>" + "</td>";
+    row += "<td>" + question.text + "<a href='http://localhost/wildlands-backend/website/questions/aanpassen' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='http://localhost/wildlands-backend/website/questions/verwijder' class='btn btn-danger pull-right'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
 }
@@ -161,7 +215,7 @@ function fillPinpointRow(pinpoint)
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
     row += "<td>" + pinpoint.xPos + "</td>";
-    row += "<td>" + pinpoint.yPos + "<a href='aanpassen' class='btn btn-success pull-right'><i class='fa fa-plus'></i></a>" + "</td>";
+    row += "<td>" + pinpoint.yPos + "<a href='aanpassen/"+pinpoint.id+"' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='"+pinpoint.id+"'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
 }
@@ -170,7 +224,7 @@ function fillPinpointRow(pinpoint)
 function loadPinpoints()
 {
     $.ajax({
-        url: 'http://doornbosagrait.no-ip.org/wildlandsBackend/api/api.php',
+        url: ajax_url + 'api/api.php',
         method: 'get',
         data: {
             c: 'GetAllPinpoints'
@@ -192,7 +246,7 @@ function loadPinpoints()
 function loadPinpointType()
 {
     $.ajax({
-        url: 'http://doornbosagrait.no-ip.org/wildlandsBackend/api/api.php',
+        url: ajax_url + 'api/api.php',
         method: 'get',
         data: {
             c: 'GetAllTypes'
@@ -230,7 +284,7 @@ function addQuestion()
             "textAnswer": answer
         });
     $.ajax({
-        url: 'http://doornbosagrait.no-ip.org/wildlandsBackend/api/api.php',
+        url: ajax_url + 'api/api.php',
         method: 'post',
         data: {
             c: 'SetQuestion',
@@ -263,7 +317,7 @@ function addPinpoint()
 
     createErrorMessage('Boing!');
     $.ajax({
-        url: 'http://doornbosagrait.no-ip.org/wildlandsBackend/api/api.php',
+        url: ajax_url + 'api/api.php',
         method: 'post',
         data: {
             c: 'SetPinpoint',
@@ -273,7 +327,7 @@ function addPinpoint()
 
     }).done(function (data) {
 
-       loadHtml("<?php echo BASE_URL; ?>pinpoint/show");
+       loadHtml("<?php echo BASE_URL; ?>pinpoint/show/");
             
     }).fail(function (data) {
 

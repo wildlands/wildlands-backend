@@ -97,6 +97,7 @@ if ($_GET['action'] == 'add'):
 <?php
 endif;
 if ($_GET['action'] == 'aanpassen'):
+    $id = $_GET['id'];
 ?>
         
         <div class="page-header">
@@ -108,24 +109,24 @@ if ($_GET['action'] == 'aanpassen'):
 <form>
 	
 	<div class="form-group">
-		
+                
                 <label>Naam</label>
-                <input class="form-control" type="text" id="name"/>
+                <input class="form-control" type="text" id="name" value=""/>
                 
                 <br>
                 
 		<label>X-Positie pinpoint</label>
-                <input class="form-control" type="text" id="xPos"/>
+                <input class="form-control" type="text" id="xPos" value=""/>
                 
                 <br>
                 
                 <label>Y-Positie pinpoint</label>
-                <input class="form-control" type="text" id="yPos"/>
+                <input class="form-control" type="text" id="yPos" value=""/>
                 
                 <br>
                 
                 <label>Omschrijving</label>
-                <input class="form-control" type="text" id="description"/>
+                <input class="form-control" type="text" id="description" value=""/>
                 
                 <br>
                 
@@ -139,6 +140,29 @@ if ($_GET['action'] == 'aanpassen'):
 		
 	</div>
 	
-        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        <button class="btn btn-labeled btn-success" onclick="javascript: setPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        
+<?php endif;
+if ($_GET['action'] == 'verwijder'):
+?>
+        
+        <div class="page-header">
+	
+	<h1>Pinpoints <small>verwijderen</small></h1>
+	
+</div>
+
+<form>
+	
+	<div class="form-group">
+		
+                <label>PinpointID</label>
+                <input class="form-control" type="text" id="pinID"/>
+                
+                <hr>
+		
+	</div>
+	
+        <a href="<?php echo BASE_URL; ?>pinpoints/show" onclick="javascript: deletePinpoint();" id="pinID" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Verwijderen</a>
         
 <?php endif; ?>
