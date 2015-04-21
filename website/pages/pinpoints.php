@@ -5,7 +5,7 @@ if ($_GET['action'] == 'show'):
 <!--Overzicht vragen en de tab voor het aanmaken van een nieuwe vraag-->
 <div class="page-header">
 	
-	<h1>Pinpoints <small>overzicht</small><a href="<?php echo BASE_URL; ?>pinpoints/add" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
+	<h1>Pinpoints <small>overzicht</small><a href="<?php echo BASE_URL; ?>pinpoints/add/" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
 		
 </div>
 	
@@ -27,26 +27,6 @@ if ($_GET['action'] == 'show'):
 
 <!--Pagina voor het aanmaken van een nieuwe pinpoint-->
 
-<!--Overzicht vragen en de tab voor het aanmaken van een nieuwe vraag-->
-<div class="page-header">
-	
-	<h1>Vragen <small>overzicht</small><a href="<?php echo BASE_URL; ?>questions/add" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
-		
-</div>
-
-<!--tabel met de bestaande vragen-->
-<table class="table table-striped" id="questionsTable">
-	
-	<tr>
-		
-		<th>#</th>
-		<th>Vraag</th>
-		
-	</tr>
-</table>
-<script>getQuestions();</script>
-
-<!--Pagina voor het aanmaken van een nieuwe vraag-->
 <?php
 endif;
 if ($_GET['action'] == 'add'):

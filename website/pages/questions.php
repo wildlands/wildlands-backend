@@ -4,7 +4,7 @@ if ($_GET['action'] == 'show'):
 <!--Overzicht vragen en de tab voor het aanmaken van een nieuwe vraag-->
 <div class="page-header">
 	
-	<h1>Vragen <small>overzicht</small><a href="<?php echo BASE_URL; ?>questions/add" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
+	<h1>Vragen <small>overzicht</small><a href="<?php echo BASE_URL; ?>questions/add/" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
 		
 </div>
 
