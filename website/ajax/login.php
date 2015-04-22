@@ -39,7 +39,7 @@ else
 			// Alle sessies van de gebruiker verwijderen
 			$mysqli->query("DELETE FROM session WHERE UserID=" . $fetch['UserID']);
 			// Unieke hash maken voor deze sessie
-			$hash = crypt($_SERVER['HTTP_USER_AGENT'] . uniqid() . SALT);
+			$hash = @crypt($_SERVER['HTTP_USER_AGENT'] . uniqid() . SALT);
 			// Hash opslaan in de session table
 			$mysqli->query("INSERT INTO session (UserID, Hash) VALUES ('" . $fetch['UserID'] . "', '" . $hash . "')");
 			

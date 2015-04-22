@@ -24,6 +24,25 @@ $(document).ready(function() {
 		
 	});
         
+        $('.addPage').click(function(event) {
+		
+		event.preventDefault();
+                
+                var aantal = $('.pagina').length;
+                
+                var editor = 'editor'+ (aantal + 1);
+                
+                if (aantal === 3)
+		{
+			$(this).prop('disabled', true);
+		}
+		
+		$('.paginas .pagina:last-child').after(pageFieldHTML(aantal + 1));
+                
+                CKEDITOR.replace(editor);
+		
+	});
+        
 	$('.antwoorden').on('click', '.removeAnswer' , function(event) {
 		
 		event.preventDefault();
@@ -46,6 +65,32 @@ $(document).ready(function() {
 		if (aantal <= 8)
 		{
 			$('.addAnswer').prop('disabled', false);
+		}
+		
+	});
+        
+        $('.paginas').on('click', '.removePage' , function(event) {
+		
+		event.preventDefault();
+		
+		var aantal = $('.pagina').length;
+		if (aantal === 1)
+		{
+			createErrorMessage('Er is minimaal een pagina verplicht');
+			return;
+		}
+				
+		$(this).closest('.form-group').remove();
+		
+		$.each($('.form-group'), function(key, value) {
+			
+			$(this).find('small').text('Pagina ' + (key + 1));
+			
+		});
+		
+		if (aantal <= 4)
+		{
+			$('.addPage').prop('disabled', false);
 		}
 		
 	});
@@ -176,6 +221,12 @@ function createSuccessMessage(successMessage) {
 function answerFieldHTML(nummer) {
 
     return '<div class="input-group"><input class="form-control antwoord" type="text" placeholder="Antwoord ' + nummer + '" name="answer[]" /><div class="input-group-addon"><a href="javascript:void(0);" class="removeAnswer"><i class="fa fa-trash-o"></i></a></div></div>';
+
+}
+
+function pageFieldHTML(nummer) {
+
+    return '<div class="form-group pagina"><h1><small> Pagina '+ nummer +'</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control" type="text" id="page-title"/><br><label>Afbeelding</label><input type="file"  id="page-image" name="picture"/><br><label>Tekst</label><textarea id="editor'+ nummer +'" name="editor1"></textarea><hr></div>';
 
 }
 
@@ -312,7 +363,11 @@ function addPinpoint()
                     "xPos": $("#xPos").val(),
                     "yPos": $("#yPos").val(),
                     "description": $("#description").val(),
-                    "typeId": $("#pinpointType").val()
+                    "typeId": $("#pinpointType").val(),
+                    
+                    "title": $("#page-title").val(),
+                    "image": $("#page-image").val(),
+                    "text": $("#editor1").val()
                 });
 
     createErrorMessage('Boing!');

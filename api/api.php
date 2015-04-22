@@ -424,6 +424,7 @@ class SetPinpoint extends Command
             $result = query($query);
         } else {
             $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description, Image) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "', '" . $pinpoint->image . "');";
+            //$query = "INSERT INTO page (PageID, PinID, Title, Image, Text) VALUES ('" . $pinpoint->title . "', '" . $pinpoint->pinID . "', '" . $pinpoint->image . "', '" . $pinpoint->text . "');";
             $result = query($query);
         }
 

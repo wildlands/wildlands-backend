@@ -70,9 +70,6 @@ if ($_GET['action'] == 'add'):
                 <hr>
                 
         </div>
-    
-        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
-    </form>
 
 <div class="page-header">
 	
@@ -80,18 +77,15 @@ if ($_GET['action'] == 'add'):
 	
 </div>
 
-    <form>
+    <div class='paginas'>   
+        <div class="form-group pagina">
+                
+            <h1><small> Pagina 1</small></h1>
             
-        <div class="form-group">
-        
-                <label>Koppeling met pinpoint</label>
-		<select class="form-control" id="pinpoints">
-			<option>Selecteer pinpoint</option>
-		</select>
-                <script>loadPinpoints();</script>
+            <a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a>
             
                 <br>
-                
+            
                 <label>Titel</label>
                 <input class="form-control" type="text" id="page-title"/>
                 
@@ -108,11 +102,18 @@ if ($_GET['action'] == 'add'):
                         CKEDITOR.replace( 'editor1' );
                 </script>
                 
-                <br>
+                <hr>
 		
 	</div>
-        
-        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-plus"></i></span> Extra pagina</button>
+    </div>
+    
+        <div class="form-group">
+		
+		<button class="btn btn-default addPage">Pagina toevoegen</button>
+		
+	</div>
+    
+        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
     </form>
 
 <!--Pagina voor het aanpassen van een vraag-->
