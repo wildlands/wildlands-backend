@@ -1,104 +1,66 @@
-$(document).ready(function() {
-    
-	var height = $('body').height();
-	$('.background-image').height(height + 75);
-	
-	$('.addAnswer').click(function(event) {
-		
-		event.preventDefault();
-		
-		var aantal = $('.antwoord').length;
-		
-		if (aantal === 0)
-		{
-			$('.antwoorden').html(answerFieldHTML(aantal + 1));
-			return;
-		}
-		
-		if (aantal === 7)
-		{
-			$(this).prop('disabled', true);
-		}
-		
-		$('.input-group:last-child').after(answerFieldHTML(aantal + 1));
-		
-	});
-        
-	$('.antwoorden').on('click', '.removeAnswer' , function(event) {
-		
-		event.preventDefault();
-		
-		var aantal = $('.antwoord').length;
-		if (aantal === 1)
-		{
-			createErrorMessage('Er is minimaal een antwoord verplicht');
-			return;
-		}
-				
-		$(this).closest('.input-group').remove();
-		
-		$.each($('.input-group'), function(key, value) {
-			
-			$(this).find('.antwoord').attr('placeholder', 'Antwoord ' + (key + 1));
-			
-		});
-		
-		if (aantal <= 8)
-		{
-			$('.addAnswer').prop('disabled', false);
-		}
-		
-	});
-        
-        $('#pinpoint').click(function() {
-            addPinpoint();
+$(document).ready(function () {
+
+    var height = $('body').height();
+    $('.background-image').height(height + 75);
+
+    $('.addAnswer').click(function (event) {
+
+        event.preventDefault();
+
+        var aantal = $('.antwoord').length;
+
+        if (aantal === 0) {
+            $('.antwoorden').html(answerFieldHTML(aantal + 1));
+            return;
+        }
+
+        if (aantal === 7) {
+            $(this).prop('disabled', true);
+        }
+
+        $('.input-group:last-child').after(answerFieldHTML(aantal + 1));
+
+    });
+
+    $('.antwoorden').on('click', '.removeAnswer', function (event) {
+
+        event.preventDefault();
+
+        var aantal = $('.antwoord').length;
+        if (aantal === 1) {
+            createErrorMessage('Er is minimaal een antwoord verplicht');
+            return;
+        }
+
+        $(this).closest('.input-group').remove();
+
+        $.each($('.input-group'), function (key, value) {
+
+            $(this).find('.antwoord').attr('placeholder', 'Antwoord ' + (key + 1));
+
         });
-        
-        $('#pinpointsTable').on('click', '.deletePinpoint', function(e) {
-    
-            e.preventDefault();
-            var jsonData = JSON.stringify(
-                        {
-                            "pinID": $(this).attr('pinpointid')
-                        });
 
-            var tableRow = $(this).closest('tr');
-            
-            $.ajax({
-                url: ajax_url + 'api/api.php',
-                method: 'post',
-                data: {
-                    c: 'DeletePinpoint',
-                    p: jsonData   
-                },
-                cache: false
+        if (aantal <= 8) {
+            $('.addAnswer').prop('disabled', false);
+        }
 
-            }).done(function(data) {
-                
-                console.log(data);
-                
-                if(data.error){
-                    createErrorMessage(data.error);
-                }
-                else{
-                    createSuccessMessage(data.success);
-                    $(tableRow).animate({
-                        backgroundColor: 'red'
-                    },1000,function(){$(tableRow).fadeOut(1000)});
-                }
+    });
 
-            }).fail(function (data) {
+    $('#pinpoint').click(function () {
+        addPinpoint();
+    });
 
-                createErrorMessage("API IS KAPOOOT");
-                console.log(data);
+    $('#pinpointsTable').on('click', '.deletePinpoint', function (e) {
+        deletePinpoint(e, this);
+    });
 
-            });
-        });
+    $('#questionsTable').on('click', '.deleteQuestion', function (e) {
+        deleteQuestion(e, this);
+    });
 });
 
 //retrieve all the questions
-function getQuestions()
-{
+function getQuestions() {
 
     $.ajax({
         url: ajax_url + 'api/api.php',
@@ -122,9 +84,8 @@ function getQuestions()
 }
 
 //retrieve the pinpoints from the database
-function getPinpoints()
-{
-   
+function getPinpoints() {
+
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'get',
@@ -181,48 +142,41 @@ function answerFieldHTML(nummer) {
 
 
 //the table will be filled with the retrieved questions
-function fillTable(questions)
-{
+function fillTable(questions) {
     console.log(questions.length);
-    for (var i = 0; i < questions.length; i++)
-    {
+    for (var i = 0; i < questions.length; i++) {
         fillQuestionRow(questions[i]);
     }
 }
 
-function fillQuestionRow(question)
-{
+function fillQuestionRow(question) {
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
-    row += "<td>" + question.text + "<a href='http://localhost/wildlands-backend/website/questions/aanpassen' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='http://localhost/wildlands-backend/website/questions/verwijder' class='btn btn-danger pull-right'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + question.text + "<a href='../aanpassen/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deleteQuestion' questionid='" + question.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
 }
 
 //the table will be filled with the retrieved pinpoints
-function fillPinpointTable(pinpoints)
-{
+function fillPinpointTable(pinpoints) {
     console.log(pinpoints.length);
-    for (var i = 0; i < pinpoints.length; i++)
-    {
+    for (var i = 0; i < pinpoints.length; i++) {
         fillPinpointRow(pinpoints[i]);
     }
 }
 
-function fillPinpointRow(pinpoint)
-{
+function fillPinpointRow(pinpoint) {
     var row = "<tr id='" + pinpoint.id + "' class='questionRow'>";
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
     row += "<td>" + pinpoint.xPos + "</td>";
-    row += "<td>" + pinpoint.yPos + "<a href='aanpassen/"+pinpoint.id+"' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='"+pinpoint.id+"'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + pinpoint.yPos + "<a href='../aanpassen/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='" + pinpoint.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
 }
 
 //load all the pinpoints into the dropdown menu when adding a new question
-function loadPinpoints()
-{
+function loadPinpoints() {
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'get',
@@ -234,17 +188,15 @@ function loadPinpoints()
     }).done(function (data) {
 
         var pinpoints = data;
-        $.each(pinpoints, function(key, value)
-        {
+        $.each(pinpoints, function (key, value) {
             $('#pinpointID').append($("<option></option>").attr("value", value["id"]).text(value["id"]));
 
+        });
     });
-  });
 }
 
 //load all the types into the dropdown menu when adding a new pinpoint
-function loadPinpointType()
-{
+function loadPinpointType() {
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'get',
@@ -256,33 +208,30 @@ function loadPinpointType()
     }).done(function (data) {
 
         var pinpointtype = data;
-        $.each(pinpointtype, function(key, value)
-        {
-            $('#pinpointType').append($("<option></option>").attr("value", value["id"]).text(value["name"]));
-            
-    })//.fail(function (data) {
+        $.each(pinpointtype, function (key, value) {
+                $('#pinpointType').append($("<option></option>").attr("value", value["id"]).text(value["name"]));
+
+            }) //.fail(function (data) {
 
         //console.log(data);
 
-    //})
-    ;
-  });
+        //})
+        ;
+    });
 }
 
-function addQuestion()
-{   
+function addQuestion() {
     answer = [];
     answer[0] = $("#answer1");
     answer[1] = $("#answer2");
     answer[2] = $("#answer3");
     answer[3] = $("#answer4");
-    var jsonData = JSON.stringify(
-        {
-            "text": $("#question").val(),
-            "image": $("#image").val(),
-            "pinpointId": $("#pinpointID").val(),
-            "textAnswer": answer
-        });
+    var jsonData = JSON.stringify({
+        "text": $("#question").val(),
+        "image": $("#image").val(),
+        "pinpointId": $("#pinpointID").val(),
+        "textAnswer": answer
+    });
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'post',
@@ -294,26 +243,67 @@ function addQuestion()
 
     }).done(function (data) {
 
-       
-            
+
+
     }).fail(function (data) {
 
         console.log(data);
-        
+
 
     });
 }
 
-function addPinpoint()
-{
-    var jsonData = JSON.stringify(
-                {
-                    "name": $("#name").val(),
-                    "xPos": $("#xPos").val(),
-                    "yPos": $("#yPos").val(),
-                    "description": $("#description").val(),
-                    "typeId": $("#pinpointType").val()
-                });
+function deleteQuestion(event, sender) {
+    event.preventDefault();
+
+    var jsonData = JSON.stringify({
+        "id": $(sender).attr('questionid')
+    });
+
+    console.log("Delete Question: " + jsonData);
+
+    var tableRow = $(sender).closest('tr');
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'DeleteQuestion',
+            p: jsonData
+        },
+        cache: false
+
+    }).done(function (data) {
+
+        console.log(data);
+
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            createSuccessMessage(data.success);
+            $(tableRow).animate({
+                backgroundColor: 'red'
+            }, 1000, function () {
+                $(tableRow).fadeOut(1000)
+            });
+        }
+
+    }).fail(function (data) {
+
+        createErrorMessage("API IS KAPOOOT");
+        console.log(data);
+
+    });
+}
+
+function addPinpoint() {
+    var jsonData = JSON.stringify({
+        "name": $("#name").val(),
+        "xPos": $("#xPos").val(),
+        "yPos": $("#yPos").val(),
+        "description": $("#description").val(),
+        "typeId": $("#pinpointType").val()
+    });
 
     createErrorMessage('Boing!');
     $.ajax({
@@ -321,17 +311,58 @@ function addPinpoint()
         method: 'post',
         data: {
             c: 'SetPinpoint',
-            p: jsonData   
+            p: jsonData
         },
         cache: false
 
     }).done(function (data) {
 
-       loadHtml("<?php echo BASE_URL; ?>pinpoint/show/");
-            
+        loadHtml("<?php echo BASE_URL; ?>pinpoint/show/");
+
     }).fail(function (data) {
 
         console.log(data);
-        
+
+    });
+}
+
+function deletePinpoint(event, sender) {
+
+    event.preventDefault();
+    var jsonData = JSON.stringify({
+        "id": $(sender).attr('pinpointid')
+    });
+
+    var tableRow = $(sender).closest('tr');
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'DeletePinpoint',
+            p: jsonData
+        },
+        cache: false
+
+    }).done(function (data) {
+
+        console.log(data);
+
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            createSuccessMessage(data.success);
+            $(tableRow).animate({
+                backgroundColor: 'red'
+            }, 1000, function () {
+                $(tableRow).fadeOut(1000)
+            });
+        }
+
+    }).fail(function (data) {
+
+        createErrorMessage("API IS KAPOOOT");
+        console.log(data);
+
     });
 }
