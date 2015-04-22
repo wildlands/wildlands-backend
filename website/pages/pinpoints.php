@@ -68,10 +68,53 @@ if ($_GET['action'] == 'add'):
                 <script>loadPinpointType();</script>
                 
                 <hr>
+                
+        </div>
+
+<div class="page-header">
+	
+	<h1>Pagina's <small>toevoegen</small></h1>
+	
+</div>
+
+    <div class='paginas'>   
+        <div class="form-group pagina">
+                
+            <h1><small> Pagina 1</small></h1>
+            
+            <a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a>
+            
+                <br>
+            
+                <label>Titel</label>
+                <input class="form-control" type="text" id="page-title"/>
+                
+                <br>
+                
+                <label>Afbeelding</label>
+                <input type="file"  id="page-image" name="picture"/>
+                
+                <br>
+                
+                <label>Tekst</label>
+                <textarea id="editor1" name="editor1"></textarea>
+                <script type="text/javascript">
+                        CKEDITOR.replace( 'editor1' );
+                </script>
+                
+                <hr>
 		
 	</div>
-	
+    </div>
+    
+        <div class="form-group">
+		
+		<button class="btn btn-default addPage">Pagina toevoegen</button>
+		
+	</div>
+    
         <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    </form>
 
 <!--Pagina voor het aanpassen van een vraag-->
 <?php
