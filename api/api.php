@@ -409,7 +409,6 @@ class SetQuestion extends Command
 // Parameter: Json array with 'Pinpoint' objects
 class SetPinpoint extends Command
 {
-
     public function getCommand()
     {
         return "SetPinpoint";
@@ -417,6 +416,8 @@ class SetPinpoint extends Command
 
     public function execute($parameter)
     {
+        global $mysqli;
+        
         $pinpoint = json_decode($parameter);
 
         if (isset($pinpoint->pinID)) {
@@ -424,7 +425,11 @@ class SetPinpoint extends Command
             $result = query($query);
         } else {
             $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description, Image) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "', '" . $pinpoint->image . "');";
-            //$query = "INSERT INTO page (PageID, PinID, Title, Image, Text) VALUES ('" . $pinpoint->title . "', '" . $pinpoint->pinID . "', '" . $pinpoint->image . "', '" . $pinpoint->text . "');";
+            
+            $result = query($query);
+            
+            $query = "INSERT INTO page (PinID, Title, Image, Text) VALUES ('" . $mysqli->insert_id . "', '" . $pinpoint->title . "', '" . $pinpoint->pageimage . "', '" . $pinpoint->text . "');";
+            
             $result = query($query);
         }
 
