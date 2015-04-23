@@ -78,6 +78,7 @@ function addAllCommands()
     new GetAnswersByQuestionId();
     new GetQuestionsByPinpointId();
     new SetQuestion();
+    new DeleteQuestion();
     new SetPinpoint();
     new DeletePinpoint();
     new SetType();
@@ -403,6 +404,34 @@ class SetQuestion extends Command
 
 }
 
+class DeleteQuestion extends Command
+{
+    public function getCommand()
+    {
+        return "DeleteQuestion";
+    }
+    
+    public function execute($parameter)
+    {
+        $question = json_decode($parameter);
+        
+        if (isset($question->id)) {
+            $query = "DELETE FROM question WHERE QuestionID = '" . $question->id . "';";
+            $result = query($query);
+            $query = "DELETE FROM answer WHERE QuestionID = '" . $question->id . "';";
+            $result = $result & query($query);
+        } else {
+            errorMessage("Question ID niet gevonden!");
+        }
+            
+        if (!$result) {
+            errorMessage("Er is iets fout gegaan.");
+        }
+            
+        return array("success" => "Vraag is verwijderd.");
+    }
+}
+
 // Class: SetPinpoint
 //  Set a new pinpoint or edit an existing one
 //
@@ -453,8 +482,8 @@ class DeletePinpoint extends Command
     {
         $pinpoint = json_decode($parameter);
 
-        if (isset($pinpoint->pinID)) {
-            $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->pinID . "';";
+        if (isset($pinpoint->id)) {
+            $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->id . "';";
             $result = query($query);
         } else {
             errorMessage("PinID niet gevonden");
