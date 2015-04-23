@@ -162,7 +162,26 @@ class GetAllPinpoints extends Command
             }
 
             $pinpoint->type = $type;
-            $pinpoint->image = $row['Image'];
+            
+            
+            $pageQuery = "SELECT PageID, PinID, Title, Image, Text FROM page WHERE PinID = " . (int)$row['PinID'] . ";";
+            $pageResult = query($pageQuery);
+
+            $pages = array();
+            
+            while($pageRow = $pageResult->fetch_assoc()) {
+                
+                $page = new Page();
+                
+                $page->id = (int)$pageRow['PageID'];
+                $page->title = $pageRow['Title'];
+                $page->image = $pageRow['Image'];
+                $page->text = $pageRow['Text'];
+                
+                array_push($pages, $page);
+            }
+
+            $pinpoint->pages = $pages;
 
             array_push($pinpoints, $pinpoint);
         }
@@ -535,7 +554,7 @@ class Pinpoint
     public $xPos;
     public $yPos;
     public $type;
-    public $image;
+    public $pages;
 
 }
 
@@ -555,7 +574,6 @@ class Question
 {
 
     public $id;
-    public $pinpointId;
     public $text;
     public $image;
     public $answers;
@@ -578,6 +596,14 @@ class Database
 
     public $checksum;
 
+}
+
+class Page
+{
+    public $id;
+    public $title;
+    public $image;
+    public $text;
 }
 
 // Utility function: Run the specified query and the result
