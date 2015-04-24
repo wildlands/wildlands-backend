@@ -117,7 +117,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 					
 				</ul>
 				
-			</div>
+                        </div>
 			
 			<div class="col-md-9 content">
 	
@@ -148,7 +148,6 @@ if (isset($_GET['logout']) && $_GET['logout'])
 			?>
 			
 			</div>
-			
 		</div>
 	
 	</div>

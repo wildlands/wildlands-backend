@@ -163,7 +163,26 @@ class GetAllPinpoints extends Command
             }
 
             $pinpoint->type = $type;
-            $pinpoint->image = $row['Image'];
+            
+            
+            $pageQuery = "SELECT PageID, PinID, Title, Image, Text FROM page WHERE PinID = " . (int)$row['PinID'] . ";";
+            $pageResult = query($pageQuery);
+
+            $pages = array();
+            
+            while($pageRow = $pageResult->fetch_assoc()) {
+                
+                $page = new Page();
+                
+                $page->id = (int)$pageRow['PageID'];
+                $page->title = $pageRow['Title'];
+                $page->image = $pageRow['Image'];
+                $page->text = $pageRow['Text'];
+                
+                array_push($pages, $page);
+            }
+
+            $pinpoint->pages = $pages;
 
             array_push($pinpoints, $pinpoint);
         }
@@ -470,7 +489,6 @@ class DeleteQuestion extends Command
 // Parameter: Json array with 'Pinpoint' objects
 class SetPinpoint extends Command
 {
-
     public function getCommand()
     {
         return "SetPinpoint";
@@ -478,6 +496,8 @@ class SetPinpoint extends Command
 
     public function execute($parameter)
     {
+        global $mysqli;
+        
         $pinpoint = json_decode($parameter);
 
         if (isset($pinpoint->pinID)) {
@@ -485,7 +505,11 @@ class SetPinpoint extends Command
             $result = query($query);
         } else {
             $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description, Image) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "', '" . $pinpoint->image . "');";
-            //$query = "INSERT INTO page (PageID, PinID, Title, Image, Text) VALUES ('" . $pinpoint->title . "', '" . $pinpoint->pinID . "', '" . $pinpoint->image . "', '" . $pinpoint->text . "');";
+            
+            $result = query($query);
+            
+            $query = "INSERT INTO page (PinID, Title, Image, Text) VALUES ('" . $mysqli->insert_id . "', '" . $pinpoint->title . "', '" . $pinpoint->pageimage . "', '" . $pinpoint->text . "');";
+            
             $result = query($query);
         }
 
@@ -562,7 +586,7 @@ class Pinpoint
     public $xPos;
     public $yPos;
     public $type;
-    public $image;
+    public $pages;
 
 }
 
@@ -582,7 +606,6 @@ class Question
 {
 
     public $id;
-    public $pinpointId;
     public $text;
     public $image;
     public $answers;
@@ -605,6 +628,14 @@ class Database
 
     public $checksum;
 
+}
+
+class Page
+{
+    public $id;
+    public $title;
+    public $image;
+    public $text;
 }
 
 // Utility function: Run the specified query and the result

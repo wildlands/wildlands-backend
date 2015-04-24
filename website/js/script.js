@@ -78,7 +78,9 @@ $(document).ready(function () {
 
         $.each($('.form-group'), function (key, value) {
 
-            $(this).find('small').text('Pagina ' + (key + 1));
+            $(this).find('small').text('Pagina ' + key);
+            $(this).find('textarea').attr('id', 'editor' + key);
+            $(this).find('textarea').attr('name', 'editor' + key);
 
         });
 
@@ -183,9 +185,9 @@ function answerFieldHTML(nummer) {
 }
 
 function pageFieldHTML(nummer) {
-
-    return '<div class="form-group pagina"><h1><small> Pagina ' + nummer + '</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control" type="text" id="page-title"/><br><label>Afbeelding</label><input type="file"  id="page-image" name="picture"/><br><label>Tekst</label><textarea id="editor' + nummer + '" name="editor1"></textarea><hr></div>';
-
+    
+    return '<div class="form-group pagina"><h1><small> Pagina '+ nummer +'</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control" type="text" id="page-title"/><br><label>Afbeelding</label><input type="file"  id="page-image" name="picture"/><br><label>Tekst</label><textarea id="editor'+ nummer +'" name="editor'+ nummer +'"></textarea><hr></div>';
+ 
 }
 
 
@@ -344,17 +346,20 @@ function deleteQuestion(event, sender) {
     });
 }
 
-function addPinpoint() {
-    var jsonData = JSON.stringify({
-        "name": $("#name").val(),
-        "xPos": $("#xPos").val(),
-        "yPos": $("#yPos").val(),
-        "description": $("#description").val(),
-        "typeId": $("#pinpointType").val(),
-        "title": $("#page-title").val(),
-        "image": $("#page-image").val(),
-        "text": $("#editor1").val()
-    });
+function addPinpoint()
+{
+    var jsonData = JSON.stringify(
+                {
+                    "name": $("#name").val(),
+                    "xPos": $("#xPos").val(),
+                    "yPos": $("#yPos").val(),
+                    "description": $("#description").val(),
+                    "typeId": $("#pinpointType").val(),
+                    
+                    "title": $("#page-title").val(),
+                    "pageimage": $("#page-image").val(),
+                    "text": $("#editor1").text()
+                });
 
     createErrorMessage('Boing!');
     $.ajax({
