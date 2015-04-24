@@ -421,3 +421,47 @@ function deletePinpoint(event, sender) {
         $('.addAnswer').prop('disabled', false);
     }
 }
+
+function fillEditQuestionFormWithData(questionId) {
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'GetAllPinpoints'
+        },
+        cache: false
+
+    }).done(function (data) {
+        var pinpoints = data;
+        $.each(pinpoints, function (key, value) {
+            var newOption = $("<option></option>").attr("value", value["id"]).text(value["id"]);
+            
+            if (value["id"] == questionId) {
+                newOption.attr('selected', '');
+            }
+            
+            $('#pinpointID').append(newOption);
+        });
+    });
+    
+    var jsonData = JSON.stringify({
+        "id": questionId
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'GetQuestionById',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            
+            return;
+        }
+        
+        $('#question').val(data.text);
+    });
+}

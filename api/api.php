@@ -77,6 +77,7 @@ function addAllCommands()
     new GetAllTypes();
     new GetAnswersByQuestionId();
     new GetQuestionsByPinpointId();
+    new GetQuestionById();
     new SetQuestion();
     new DeleteQuestion();
     new SetPinpoint();
@@ -304,6 +305,37 @@ class GetQuestionsByPinpointId extends Command
         return $questions;
     }
 
+}
+
+class GetQuestionById extends Command
+{
+ 
+    public function getCommand()
+    {
+        return "GetQuestionById";
+    }
+        
+    public function execute($parameter)
+    {
+        $questionId = json_decode($parameter)->id;
+        $query = "SELECT * FROM question WHERE question.QuestionID = " . $questionId . ";";
+        $result = query($query);
+        
+        $question = new Question();
+        
+        while ($row = $result->fetch_assoc())
+        {
+            $question->id = (int) $row['QuestionID'];
+            $question->text = $row['Text'];
+            $question->image = $row['Image'];
+            $question->pinpointId = (int) $row['PinID'];
+            
+            $question->answers = (new GetAnswersByQuestionId())->execute($question->id);
+        }
+            
+        return $question;
+    }
+    
 }
 
 // Class: GetAnswersByQuestionId

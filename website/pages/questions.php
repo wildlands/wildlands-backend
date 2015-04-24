@@ -103,14 +103,10 @@ if ($_GET['action'] == 'aanpassen'):
 	<div class="form-group">
 		
 		<label>Link aan pinpoint</label>
-		<select class="form-control" id="pinpointID">
-			<option>Selecteer pinpointID</option>
-		</select>
+		<select class="form-control" id="pinpointID"></select>
 		
 	</div>
-        
-        <script>loadPinpoints();</script>
-	
+    
 	<div class="form-group">
 		
 		<label>Vraag</label>
@@ -154,7 +150,10 @@ if ($_GET['action'] == 'aanpassen'):
 	
         <button class="btn btn-labeled btn-success" onclick="javascript: editQuestion();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 	
+    <script>fillEditQuestionFormWithData(<?php echo $_GET['id']?>);</script>
+    
 </form>
+
 <?php
 endif;
 ?>
