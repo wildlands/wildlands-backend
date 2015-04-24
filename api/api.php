@@ -58,7 +58,7 @@ function executeCommand($command, $parameter)
     }
 
     // Execute the command and return the 'return' as json
-    returnJson($commandList[$command]->execute($parameter));
+    returnJson($commandList[$command]->execute(json_decode($parameter)));
 }
 
 // Function: Generate an error message with given message,
@@ -76,7 +76,6 @@ function addAllCommands()
     new GetAllQuestions();
     new GetAllTypes();
     new GetAnswersByQuestionId();
-    new GetQuestionsByPinpointId();
     new GetQuestionById();
     new SetQuestion();
     new DeleteQuestion();
@@ -206,19 +205,20 @@ class GetAllQuestions extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT PinID FROM pinpoint;";
+        $query = "SELECT QuestionID FROM question;";
         $result = query($query);
 
         $questions = array();
 
         while ($row = $result->fetch_assoc()) {
-            $pinpointId = (int)$row['PinID'];
+            $questionId = $row['QuestionID'];
 
-            $questionsByPinpoint = (new GetQuestionsByPinpointId())->execute($pinpointId);
+            $questionObject = new Question();
+            $questionObject->id = $questionId;
+            
+            $questionById = (new GetQuestionById())->execute($questionObject);
 
-            foreach ($questionsByPinpoint as $question) {
-                array_push($questions, $question);
-            }
+            array_push($questions, $questionById);
         }
 
         return $questions;
@@ -287,45 +287,6 @@ class GetAllTypes extends Command
     }
 }
 
-// Class: GetQuestionsByPinpointId
-//  Return all questions from the database that belong to
-//  the specified pinpoint id
-//
-// Parameter: pinpointId (Int)
-//
-// Return: Json array with 'Question' objects
-class GetQuestionsByPinpointId extends Command
-{
-
-    public function getCommand()
-    {
-        return "GetQuestionsByPinpointId";
-    }
-
-    public function execute($parameter)
-    {
-        $query = "SELECT QuestionID, Text, Image, PinID FROM question WHERE question.PinID = " . $parameter . ";";
-        $result = query($query);
-
-        $questions = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $question = new Question();
-            $question->id = (int)$row['QuestionID'];
-            $question->text = $row['Text'];
-            $question->image = $row['Image'];
-            $question->pinpointId = (int)$row['PinID'];
-
-            $question->answers = (new GetAnswersByQuestionId())->execute($question->id);
-
-            array_push($questions, $question);
-        }
-
-        return $questions;
-    }
-
-}
-
 class GetQuestionById extends Command
 {
  
@@ -336,7 +297,7 @@ class GetQuestionById extends Command
         
     public function execute($parameter)
     {
-        $questionId = json_decode($parameter)->id;
+        $questionId = $parameter->id;
         $query = "SELECT * FROM question WHERE question.QuestionID = " . $questionId . ";";
         $result = query($query);
         
@@ -347,7 +308,6 @@ class GetQuestionById extends Command
             $question->id = (int) $row['QuestionID'];
             $question->text = $row['Text'];
             $question->image = $row['Image'];
-            $question->pinpointId = (int) $row['PinID'];
             
             $question->answers = (new GetAnswersByQuestionId())->execute($question->id);
         }
@@ -389,7 +349,7 @@ class GetAnswersByQuestionId extends Command
         }
 
         // Randomize answers
-        shuffle($answers);
+        //shuffle($answers);
 
         return $answers;
     }
@@ -409,14 +369,14 @@ class SetQuestion extends Command
 
     public function execute($parameter)
     {
-        $question = json_decode($parameter);
+        $question = $parameter;
 
         if (isset($question->id)) {
-            $query = "UPDATE question SET Text = '" . $question->text . "', Image = '" . $question->image . "', PinID = '" . $question->pinpointId . "' WHERE QuestionID = '" . $question->id . "';";
-            query($query);
+            $query = "UPDATE question SET Text = '" . $question->text . "', Image = '" . $question->image . "' WHERE QuestionID = '" . $question->id . "';";
+            $questionUpdateResult = query($query);
         } else {
-            $query = "INSERT INTO question (Text, Image, PinID) VALUES ('" . $question->text . "', '" . $question->image . "', '" . $question->pinpointId . "');";
-            query($query);
+            $query = "INSERT INTO question (Text, Image) VALUES ('" . $question->text . "', '" . $question->image . "');";
+            $questionUpdateResult = query($query);
         }
 
         $query = "SELECT AnswerID FROM answer WHERE QuestionID = '" . $question->id . "';";
@@ -450,7 +410,11 @@ class SetQuestion extends Command
             }
         }
 
-        return $result;
+        if (!$questionUpdateResult) {
+            errorMessage("Er is iets fout gegaan.");
+        }
+        
+        return array("success" => "Vraag is veranderd.");
     }
 
 }
@@ -464,7 +428,7 @@ class DeleteQuestion extends Command
     
     public function execute($parameter)
     {
-        $question = json_decode($parameter);
+        $question = $parameter;
         
         if (isset($question->id)) {
             $query = "DELETE FROM question WHERE QuestionID = '" . $question->id . "';";
@@ -498,7 +462,7 @@ class SetPinpoint extends Command
     {
         global $mysqli;
         
-        $pinpoint = json_decode($parameter);
+        $pinpoint = $parameter;
 
         if (isset($pinpoint->pinID)) {
             $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "', Image = '" . $pinpoint->image . "' WHERE PinID = '" . $pinpoint->pinID . "';";
@@ -531,7 +495,7 @@ class DeletePinpoint extends Command
 
     public function execute($parameter)
     {
-        $pinpoint = json_decode($parameter);
+        $pinpoint = $parameter;
 
         if (isset($pinpoint->id)) {
             $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->id . "';";
@@ -562,7 +526,7 @@ class SetType extends Command
 
     public function execute($parameter)
     {
-        $type = json_decode($parameter);
+        $type = $parameter;
 
         if (isset($type->id)) {
             $query = "UPDATE type SET TypeID = '" . $type->id . "', Name = '" . $type->name . "', Unit = '" . $type->unit . "' WHERE TypeID = '" . $type->id . "';";
