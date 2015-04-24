@@ -239,7 +239,7 @@ class GetDatabaseChecksum extends Command
 
     public function execute($parameter)
     {
-        $query = "CHECKSUM TABLE answer, pinpoint, question;";
+        $query = "CHECKSUM TABLE answer, pinpoint, question, page;";
         $result = query($query);
 
         $database = new Database();
