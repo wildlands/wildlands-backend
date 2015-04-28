@@ -9,16 +9,18 @@ $(document).ready(function () {
 
         var aantal = $('.antwoord').length;
 
-        if (aantal === 0) {
-            $('.antwoorden').html(answerFieldHTML(aantal + 1));
+        /*if (aantal === 0) {
+            //$('.antwoorden').html(answerFieldHTML(aantal + 1));
+            $('.antwoorden').append(generateNewAnswerTextField(aantal + 1));
             return;
-        }
+        }*/
 
         if (aantal === 7) {
             $(this).prop('disabled', true);
         }
 
-        $('.input-group:last-child').after(answerFieldHTML(aantal + 1));
+        //$('.input-group:last-child').after(answerFieldHTML(aantal + 1));
+        $('.antwoorden').append(generateNewAnswerTextField(aantal + 1));
 
     });
 
@@ -181,7 +183,7 @@ function createSuccessMessage(successMessage) {
 
 function answerFieldHTML(nummer) {
 
-    return '<div class="input-group"><input class="form-control antwoord" type="text" placeholder="Antwoord ' + nummer + '" name="answer[]" /><div class="input-group-addon"><a href="javascript:void(0);" class="removeAnswer"><i class="fa fa-trash-o"></i></a></div></div>';
+    return '<div class="input-group"><input class="form-control antwoord" type="text" placeholder="Antwoord ' + nummer + '" /><div class="input-group-addon"><a href="javascript:void(0);" class="removeAnswer"><i class="fa fa-trash-o"></i></a></div></div>';
 
 }
 
@@ -311,6 +313,8 @@ function addQuestion() {
     });
 }
 
+
+
 function deleteQuestion(event, sender) {
     event.preventDefault();
 
@@ -397,13 +401,45 @@ function addPinpoint()
         cache: false
 
     }).done(function (data) {
-
-        loadHtml(ajax_url + "website/pinpoint/show/");
+        
+        loadHtml(base_url + "pinpoint/show/");
 
     }).fail(function (data) {
 
         console.log(data);
 
+    });
+}
+
+function updatePinpoint(pinpointId) {
+    
+    var jsonData = JSON.stringify({
+        "id": pinpointId,
+        "name": $('#name').val(),
+        "xPos": $('#xPos').val(),
+        "yPos": $('#yPos').val(),
+        "description": $('#Description').val(),
+        "pinpointType": $('#pinpointType').val()
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'SetPinpoint',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            redirectTo(base_url + "pinpoints/show/");
+            createSuccessMessage(data.success);
+        }
+        
+    }).fail(function (data) {
+        createErrorMessage(data.error);
     });
 }
 
@@ -450,4 +486,137 @@ function deletePinpoint(event, sender) {
     if (aantal <= 8) {
         $('.addAnswer').prop('disabled', false);
     }
+}
+
+function fillEditQuestionFormWithData(questionId) {
+    var jsonData = JSON.stringify({
+        "id": questionId
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'GetQuestionById',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            
+            return;
+        }
+        
+        $('#question').val(data.text);
+        
+        $('#image_preview').attr('db-src', data.image);
+        $('#image_preview').attr('src', base_url + 'images/' + data.image);
+        
+        // Add answers
+        var i = 1;
+        $.each(data.answers, function(key, value) {
+            var newAnswer = generateAnswerTextField(i, value['id'], value['rightWrong'], value['text']);
+            $('.antwoorden').append(newAnswer);
+        
+            i++;
+        });
+    });
+}
+
+function fillEditPinpointFormWithData(pinpointId) {
+    var jsonData = JSON.stringify({
+        "id": pinpointId
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'GetPinpointById',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            
+            return;
+        }
+        
+        $('#name').val(data.text);
+        $('#xPos').val(data.text);
+        $('#yPos').val(data.text);
+        $('#Description').val(data.text);
+        $('#pinpointType').val(data.text);
+    });
+}
+
+function generateNewAnswerTextField(index) {
+    return generateAnswerTextField(index, undefined, undefined, undefined);
+}
+
+function generateAnswerTextField(index, id, rightWrong, text) {
+    var newAnswer_div = $('<div></div>').addClass('input-group');
+    var newAnswer_div_input = $('<input></input>').addClass('form-control').addClass('antwoord').attr('type', 'text').attr('placeholder', 'Antwoord ' + index).attr('answer-id', id).attr('answer-rightwrong', rightWrong).val(text);
+    var newAnswer_div_div = $('<div></div>').addClass('input-group-addon');
+    var newAnswer_div_div_a = $('<a></a>').addClass('removeAnswer').attr('href', 'javascript:void(0);');
+    var newAnswer_div_div_a_i = $('<i></i>').addClass('fa').addClass('fa-trash-o');
+    
+    newAnswer_div.append(newAnswer_div_input);
+    newAnswer_div.append(newAnswer_div_div);
+    newAnswer_div_div.append(newAnswer_div_div_a);
+    newAnswer_div_div_a.append(newAnswer_div_div_a_i);
+    
+    return newAnswer_div;
+}
+
+function editQuestion(questionId) {
+    
+    var answers = new Array();
+    
+    $('.antwoord').each(function(key, value) {
+        var answer = {}
+        if ($(this).attr('answer-id')) {
+            answer.id = $(this).attr('answer-id');
+        }
+        if ($(this).attr('answer-rightwrong')) {
+            answer.rightWrong = $(this).attr('answer-rightwrong');
+        } else {
+            answer.rightWrong = "false";
+        }
+        
+        answer.text = $(this).val();
+        answers.push(answer);
+    });
+    
+    var jsonData = JSON.stringify({
+        "id": questionId,
+        "text": $('#question').val(),
+        "image": $('#image_preview').attr('db-src'),
+        "answers": answers
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'SetQuestion',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            redirectTo(base_url + "questions/show/");
+            createSuccessMessage(data.success);
+        }
+        
+    }).fail(function (data) {
+        createErrorMessage(data.error);
+    });
+    
+}
+
+function redirectTo(pageLink) {
+    window.location.replace(pageLink);
 }
