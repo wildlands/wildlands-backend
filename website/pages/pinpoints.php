@@ -16,8 +16,8 @@ if ($_GET['action'] == 'show'):
             
                 <th>Naam</th>
 		<th>#</th>
-		<th>X Positie</th>
-		<th>Y Positie</th>
+		<th>Omschrijving</th>
+		<th></th>
 		
 	</tr>
 	
@@ -37,7 +37,7 @@ if ($_GET['action'] == 'add'):
 	
 </div>
 
-<form>
+<form enctype="multipart/form-data">
 	
 	<div class="form-group">
 		
@@ -87,12 +87,42 @@ if ($_GET['action'] == 'add'):
                 <br>
             
                 <label>Titel</label>
-                <input class="form-control" type="text" id="page-title"/>
+                <input class="form-control page-title" type="text"/>
                 
                 <br>
                 
                 <label>Afbeelding</label>
-                <input type="file"  id="page-image" name="picture"/>
+                <div class="input-group">
+			<input class="form-control page-image" type="text" id="picture1"/>
+			<div class="input-group-addon"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
+		</div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                      </div>
+                      <div class="modal-body">
+                        <iframe width="580" height="500" src="<?php echo BASE_URL; ?>filemanager/dialog.php?type=1&field_id=picture1&fldr=" frameborder="0" style="overflow: scroll; overflow-x: hidden; overflow-y: hidden;">
+                        </iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <script>
+                    
+                    function responsive_filemanager_callback() {
+                        
+                        $('.modal').modal('hide');
+                        
+                    }
+                    
+                </script>
+                
                 
                 <br>
                 

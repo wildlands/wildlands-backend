@@ -90,7 +90,8 @@ $(document).ready(function () {
 
     });
 
-    $('#pinpoint').click(function () {
+    $('#pinpoint').click(function (e) {
+        e.preventDefault();
         addPinpoint();
     });
 
@@ -186,8 +187,14 @@ function answerFieldHTML(nummer) {
 
 function pageFieldHTML(nummer) {
     
-    return '<div class="form-group pagina"><h1><small> Pagina '+ nummer +'</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control" type="text" id="page-title"/><br><label>Afbeelding</label><input type="file"  id="page-image" name="picture"/><br><label>Tekst</label><textarea id="editor'+ nummer +'" name="editor'+ nummer +'"></textarea><hr></div>';
+    return '<div class="form-group pagina"><h1><small> Pagina '+ nummer +'</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="picture'+ nummer +'"/><div class="input-group-addon"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ nummer +'">Kies afbeelding</a></div></div><br><label>Tekst</label><textarea id="editor'+ nummer +'" name="editor'+ nummer +'"></textarea><hr>' + createModal(nummer) + '</div>';
  
+}
+
+function createModal(nummer) {
+    
+    return '<div class="modal fade" id="myModal'+ nummer + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel">Modal title</h4></div><div class="modal-body"><iframe width="580" height="500" src="'+ajax_url+'website/filemanager/dialog.php?type=1&field_id=picture'+ nummer +'&fldr=" frameborder="0" style="overflow: scroll; overflow-x: hidden; overflow-y: hidden;"></iframe></div></div></div></div>';
+    
 }
 
 
@@ -202,7 +209,8 @@ function fillTable(questions) {
 function fillQuestionRow(question) {
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
-    row += "<td>" + question.text + "<a href='../aanpassen/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deleteQuestion' questionid='" + question.id + "'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + question.text + "</td>";
+    row += "<td>" + "<a href='../aanpassen/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deleteQuestion' questionid='" + question.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
 }
@@ -219,8 +227,8 @@ function fillPinpointRow(pinpoint) {
     var row = "<tr id='" + pinpoint.id + "' class='questionRow'>";
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
-    row += "<td>" + pinpoint.xPos + "</td>";
-    row += "<td>" + pinpoint.yPos + "<a href='../aanpassen/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='" + pinpoint.id + "'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + pinpoint.description.substr(0, 80) + "</td>";
+    row += "<td>" + "<a href='../aanpassen/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='" + pinpoint.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
 }
@@ -348,20 +356,37 @@ function deleteQuestion(event, sender) {
 
 function addPinpoint()
 {
-    var jsonData = JSON.stringify(
+    //arraylist voor pages
+    var pages = [];
+    
+    var i = 0;
+    
+    $.each(CKEDITOR.instances, function(index, value){
+        var page = {
+            "title": $('.paginas .page-title').eq(i).val(),
+            "pageimage": $('.paginas .page-image').eq(i).val(),
+            "text": value.getData()
+        };
+        pages.push(page);
+        i++;
+    });
+    
+                var jsonData = JSON.stringify(
                 {
+                    //pinpoint
                     "name": $("#name").val(),
                     "xPos": $("#xPos").val(),
                     "yPos": $("#yPos").val(),
                     "description": $("#description").val(),
                     "typeId": $("#pinpointType").val(),
-                    
-                    "title": $("#page-title").val(),
-                    "pageimage": $("#page-image").val(),
-                    "text": $("#editor1").text()
+                    //page
+                    //"title": $("#page-title").val(),
+                    //"pageimage": $("#page-image").val(),
+                    //"text": CKEDITOR.instances.editor1.getData(),
+                    "pages": pages
                 });
+                console.log(jsonData);
 
-    createErrorMessage('Boing!');
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'post',
@@ -373,7 +398,7 @@ function addPinpoint()
 
     }).done(function (data) {
 
-        loadHtml("<?php echo BASE_URL; ?>pinpoint/show/");
+        loadHtml(ajax_url + "website/pinpoint/show/");
 
     }).fail(function (data) {
 

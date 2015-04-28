@@ -15,6 +15,7 @@ if ($_GET['action'] == 'show'):
 		
 		<th>#</th>
 		<th>Vraag</th>
+                <th></th>
 		
 	</tr>
 </table>

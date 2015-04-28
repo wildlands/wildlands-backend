@@ -136,7 +136,7 @@ class GetAllPinpoints extends Command
 
     public function execute($parameter)
     {
-        $query = "SELECT PinID, TypeID, Name, Description, Xpos, Ypos, TypeID, Image FROM pinpoint;";
+        $query = "SELECT PinID, TypeID, Name, Description, Xpos, Ypos, TypeID FROM pinpoint;";
         $result = query($query);
 
         $pinpoints = array();
@@ -469,16 +469,21 @@ class SetPinpoint extends Command
         $pinpoint = json_decode($parameter);
 
         if (isset($pinpoint->pinID)) {
-            $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "', Image = '" . $pinpoint->image . "' WHERE PinID = '" . $pinpoint->pinID . "';";
+            $query = "UPDATE pinpoint SET TypeID = '" . $pinpoint->typeId . "', Name = '" . $pinpoint->name . "', Xpos = '" . $pinpoint->xPos . "', Ypos = '" . $pinpoint->yPos . "', Description = '" . $pinpoint->description . "' WHERE PinID = '" . $pinpoint->pinID . "';";
             $result = query($query);
         } else {
-            $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description, Image) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "', '" . $pinpoint->image . "');";
+            $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description) VALUES ('" . $pinpoint->typeId . "', '" . $pinpoint->name . "', '" . $pinpoint->xPos . "', '" . $pinpoint->yPos . "', '" . $pinpoint->description . "');";
             
             $result = query($query);
+         
+            $pinId = $mysqli->insert_id;
             
-            $query = "INSERT INTO page (PinID, Title, Image, Text) VALUES ('" . $mysqli->insert_id . "', '" . $pinpoint->title . "', '" . $pinpoint->pageimage . "', '" . $pinpoint->text . "');";
-            
-            $result = query($query);
+            foreach($pinpoint->pages as $page)
+            {
+                $query = "INSERT INTO page (PinID, Title, Image, Text) VALUES ('" . $pinId . "', '" . $page->title . "', '" . $page->pageimage . "', '" . $page->text . "');";
+
+                $result = query($query);
+            }
         }
 
         return $result;
