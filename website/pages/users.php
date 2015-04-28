@@ -8,7 +8,7 @@ $query = $mysqli->query("SELECT UserID, Screenname, Email FROM user");
 ?>
 <div class="page-header">
 	
-	<h1>Gebruikers <small>overzicht</small><a href="<?php echo BASE_URL; ?>questions/add" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
+	<h1>Gebruikers <small>overzicht</small><a href="<?php echo BASE_URL; ?>users/add/" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
 		
 </div>
 	
@@ -40,10 +40,33 @@ if ($_GET['action'] == 'add'):
 ?>
 <div class="page-header">
 	
-	<h1>Vragen <small>toevoegen</small></h1>
+	<h1>Gebruiker <small>toevoegen</small></h1>
 	
 </div>
 
-<?php
-endif;
-?>
+<form>
+
+    <div class="form-group">
+
+        <label>Gebruikersnaam</label>
+        <input class="form-control" type="text" id="question" />
+        
+        <br>
+        
+        <label>Email</label>
+        <input class="form-control" type="text" id="question" />
+        
+        <br>
+        
+        <label>Wachtwoord</label>
+        <input class="form-control" type="password" id="question" />
+
+    </div>
+
+    <hr>
+
+    <button class="btn btn-labeled btn-success" onclick="javascript: addQuestion();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+
+</form>
+<?php 
+endif; ?>

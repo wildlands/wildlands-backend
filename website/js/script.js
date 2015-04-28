@@ -189,7 +189,7 @@ function answerFieldHTML(nummer) {
 
 function pageFieldHTML(nummer) {
     
-    return '<div class="form-group pagina"><h1><small> Pagina '+ nummer +'</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="picture'+ nummer +'"/><div class="input-group-addon"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ nummer +'">Kies afbeelding</a></div></div><br><label>Tekst</label><textarea id="editor'+ nummer +'" name="editor'+ nummer +'"></textarea><hr>' + createModal(nummer) + '</div>';
+    return '<div class="form-group pagina"><h1><small> Pagina '+ nummer +'</small></h1><a href="javascript:void(0);" class="removePage"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="picture'+ nummer +'" readonly/><div class="input-group-addon"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ nummer +'">Kies afbeelding</a></div></div><br><label>Tekst</label><textarea id="editor'+ nummer +'" name="editor'+ nummer +'"></textarea><hr>' + createModal(nummer) + '</div>';
  
 }
 
@@ -209,9 +209,14 @@ function fillTable(questions) {
 }
 
 function fillQuestionRow(question) {
+    var str = "";
+    if(question.text.length > 60 ) {
+        var str = "...";
+    }
+    
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
-    row += "<td>" + question.text + "</td>";
+    row += "<td>" + question.text.substr(0,60) + str + "</td>";
     row += "<td>" + "<a href='../aanpassen/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deleteQuestion' questionid='" + question.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
@@ -226,10 +231,15 @@ function fillPinpointTable(pinpoints) {
 }
 
 function fillPinpointRow(pinpoint) {
+    var str = "";
+    if(pinpoint.description.length > 80 ) {
+        var str = "...";
+    }
+    
     var row = "<tr id='" + pinpoint.id + "' class='questionRow'>";
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
-    row += "<td>" + pinpoint.description.substr(0, 80) + "</td>";
+    row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
     row += "<td>" + "<a href='../aanpassen/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='" + pinpoint.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
@@ -379,14 +389,11 @@ function addPinpoint()
                 {
                     //pinpoint
                     "name": $("#name").val(),
-                    "xPos": $("#xPos").val(),
-                    "yPos": $("#yPos").val(),
+                    "xPos": $("#xPos").text(),
+                    "yPos": $("#yPos").text(),
                     "description": $("#description").val(),
                     "typeId": $("#pinpointType").val(),
-                    //page
-                    //"title": $("#page-title").val(),
-                    //"pageimage": $("#page-image").val(),
-                    //"text": CKEDITOR.instances.editor1.getData(),
+                    //pages
                     "pages": pages
                 });
                 console.log(jsonData);
@@ -402,7 +409,7 @@ function addPinpoint()
 
     }).done(function (data) {
         
-        loadHtml(base_url + "pinpoint/show/");
+        redirectTo(base_url + "pinpoints/show/");
 
     }).fail(function (data) {
 

@@ -31,6 +31,55 @@ if ($_GET['action'] == 'show'):
 endif;
 if ($_GET['action'] == 'add'):
 ?>
+<script type="text/javascript">
+<!--
+function FindPosition(oElement)
+{
+  if(typeof( oElement.offsetParent ) != "undefined")
+  {
+    for(var posX = 0, posY = 0; oElement; oElement = oElement.offsetParent)
+    {
+      posX += oElement.offsetLeft;
+      posY += oElement.offsetTop;
+    }
+      return [ posX, posY ];
+    }
+    else
+    {
+      return [ oElement.x, oElement.y ];
+    }
+}
+function GetCoordinates(e)
+{
+  var PosX = 0;
+  var PosY = 0;
+  var ImgPos;
+  ImgPos = FindPosition(myImg);
+  if (!e) var e = window.event;
+  if (e.pageX || e.pageY)
+  {
+    PosX = e.pageX;
+    PosY = e.pageY;
+  }
+  else if (e.clientX || e.clientY)
+    {
+      PosX = e.clientX + document.body.scrollLeft
+        + document.documentElement.scrollLeft;
+      PosY = e.clientY + document.body.scrollTop
+        + document.documentElement.scrollTop;
+    }
+  PosX = PosX - ImgPos[0];
+  PosY = PosY - ImgPos[1];
+  
+  PosX *= 3;
+  PosY *= 3;
+  
+  document.getElementById("xPos").innerHTML = PosX;
+  document.getElementById("yPos").innerHTML = PosY;
+}
+//-->
+</script>
+
 <div class="page-header">
 	
 	<h1>Pinpoints <small>toevoegen</small></h1>
@@ -46,13 +95,20 @@ if ($_GET['action'] == 'add'):
                 
                 <br>
                 
-		<label>X-Positie pinpoint</label>
-                <input class="form-control" type="text" id="xPos"/>
+                <label>Positie pinpoint</label>
+                <img id="myImgId" alt="" src="http://localhost/wildlands-backend/website/images/tempkaart.png" width="817" height="447" />
                 
-                <br>
+                <script type="text/javascript">
+                    
+                    var myImg = document.getElementById("myImgId");
+                    myImg.onmousedown = GetCoordinates;
+                    
+                </script>
                 
-                <label>Y-Positie pinpoint</label>
-                <input class="form-control" type="text" id="yPos"/>
+                <br></br>
+                
+                <p><label>X:&nbsp;</label><span id="xPos"></span></p>
+                <p><label>Y:&nbsp;</label><span id="yPos"></span></p>
                 
                 <br>
                 
@@ -93,7 +149,7 @@ if ($_GET['action'] == 'add'):
                 
                 <label>Afbeelding</label>
                 <div class="input-group">
-			<input class="form-control page-image" type="text" id="picture1"/>
+			<input class="form-control page-image" type="text" id="picture1" readonly/>
 			<div class="input-group-addon"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
 		</div>
 

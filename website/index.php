@@ -49,7 +49,6 @@ if (isset($_GET['logout']) && $_GET['logout'])
 		background-position: center center;
 		
 	}	
-		
 	</style>
 
 </head>
