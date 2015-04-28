@@ -69,6 +69,14 @@ function errorMessage($message)
     exit;
 }
 
+// Function: Generate an success message with given message,
+//  return it as json and exit the script
+function successMessage($message)
+{
+    returnJson(array("success" => $message));
+    exit;
+}
+
 // Function: Add all commands to the command list
 function addAllCommands()
 {
@@ -84,6 +92,10 @@ function addAllCommands()
     new DeletePinpoint();
     new SetType();
     new GetDatabaseChecksum();
+    new GetAllUsers();
+    new GetUserById();
+    new DeleteUser();
+    new SetUser();
 }
 
 // Function: Generate json from '$output' and print it
@@ -576,6 +588,137 @@ class SetType extends Command
     }
 }
 
+class GetAllUsers extends Command
+{
+    
+    public function getCommand()
+    {
+        return "GetAllUsers";
+    }
+    
+    public function execute($parameter)
+    {
+        $query = "SELECT * FROM user;";
+        $result = query($query);
+        
+        $users = array();
+        
+        while ($row = $result->fetch_assoc())
+        {
+            $user = new User();
+            $user->id = $row['UserID'];
+            $user->name = $row['Screenname'];
+            $user->email = $row['Email'];
+            
+            array_push($users, $user);
+        }
+        
+        return $users;
+    }
+}
+
+class GetUserById extends Command
+{
+    
+    public function getCommand()
+    {
+        return "GetUserById";
+    }
+    
+    public function execute($parameter)
+    {
+        $user = $parameter;
+        
+        if (!isset($user->id))
+        {
+            errorMessage("Geen UserID gevonden.");
+        }
+        
+        $query = "SELECT * FROM user WHERE UserID = '" . $user->id . "';";
+        $result = query($query);
+        
+        $row = $result->fetch_assoc();
+        
+        if (!$row)
+        {
+            errorMessage("Kon geen user met UserID '" . $user->id . "' vinden.");
+        }
+        
+        $user = new User();
+        $user->id = $row['UserID'];
+        $user->name = $row['Screenname'];
+        $user->email = $row['Email'];
+        
+        return $user;
+    }
+}
+
+class SetUser extends Command
+{
+    
+    public function getCommand()
+    {
+        return "SetUser";
+    }
+    
+    public function execute($parameter)
+    {
+        $user = $parameter;
+        
+        if (isset($user->id))
+        {
+            $query = "UPDATE user SET Screenname = '" . $user->name . "', Email = '" . $user->email . "'";
+            if (isset($user->password))
+            {
+                $query .= ", Password = '" . $user->password . "'";
+            }
+            $query .= " WHERE UserID = '" . $user->id . "';";
+        }
+        else
+        {
+            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('" . $user->name . "', '" . $user->email . "', '" . $user->password . "');";
+        }
+        
+        $result = query($query);
+        
+        if (!$result)
+        {
+            errorMessage("Er is iets fout gegaan.");
+        }
+        
+        successMessage("Gebruiker is aangepast.");
+    }
+}
+
+class DeleteUser extends Command
+{
+    
+    public function getCommand()
+    {
+        return "DeleteUser";
+    }
+    
+    public function execute($parameter)
+    {
+        $user = $parameter;
+        
+        if (!isset($user->id))
+        {
+            errorMessage("Geen UserID gevonden.");
+        }
+        
+        $query = "DELETE FROM user WHERE UserID = '" . $user->id . "';";
+        $result = query($query);
+        
+        if (!$result)
+        {
+            errorMessage("Er is iets fout gegaan.");
+        }
+        
+        successMessage("Gebruiker is verwijderd.");
+    }
+}
+
 // Model: Pinpoint
 class Pinpoint
 {
@@ -636,6 +779,14 @@ class Page
     public $title;
     public $image;
     public $text;
+}
+
+class User
+{
+    public $id;
+    public $name;
+    public $email;
+    public $password;
 }
 
 // Utility function: Run the specified query and the result
