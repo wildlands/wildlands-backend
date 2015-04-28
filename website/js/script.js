@@ -421,11 +421,11 @@ function addPinpoint()
 function updatePinpoint(pinpointId) {
     
     var jsonData = JSON.stringify({
-        "id": pinpointId,
+        "pinID": pinpointId,
         "name": $('#name').val(),
         "xPos": $('#xPos').val(),
         "yPos": $('#yPos').val(),
-        "description": $('#Description').val(),
+        "description": $('#description').val(),
         "pinpointType": $('#pinpointType').val()
     });
     
@@ -527,33 +527,6 @@ function fillEditQuestionFormWithData(questionId) {
         
             i++;
         });
-    });
-}
-
-function fillEditPinpointFormWithData(pinpointId) {
-    var jsonData = JSON.stringify({
-        "id": pinpointId
-    });
-    
-    $.ajax({
-        url: ajax_url + 'api/api.php',
-        method: 'post',
-        data: {
-            c: 'GetPinpointById',
-            p: jsonData
-        },
-        cache: false
-    }).done(function (data) {
-        if (data.error) {
-            
-            return;
-        }
-        
-        $('#name').val(data.text);
-        $('#xPos').val(data.text);
-        $('#yPos').val(data.text);
-        $('#Description').val(data.text);
-        $('#pinpointType').val(data.text);
     });
 }
 
