@@ -148,10 +148,18 @@ if ($_GET['action'] == 'add'):
 
 <!--Pagina voor het aanpassen van een vraag-->
 <?php
+
+
 endif;
 if ($_GET['action'] == 'aanpassen'):
     $id = $_GET['id'];
+    
+    $query = $mysqli->query("SELECT * FROM pinpoint WHERE PinID ='$id' limit 1;");
+    $data = $query->fetch_assoc(); 
+    
 ?>
+
+
         
         <div class="page-header">
 	
@@ -164,22 +172,22 @@ if ($_GET['action'] == 'aanpassen'):
 	<div class="form-group">
                 
                 <label>Naam</label>
-                <input class="form-control" type="text" id="name" value=""/>
+                <input class="form-control" type="text" id="name" value="<?php echo $data['Name'];?>"/>
                 
                 <br>
                 
 		<label>X-Positie pinpoint</label>
-                <input class="form-control" type="text" id="xPos" value=""/>
+                <input class="form-control" type="text" id="xPos" value="<?php echo $data['Xpos'];?>"/>
                 
                 <br>
                 
                 <label>Y-Positie pinpoint</label>
-                <input class="form-control" type="text" id="yPos" value=""/>
+                <input class="form-control" type="text" id="yPos" value="<?php echo $data['Ypos'];?>"/>
                 
                 <br>
                 
                 <label>Omschrijving</label>
-                <input class="form-control" type="text" id="description" value=""/>
+                <input class="form-control" type="text" id="description" value="<?php echo $data['Description'];?>"/>
                 
                 <br>
                 
@@ -193,11 +201,7 @@ if ($_GET['action'] == 'aanpassen'):
 		
 	</div>
 	
-        <button class="btn btn-labeled btn-success" onclick="javascript: updatePinpoint(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
-        
-        <script>
-            fillEditPinpointFormWithData( <?php echo $_GET['id'] ?> );
-        </script>
+        <button class="btn btn-labeled btn-success" onclick="javascript: updatePinpoint(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
     
 <?php endif;
 if ($_GET['action'] == 'verwijder'):
