@@ -305,6 +305,8 @@ function addQuestion() {
     });
 }
 
+
+
 function deleteQuestion(event, sender) {
     event.preventDefault();
 
@@ -381,6 +383,38 @@ function addPinpoint()
 
         console.log(data);
 
+    });
+}
+
+function updatePinpoint(pinpointId) {
+    
+    var jsonData = JSON.stringify({
+        "id": pinpointId,
+        "name": $('#name').val(),
+        "xPos": $('#xPos').val(),
+        "yPos": $('#yPos').val(),
+        "description": $('#Description').val(),
+        "pinpointType": $('#pinpointType').val()
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'SetPinpoint',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            redirectTo(base_url + "pinpoints/show/");
+            createSuccessMessage(data.success);
+        }
+        
+    }).fail(function (data) {
+        createErrorMessage(data.error);
     });
 }
 
@@ -461,6 +495,33 @@ function fillEditQuestionFormWithData(questionId) {
         
             i++;
         });
+    });
+}
+
+function fillEditPinpointFormWithData(pinpointId) {
+    var jsonData = JSON.stringify({
+        "id": pinpointId
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'GetPinpointById',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            
+            return;
+        }
+        
+        $('#name').val(data.text);
+        $('#xPos').val(data.text);
+        $('#yPos').val(data.text);
+        $('#Description').val(data.text);
+        $('#pinpointType').val(data.text);
     });
 }
 
