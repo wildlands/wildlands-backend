@@ -89,7 +89,7 @@ if ($_GET['action'] == 'aanpassen'):
                 <br>
                 
 		<label>Email</label>
-                <input class="form-control" type="text" id="email" value="<?php echo $data['Email'];?>"/>
+                <input class="form-control" type="email" id="email" value="<?php echo $data['Email'];?>"/>
                 
                 <br>
                 
