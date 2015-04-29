@@ -16,12 +16,7 @@ class GetAllPages extends Command {
 
         while ($row = $result->fetch_assoc())
         {
-            $page = new Page();
-            $page->id = $row['PageID'];
-            $page->pinpointId = $row['PinID'];
-            $page->title = $row['Title'];
-            $page->image = $row['Image'];
-            $page->text = $row['Text'];
+            $page = (new GetPageById())->execute(new IdObject($row['PageID']));
 
             array_push($pages, $page);
         }

@@ -97,8 +97,10 @@ function addAllCommands()
     new GetAnswersByQuestionId();
     new GetDatabaseChecksum();
     new GetPageById();
+    new GetPagesByPinpointId();
     new GetPinpointById();
     new GetQuestionById();
+    new GetTypeById();
     new GetUserById();
     new SetPage();
     new SetPinpoint();
@@ -141,6 +143,12 @@ function query($query)
 {
     global $mysqli;
     return $mysqli->query($query);
+}
+
+function getInsertId()
+{
+    global $mysqli;
+    return $mysqli->insert_id;
 }
 
 ?>

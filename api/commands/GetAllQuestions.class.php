@@ -20,14 +20,9 @@ class GetAllQuestions extends Command
         $questions = array();
 
         while ($row = $result->fetch_assoc()) {
-            $questionId = $row['QuestionID'];
+            $question = (new GetQuestionById())->execute(new IdObject($row['QuestionID']));
 
-            $questionObject = new Question();
-            $questionObject->id = $questionId;
-
-            $questionById = (new GetQuestionById())->execute($questionObject);
-
-            array_push($questions, $questionById);
+            array_push($questions, $question);
         }
 
         return $questions;

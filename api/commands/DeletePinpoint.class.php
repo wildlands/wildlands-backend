@@ -16,18 +16,19 @@ class DeletePinpoint extends Command
     {
         $pinpoint = $parameter;
 
-        if (isset($pinpoint->id)) {
-            $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->id . "';";
-            $result = query($query);
-        } else {
+        if (!isset($pinpoint->id))
+        {
             errorMessage("PinID niet gevonden");
         }
+
+        $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->id . "';";
+        $result = query($query);
 
         if (!$result) {
             errorMessage("Er is iets fout gegaan.");
         }
 
-        return array("success" => "Pinpoint is verwijderd.");
+        successMessage("Pinpoint is verwijderd.");
     }
 }
 
