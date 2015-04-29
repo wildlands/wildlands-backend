@@ -96,6 +96,15 @@ $(document).ready(function () {
         e.preventDefault();
         addPinpoint();
     });
+    
+    $('.updateUser').click(function (e) {
+        e.preventDefault();
+        updateUser();
+    });
+
+    $('#usersTable').on('click', '.deleteUser', function (e) {
+        deleteUser(e, this);
+    });
 
     $('#pinpointsTable').on('click', '.deletePinpoint', function (e) {
         deletePinpoint(e, this);
@@ -122,6 +131,30 @@ function getQuestions() {
         console.log(data);
         //the retrieved data from the database will be sent to the function fillTable()
         fillTable(data);
+
+    }).fail(function (data) {
+
+        console.log(data);
+
+    });
+}
+
+//retrieve all the users
+function getUsers() {
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'get',
+        data: {
+            c: 'GetAllUsers'
+        },
+        cache: false
+
+    }).done(function (data) {
+
+        console.log(data);
+        //the retrieved data from the database will be sent to the function fillUserTable()
+        fillUserTable(data);
 
     }).fail(function (data) {
 
@@ -243,6 +276,25 @@ function fillPinpointRow(pinpoint) {
     row += "<td>" + "<a href='../aanpassen/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='" + pinpoint.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
+}
+
+//the table will be filled with the retrieved users
+function fillUserTable(users) {
+    console.log(users.length);
+    for (var i = 0; i < users.length; i++) {
+        fillUserRow(users[i]);
+    }
+}
+
+function fillUserRow(user) {
+    
+    var row = "<tr id='" + user.id + "' class='userRow'>";
+    row += "<td>" + user.id + "</td>";
+    row += "<td>" + user.name + "</td>";
+    row += "<td>" + user.email + "</td>";
+    row += "<td>" + "<a href='../aanpassen/" + user.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deleteUser' userid='" + user.id + "'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "</tr>";
+    $("#usersTable").append(row);
 }
 
 //load all the pinpoints into the dropdown menu when adding a new question
@@ -418,6 +470,109 @@ function addPinpoint()
     });
 }
 
+function addUser()
+{
+        var jsonData = JSON.stringify(
+        {
+            //pinpoint
+            "name": $("#name").val(),
+            "email": $("#email").val(),
+            "password": $("#pass").val()
+        });
+        console.log(jsonData);
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'SetUser',
+            p: jsonData
+        },
+        cache: false
+
+    }).done(function (data) {
+        
+        redirectTo(base_url + "users/show/");
+
+    }).fail(function (data) {
+
+        console.log(data);
+
+    });
+}
+
+function deleteUser(event, sender) {
+
+    event.preventDefault();
+    var jsonData = JSON.stringify({
+        "id": $(sender).attr('userid')
+    });
+
+    var tableRow = $(sender).closest('tr');
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'DeleteUser',
+            p: jsonData
+        },
+        cache: false
+
+    }).done(function (data) {
+
+        console.log(data);
+
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            createSuccessMessage(data.success);
+            $(tableRow).animate({
+                backgroundColor: 'red'
+            }, 1000, function () {
+                $(tableRow).fadeOut(1000);
+            });
+        }
+
+    }).fail(function (data) {
+
+        createErrorMessage("API IS KAPOOOT");
+        console.log(data);
+
+    });
+}
+
+function updateUser() {
+    
+    var jsonData = JSON.stringify({
+        "id": $('#userId').val(),
+        "name": $('#name').val(),
+        "email": $('#email').val(),
+        "password": $('#pass').val()
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'SetUser',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            redirectTo(base_url + "users/show/");
+            createSuccessMessage(data.success);
+        }
+        
+    }).fail(function (data) {
+        console.log(data);
+        createErrorMessage(data.responseText);
+    });
+}
+
 function updatePinpoint(pinpointId) {
     
     var jsonData = JSON.stringify({
@@ -477,9 +632,9 @@ function deletePinpoint(event, sender) {
         } else {
             createSuccessMessage(data.success);
             $(tableRow).animate({
-                backgroundColor: 'red'
+                backgroundColor: '#FF8585'
             }, 1000, function () {
-                $(tableRow).fadeOut(1000)
+                $(tableRow).fadeOut(1000);
             });
         }
 

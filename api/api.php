@@ -670,13 +670,15 @@ class SetUser extends Command
             $query = "UPDATE user SET Screenname = '" . $user->name . "', Email = '" . $user->email . "'";
             if (isset($user->password))
             {
-                $query .= ", Password = '" . $user->password . "'";
+                $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
+                $query .= ", Password = '" . $hashpass . "'";
             }
             $query .= " WHERE UserID = '" . $user->id . "';";
         }
         else
         {
-            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('" . $user->name . "', '" . $user->email . "', '" . $user->password . "');";
+            $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('" . $user->name . "', '" . $user->email . "', '" . $hashpass . "');";
         }
         
         $result = query($query);
