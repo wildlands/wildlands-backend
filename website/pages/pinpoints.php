@@ -34,14 +34,14 @@ if ($_GET['action'] == 'show'):
 </div>
 	
 <!--tabel met de bestaande pinpoints-->
-<table class="table table-striped" id="pinpointsTable">
+<table class="table table-striped" id="pagesTable">
 	
 	<tr>
             
                 <th>#</th>    
                 <th>Titel</th>
 		<th>Pin ID</th>
-		<th>Tekst</th>
+                <th>Tekst</th>
 		<th></th>
 		
 	</tr>

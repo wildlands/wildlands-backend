@@ -102,6 +102,15 @@ $(document).ready(function () {
         updateUser();
     });
 
+    $('.updatePage').click(function (e) {
+        e.preventDefault();
+        updatePage();
+    });
+
+    $('#pagesTable').on('click', '.deletePage', function (e) {
+        deletePage(e, this);
+    });
+
     $('#usersTable').on('click', '.deleteUser', function (e) {
         deleteUser(e, this);
     });
@@ -178,6 +187,29 @@ function getPinpoints() {
         //the retrieved data from the database will be sent to the function fillPinpointTable()
         console.log(data);
         fillPinpointTable(data);
+
+    }).fail(function (data) {
+
+        console.log(data);
+
+    });
+}
+
+//retrieve the pages from the database
+function getPages() {
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'get',
+        data: {
+            c: 'GetAllPages'
+        },
+        cache: false
+
+    }).done(function (data) {
+        //the retrieved data from the database will be sent to the function fillPageTable()
+        console.log(data);
+        fillPageTable(data);
 
     }).fail(function (data) {
 
@@ -269,13 +301,33 @@ function fillPinpointRow(pinpoint) {
         var str = "...";
     }
     
-    var row = "<tr id='" + pinpoint.id + "' class='questionRow'>";
+    var row = "<tr id='" + pinpoint.id + "' class='pinpointRow'>";
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
     row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
     row += "<td>" + "<a href='../aanpassen/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePinpoint' pinpointid='" + pinpoint.id + "'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
+}
+
+//the table will be filled with the retrieved pinpoints
+function fillPageTable(pages) {
+    console.log(pages.length);
+    for (var i = 0; i < pages.length; i++) {
+        fillPageRow(pages[i]);
+    }
+}
+
+function fillPageRow(page) {
+    
+    var row = "<tr id='" + page.id + "' class='pageRow'>";
+    row += "<td>" + page.id + "</td>";
+    row += "<td>" + page.title + "</td>";
+    row += "<td>" + page.pinpointId + "</td>";
+    row += "<td>" + page.text + "</td>";
+    row += "<td>" + "<a href='../../page/aanpassen/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a href='javascript:void(0)' class='btn btn-danger pull-right deletePage' pageid='" + page.id + "'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "</tr>";
+    $("#pagesTable").append(row);
 }
 
 //the table will be filled with the retrieved users
@@ -501,6 +553,47 @@ function addUser()
     });
 }
 
+function deletePage(event, sender) {
+
+    event.preventDefault();
+    var jsonData = JSON.stringify({
+        "id": $(sender).attr('pageid')
+    });
+
+    var tableRow = $(sender).closest('tr');
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'DeletePage',
+            p: jsonData
+        },
+        cache: false
+
+    }).done(function (data) {
+
+        console.log(data);
+
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            createSuccessMessage(data.success);
+            $(tableRow).animate({
+                backgroundColor: '#FF8585'
+            }, 1000, function () {
+                $(tableRow).fadeOut(1000);
+            });
+        }
+
+    }).fail(function (data) {
+
+        createErrorMessage("API IS KAPOOOT");
+        console.log(data);
+
+    });
+}
+
 function deleteUser(event, sender) {
 
     event.preventDefault();
@@ -539,6 +632,38 @@ function deleteUser(event, sender) {
         createErrorMessage("API IS KAPOOOT");
         console.log(data);
 
+    });
+}
+
+function updatePage() {
+    
+    var jsonData = JSON.stringify({
+        "id": $('#pageId').val(),
+        "pinpointId": $('#pinpointId').val(),
+        "title": $('#title').val(),
+        "image": $('#image').val(),
+        "text": CKEDITOR.instances.editor.getData()
+    });
+    
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'SetPage',
+            p: jsonData
+        },
+        cache: false
+    }).done(function (data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            redirectTo(base_url + "pinpoints/show/");
+            createSuccessMessage(data.success);
+        }
+        
+    }).fail(function (data) {
+        console.log(data);
+        createErrorMessage(data.responseText);
     });
 }
 
