@@ -27,6 +27,29 @@ if ($_GET['action'] == 'show'):
 
 <!--Pagina voor het aanmaken van een nieuwe pinpoint-->
 
+<div class="page-header">
+	
+	<h1>Pagina <small>overzicht</small></h1>
+		
+</div>
+	
+<!--tabel met de bestaande pinpoints-->
+<table class="table table-striped" id="pinpointsTable">
+	
+	<tr>
+            
+                <th>#</th>    
+                <th>Titel</th>
+		<th>Pin ID</th>
+		<th>Tekst</th>
+		<th></th>
+		
+	</tr>
+	
+</table>
+
+<script>getPages();</script>
+
 <?php
 endif;
 if ($_GET['action'] == 'add'):

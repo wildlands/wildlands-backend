@@ -528,7 +528,7 @@ function deleteUser(event, sender) {
         } else {
             createSuccessMessage(data.success);
             $(tableRow).animate({
-                backgroundColor: 'red'
+                backgroundColor: '#FF8585'
             }, 1000, function () {
                 $(tableRow).fadeOut(1000);
             });
