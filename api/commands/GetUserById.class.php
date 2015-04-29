@@ -29,7 +29,7 @@ class GetUserById extends Command
         }
 
         $user = new User();
-        $user->id = $row['UserID'];
+        $user->id = (int) $row['UserID'];
         $user->name = $row['Screenname'];
         $user->email = $row['Email'];
 

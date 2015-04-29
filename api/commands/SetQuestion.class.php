@@ -17,14 +17,14 @@ class SetQuestion extends Command
         $question = $parameter;
 
         if (isset($question->id)) {
-            $query = "UPDATE question SET Text = '" . $question->text . "', Image = '" . $question->image . "' WHERE QuestionID = '" . $question->id . "';";
+            $query = "UPDATE question SET Text = '$question->text', Image = '$question->image' WHERE QuestionID = '$question->id';";
             $questionUpdateResult = query($query);
         } else {
-            $query = "INSERT INTO question (Text, Image) VALUES ('" . $question->text . "', '" . $question->image . "');";
+            $query = "INSERT INTO question (Text, Image) VALUES ('$question->text', '$question->image');";
             $questionUpdateResult = query($query);
         }
 
-        $query = "SELECT AnswerID FROM answer WHERE QuestionID = '" . $question->id . "';";
+        $query = "SELECT AnswerID FROM answer WHERE QuestionID = '$question->id';";
         $result = query($query);
         $toBeDeletedAnswers = array();
         while ($row = $result->fetch_assoc()) {
@@ -40,17 +40,17 @@ class SetQuestion extends Command
         }
         if (count($toBeDeletedAnswers) > 0) {
             foreach ($toBeDeletedAnswers as $answerId) {
-                $query = "DELETE FROM answer WHERE AnswerID = '" . $answerId . "';";
+                $query = "DELETE FROM answer WHERE AnswerID = '$answerId';";
                 query($query);
             }
         }
 
         foreach ($question->answers as $answer) {
             if (isset($answer->id)) {
-                $query = "UPDATE answer SET RightWrong = '" . $answer->rightWrong . "', Text = '" . $answer->text . "', QuestionID = '" . $question->id . "' WHERE AnswerID = '" . $answer->id . "';";
+                $query = "UPDATE answer SET RightWrong = '$answer->rightWrong', Text = '$answer->text', QuestionID = '$question->id' WHERE AnswerID = '$answer->id';";
                 query($query);
             } else {
-                $query = "INSERT INTO answer (RightWrong, Text, QuestionID) VALUES ('" . $answer->rightWrong . "', '" . $answer->text . "', '" . $question->id . "');";
+                $query = "INSERT INTO answer (RightWrong, Text, QuestionID) VALUES ('$answer->rightWrong', '$answer->text', '$question->id');";
                 query($query);
             }
         }

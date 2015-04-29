@@ -28,7 +28,7 @@ class GetTypeById extends Command
         }
 
         $type = new Type();
-        $type->id = $row['TypeID'];
+        $type->id = (int) $row['TypeID'];
         $type->name = $row['Name'];
         $type->unit = $row['Unit'];
         $type->image = $row['Image'];

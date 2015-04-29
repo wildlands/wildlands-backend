@@ -26,7 +26,7 @@ class GetPagesByPinpointId extends Command
         {
             $page = new Page();
 
-            $page->id = $row['PageID'];
+            $page->id = (int) $row['PageID'];
             $page->pinpointId = $row['PinID'];
             $page->title = $row['Title'];
             $page->image = $row['Image'];

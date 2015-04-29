@@ -14,19 +14,19 @@ class SetUser extends Command
 
         if (isset($user->id))
         {
-            $query = "UPDATE user SET Screenname = '" . $user->name . "', Email = '" . $user->email . "'";
+            $query = "UPDATE user SET Screenname = '$user->name', Email = '$user->email'";
             if (isset($user->password))
             {
                 $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
-                $query .= ", Password = '" . $hashpass . "'";
+                $query .= ", Password = '$hashpass'";
             }
-            $query .= " WHERE UserID = '" . $user->id . "';";
+            $query .= " WHERE UserID = '$user->id';";
             $successMessage = "Gebruiker is aangepast.";
         }
         else
         {
             $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('" . $user->name . "', '" . $user->email . "', '" . $hashpass . "');";
+            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashpass');";
             $successMessage = "Gebruiker is aangemaakt.";
         }
 
