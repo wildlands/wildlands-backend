@@ -31,9 +31,13 @@ class SetPinpoint extends Command
                 $result = query($query);
             }
         }
-
-        // TODO Change to successMessage/errorMessage
-        return $result;
+        
+        if (!$result)
+        {
+            errorMessage("Er is iets fout gegaan.");
+        }
+        
+        successMessage("Pinpoint is gewijzigd.");
     }
 }
 
