@@ -400,17 +400,23 @@ function loadPinpointType(nummer) {
 }
 
 function addQuestion() {
-    answer = [];
-    answer[0] = $("#answer1");
-    answer[1] = $("#answer2");
-    answer[2] = $("#answer3");
-    answer[3] = $("#answer4");
+    var answers = new Array();
+    
+    $('.antwoord').each(function() {
+        var answer = {
+            "text": $(this).val(),
+            "rightWrong": $(this).attr("answer-rightwrong") == 'true' ? 1 : 0
+        }
+        answers.push(answer);
+    });
+    
     var jsonData = JSON.stringify({
         "text": $("#question").val(),
         "image": $("#image").val(),
         "pinpointId": $("#pinpointID").val(),
-        "textAnswer": answer
+        "answers": answers
     });
+    
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'post',
@@ -421,14 +427,15 @@ function addQuestion() {
         cache: false
 
     }).done(function (data) {
-
-
-
+        
+        if(data.error) {
+            createErrorMessage(data.error);
+        } else {
+            redirectTo(base_url + "questions/show/");
+            createSuccessMessage(data.success);
+        }
     }).fail(function (data) {
-
-        console.log(data);
-
-
+        createErrorMessage(data.error);
     });
 }
 
@@ -801,8 +808,7 @@ function fillEditQuestionFormWithData(questionId) {
         
         $('#question').val(data.text);
         
-        $('#image_preview').attr('db-src', data.image);
-        $('#image_preview').attr('src', base_url + 'images/' + data.image);
+        $('#image').attr("value", data.image);
         
         // Add answers
         var i = 1;
@@ -856,7 +862,7 @@ function editQuestion(questionId) {
     var jsonData = JSON.stringify({
         "id": questionId,
         "text": $('#question').val(),
-        "image": $('#image_preview').attr('db-src'),
+        "image": $('#image').val(),
         "answers": answers
     });
     
@@ -872,13 +878,14 @@ function editQuestion(questionId) {
         if (data.error) {
             createErrorMessage(data.error);
         } else {
-            redirectTo(base_url + "questions/show/");
             createSuccessMessage(data.success);
         }
         
     }).fail(function (data) {
         createErrorMessage(data.error);
     });
+    
+    redirectTo(base_url + "questions/show/");
     
 }
 
