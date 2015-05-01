@@ -119,7 +119,7 @@ function GetCoordinates(e)
                 <br>
                 
                 <label>Positie pinpoint</label>
-                <img id="myImgId" alt="" src="http://localhost/wildlands-backend/website/images/tempkaart.png" width="817" height="447" />
+                <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" />
                 
                 <script type="text/javascript">
                     
