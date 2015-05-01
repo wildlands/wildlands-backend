@@ -85,6 +85,7 @@ function executeCommand($command, $parameter)
 // Function: Add all commands to the command list
 function addAllCommands()
 {
+    new DeleteAnswer();
     new DeletePage();
     new DeletePinpoint();
     new DeleteQuestion();
