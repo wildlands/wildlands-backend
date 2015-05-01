@@ -12,14 +12,15 @@ class DeleteQuestion extends Command
     {
         $question = $parameter;
 
-        if (isset($question->id)) {
-            $query = "DELETE FROM question WHERE QuestionID = '" . $question->id . "';";
-            $result = query($query);
-            $query = "DELETE FROM answer WHERE QuestionID = '" . $question->id . "';";
-            $result = $result & query($query);
-        } else {
+        if (!isset($question->id))
+        {
             errorMessage("Question ID niet gevonden!");
         }
+
+        $query = "DELETE FROM question WHERE QuestionID = '" . $question->id . "';";
+        $result = query($query);
+        $query = "DELETE FROM answer WHERE QuestionID = '" . $question->id . "';";
+        $result &= query($query);
 
         if (!$result) {
             errorMessage("Er is iets fout gegaan.");

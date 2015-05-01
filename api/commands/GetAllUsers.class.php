@@ -18,10 +18,7 @@ class GetAllUsers extends Command
 
         while ($row = $result->fetch_assoc())
         {
-            $user = new User();
-            $user->id = $row['UserID'];
-            $user->name = $row['Screenname'];
-            $user->email = $row['Email'];
+            $user = (new GetUserById())->execute(new IdObject($row['UserID']));
 
             array_push($users, $user);
         }

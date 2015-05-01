@@ -20,15 +20,15 @@ class GetPageById extends Command
         $query = "SELECT * FROM page WHERE PageID = '$page->id';";
         $result = query($query);
 
-        if (!$result)
+        $row = $result->fetch_assoc();
+
+        if (!$row)
         {
             errorMessage("Er is iets fout gegaan.");
         }
 
-        $row = $result->fetch_assoc();
-
         $page = new Page();
-        $page->id = $row['PageID'];
+        $page->id = (int) $row['PageID'];
         $page->pinpointId = $row['PinID'];
         $page->title = $row['Title'];
         $page->image = $row['Image'];

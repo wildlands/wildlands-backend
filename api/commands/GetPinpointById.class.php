@@ -11,20 +11,32 @@ class GetPinpointById extends Command
 
     public function execute($parameter)
     {
-        $pinpointId = $parameter->id;
-        $query = "SELECT * FROM pinpoint WHERE pinpoint.PinpointID = " . $pinpointId . ";";
+        $pinpoint = $parameter;
+
+        if (!isset($pinpoint->id))
+        {
+            errorMessage("Geen PinpointID gevonden.");
+        }
+
+        $query = "SELECT * FROM pinpoint WHERE PinID = '$pinpoint->id';";
         $result = query($query);
+
+        $row = $result->fetch_assoc();
+
+        if (!$row)
+        {
+            errorMessage("Er is iets fout gegaan.");
+        }
 
         $pinpoint = new Pinpoint();
 
-        while ($row = $result->fetch_assoc())
-        {
-            $pinpoint->id = (int) $row['PinpointID'];
-            $pinpoint->xPos = $row['xPos'];
-            $pinpoint->yPos = $row['yPos'];
-            $pinpoint->description = $row['description'];
-            $pinpoint->pinpointType = $row['pinpointType'];
-        }
+        $pinpoint->id = (int)$row['PinID'];
+        $pinpoint->name = $row['Name'];
+        $pinpoint->description = $row['Description'];
+        $pinpoint->xPos = (double)$row['Xpos'];
+        $pinpoint->yPos = (double)$row['Ypos'];
+        $pinpoint->type = (new GetTypeById())->execute(new IdObject($row['TypeID']));
+        $pinpoint->pages = (new GetPagesByPinpointId())->execute(new IdObject($row['PinID']));
 
         return $pinpoint;
     }

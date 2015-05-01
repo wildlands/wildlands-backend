@@ -19,13 +19,9 @@ class GetAllTypes extends Command
 
         $types = array();
 
-        while ($row = $result->fetch_assoc()) {
-            $type = new Type();
-
-            $type->id = (int) $row['TypeID'];
-            $type->name = $row['Name'];
-            $type->unit = $row['Unit'];
-            $type->image = $row['Image'];
+        while ($row = $result->fetch_assoc())
+        {
+            $type = (new GetTypeById())->execute(new IdObject($row['TypeID']));
 
             array_push($types, $type);
         }
