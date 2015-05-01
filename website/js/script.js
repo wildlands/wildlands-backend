@@ -101,6 +101,11 @@ $(document).ready(function () {
         e.preventDefault();
         updateUser();
     });
+    
+    $('.updatePinpoint').click(function (e) {
+        e.preventDefault();
+        updatePinpoint();
+    });
 
     $('.updatePage').click(function (e) {
         e.preventDefault();
@@ -370,7 +375,7 @@ function loadPinpoints() {
 }
 
 //load all the types into the dropdown menu when adding a new pinpoint
-function loadPinpointType() {
+function loadPinpointType(nummer) {
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'get',
@@ -385,13 +390,13 @@ function loadPinpointType() {
         $.each(pinpointtype, function (key, value) {
                 $('#pinpointType').append($("<option></option>").attr("value", value["id"]).text(value["name"]));
 
-            }) //.fail(function (data) {
+                
+            });
 
-        //console.log(data);
-
-        //})
-        ;
+        $('#pinpointType option').eq(nummer - 1).attr('selected', '');
     });
+    
+    
 }
 
 function addQuestion() {
@@ -706,7 +711,7 @@ function updatePinpoint(pinpointId) {
         "xPos": $('#xPos').val(),
         "yPos": $('#yPos').val(),
         "description": $('#description').val(),
-        "pinpointType": $('#pinpointType').val()
+        "typeId": $('#pinpointType').val()
     });
     
     $.ajax({

@@ -236,6 +236,9 @@ if ($_GET['action'] == 'aanpassen'):
     $query = $mysqli->query("SELECT * FROM pinpoint WHERE PinID ='$id' limit 1;");
     $data = $query->fetch_assoc(); 
     
+    $query2 = $mysqli->query("SELECT Name FROM type WHERE TypeID IN(SELECT TypeID FROM pinpoint WHERE PinID = '$id');");
+    $datatype = $query2->fetch_assoc(); 
+    
 ?>
 
 
@@ -272,15 +275,15 @@ if ($_GET['action'] == 'aanpassen'):
                 
                 <label>Type</label>
 		<select class="form-control" id="pinpointType">
-			<option>Selecteer pinpoint type</option>
-		</select>
-                <script>loadPinpointType();</script>
+                    
+                </select>
+                <script>loadPinpointType(<?php echo $data['PinID'] ?>);</script>
                 
                 <hr>
 		
 	</div>
 	
-        <button class="btn btn-labeled btn-success" onclick="javascript: updatePinpoint(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        <button class="btn btn-labeled btn-success updatePinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
     
 <?php endif;
 if ($_GET['action'] == 'verwijder'):
