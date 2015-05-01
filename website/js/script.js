@@ -54,12 +54,6 @@ $(document).ready(function () {
 
         $(this).closest('.input-group').remove();
 
-        $.each($('.input-group'), function (key, value) {
-
-            $(this).find('.antwoord').attr('placeholder', 'Antwoord ' + (key + 1));
-
-        });
-
         if (aantal <= 8) {
             $('.addAnswer').prop('disabled', false);
         }
@@ -813,7 +807,7 @@ function fillEditQuestionFormWithData(questionId) {
         // Add answers
         var i = 1;
         $.each(data.answers, function(key, value) {
-            var newAnswer = generateAnswerTextField(i, value['id'], value['rightWrong'], value['text']);
+            var newAnswer = generateAnswerTextField(value['id'], value['rightWrong'], value['text']);
             $('.antwoorden').append(newAnswer);
         
             i++;
@@ -821,21 +815,30 @@ function fillEditQuestionFormWithData(questionId) {
     });
 }
 
-function generateNewAnswerTextField(index) {
-    return generateAnswerTextField(index, undefined, undefined, undefined);
+function generateNewAnswerTextField() {
+    return generateAnswerTextField(undefined, undefined, undefined);
 }
 
-function generateAnswerTextField(index, id, rightWrong, text) {
+function generateAnswerTextField(id, rightWrong, text) {
     var newAnswer_div = $('<div></div>').addClass('input-group');
-    var newAnswer_div_input = $('<input></input>').addClass('form-control').addClass('antwoord').attr('type', 'text').attr('placeholder', 'Antwoord ' + index).attr('answer-id', id).attr('answer-rightwrong', rightWrong).val(text);
+    var newAnswer_div_input = $('<input></input>').addClass('form-control').addClass('antwoord').attr('type', 'text').attr('placeholder', 'Antwoord ' + (rightWrong ? '(correct)' : '(fout)')).attr('answer-id', id).attr('answer-rightwrong', rightWrong).val(text);
     var newAnswer_div_div = $('<div></div>').addClass('input-group-addon');
     var newAnswer_div_div_a = $('<a></a>').addClass('removeAnswer').attr('href', 'javascript:void(0);');
     var newAnswer_div_div_a_i = $('<i></i>').addClass('fa').addClass('fa-trash-o');
     
     newAnswer_div.append(newAnswer_div_input);
     newAnswer_div.append(newAnswer_div_div);
-    newAnswer_div_div.append(newAnswer_div_div_a);
-    newAnswer_div_div_a.append(newAnswer_div_div_a_i);
+    
+    
+    if (rightWrong) {
+        newAnswer_div_input.css('background-color', '#E8FFE8');
+        newAnswer_div_div_a_i.css('color', 'darkred');
+        newAnswer_div_div.append(newAnswer_div_div_a_i);
+    } else {
+        newAnswer_div_input.css('background-color', '#FFE8E8');
+        newAnswer_div_div.append(newAnswer_div_div_a);
+        newAnswer_div_div_a.append(newAnswer_div_div_a_i);
+    }
     
     return newAnswer_div;
 }

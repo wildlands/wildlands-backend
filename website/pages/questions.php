@@ -70,10 +70,12 @@
 
     <div class="form-group antwoorden">
         
-        <script>$('.antwoorden').append(generateAnswerTextField(1, undefined, "true", undefined));</script>
-        <script>$('.antwoorden').append(generateAnswerTextField(2, undefined, "false", undefined));</script>
-        <script>$('.antwoorden').append(generateAnswerTextField(3, undefined, "false", undefined));</script>
-        <script>$('.antwoorden').append(generateAnswerTextField(4, undefined, "false", undefined));</script>
+        <script>
+            $('.antwoorden').append(generateAnswerTextField(undefined, true, undefined));
+            $('.antwoorden').append(generateAnswerTextField(undefined, false, undefined));
+            $('.antwoorden').append(generateAnswerTextField(undefined, false, undefined));
+            $('.antwoorden').append(generateAnswerTextField(undefined, false, undefined));
+        </script>
 
     </div>
 
