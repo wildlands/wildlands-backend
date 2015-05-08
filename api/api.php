@@ -7,14 +7,16 @@
 require_once('../database.php');
 require_once('commands/_Command.class.php');
 
+// Directories that contain class files.
+$directories = array(
+    'commands/',
+    'models/'
+);
+
 // PHP5 Autoloader for classes that are not included yet.
 function __autoload($class_name)
 {
-    // Directories that contain class files.
-    $directories = array(
-        'commands/',
-        'models/'
-    );
+    global $directories;
 
     // Check every directory.
     foreach($directories as $directory)
@@ -151,5 +153,3 @@ function getInsertId()
     global $mysqli;
     return $mysqli->insert_id;
 }
-
-?>
