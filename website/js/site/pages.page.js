@@ -12,13 +12,13 @@ function addPageFieldToForm() {
     CKEDITOR.replace(editor);
 }
 
-// Delete a page
-function deletePage() {
-    var tableRow = $(this).closest('tr');
-
+function deletePageAjax(sender)
+{
+    var tableRow = $(sender).closest('tr');
+    
     var parameter = {
-        "id": $(this).attr('pageid')
-    }
+        "id": $(sender).attr('pageid')
+    };
 
     api("DeletePage", parameter, function(data) {
         if (data.error) {
@@ -35,6 +35,31 @@ function deletePage() {
     }, function(data) {
         createErrorMessage(data.error);
     });
+}
+
+// Delete a page
+function deletePage(sender) {
+    
+    bootbox.dialog({
+        message: "Wilt u deze pinpoint zeker weten verwijderen?",
+        title: "Pinpoint verwijderen",
+        buttons: {
+          success: {
+            label: "Ja",
+            className: "btn-success",
+            callback: function() {
+              deletePageAjax(sender);
+            }
+          },
+          danger: {
+            label: "Annuleren",
+            className: "btn-danger",
+            callback: function() {
+              del = false;
+            }
+          }
+        }
+      });
 }
 
 function fillEditPageFormWithData(pageId) {
@@ -70,7 +95,7 @@ function fillPageRow(page) {
     row += "<td>" + page.title + "</td>";
     row += "<td>" + page.pinpointId + "</td>";
     row += "<td>" + page.text + "</td>";
-    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage();'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pagesTable").append(row);
 }
