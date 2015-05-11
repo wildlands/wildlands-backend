@@ -19,30 +19,31 @@ class SetQuestion extends Command
         if (isset($question->id)) {
             $query = "UPDATE question SET Text = '$question->text', Image = '$question->image' WHERE QuestionID = '$question->id';";
             $questionUpdateResult = query($query);
+            
+            $query = "SELECT AnswerID FROM answer WHERE QuestionID = '$question->id';";
+            $result = query($query);
+            $toBeDeletedAnswers = array();
+            while ($row = $result->fetch_assoc()) {
+                $toBeDeleted = true;
+                foreach ($question->answers as $answer) {
+                    if (isset($answer->id) && $row['AnswerID'] == $answer->id) {
+                        $toBeDeleted = false;
+                    }
+                }
+                if ($toBeDeleted == true) {
+                    array_push($toBeDeletedAnswers, $row['AnswerID']);
+                }
+            }
+            if (count($toBeDeletedAnswers) > 0) {
+                foreach ($toBeDeletedAnswers as $answerId) {
+                    $query = "DELETE FROM answer WHERE AnswerID = '$answerId';";
+                    query($query);
+                }
+            }
         } else {
             $query = "INSERT INTO question (Text, Image) VALUES ('$question->text', '$question->image');";
             $questionUpdateResult = query($query);
-        }
-
-        $query = "SELECT AnswerID FROM answer WHERE QuestionID = '$question->id';";
-        $result = query($query);
-        $toBeDeletedAnswers = array();
-        while ($row = $result->fetch_assoc()) {
-            $toBeDeleted = true;
-            foreach ($question->answers as $answer) {
-                if (isset($answer->id) && $row['AnswerID'] == $answer->id) {
-                    $toBeDeleted = false;
-                }
-            }
-            if ($toBeDeleted == true) {
-                array_push($toBeDeletedAnswers, $row['AnswerID']);
-            }
-        }
-        if (count($toBeDeletedAnswers) > 0) {
-            foreach ($toBeDeletedAnswers as $answerId) {
-                $query = "DELETE FROM answer WHERE AnswerID = '$answerId';";
-                query($query);
-            }
+            $question->id = getInsertId();
         }
 
         foreach ($question->answers as $answer) {
@@ -59,7 +60,7 @@ class SetQuestion extends Command
             errorMessage("Er is iets fout gegaan.");
         }
 
-        return array("success" => "Vraag is veranderd.");
+        successMessage("Vraag is veranderd.");
     }
 
 }

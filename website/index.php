@@ -27,13 +27,14 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/animate.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/style.css">
 
-        <script>var ajax_url = "http://localhost/wildlands-backend/";</script>
-        <script>var base_url = "http://localhost/wildlands-backend/website/";</script>
+	<script>var ajax_url = "http://localhost/wildlands-backend/";</script>
+	<script>var base_url = "http://localhost/wildlands-backend/website/";</script>
         
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/jquery.bootstrap.notify.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/jquery.easypiechart.min.js"></script>
+<<<<<<< HEAD
         <script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
         
         <script src="http://cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
@@ -41,6 +42,13 @@ if (isset($_GET['logout']) && $_GET['logout'])
         <script src="<?php echo BASE_URL; ?>js/bootbox.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/script.js"></script>
         
+=======
+	<script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
+
+	<script src="http://cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+
+	<script src="<?php echo BASE_URL; ?>js/site/main.js"></script>
+>>>>>>> 90b04269fdf118e7c84fa41b8b0b88b9f1b54504
 	
 	<style>
 	

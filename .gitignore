@@ -3,3 +3,4 @@ globals.php
 /website/database/*
 /nbproject/private/
 gitpuller.php
+/.idea

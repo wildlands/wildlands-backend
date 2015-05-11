@@ -15,8 +15,7 @@ class SetPinpoint extends Command
     {
         $pinpoint = $parameter;
 
-        // TODO change to 'id'
-        if (isset($pinpoint->pinID)) {
+        if (isset($pinpoint->id)) {
             $query = "UPDATE pinpoint SET TypeID = '$pinpoint->typeId', Name = '$pinpoint->name', Xpos = '$pinpoint->xPos', Ypos = '$pinpoint->yPos', Description = '$pinpoint->description' WHERE PinID = '$pinpoint->pinID';";
             $result = query($query);
         } else {
