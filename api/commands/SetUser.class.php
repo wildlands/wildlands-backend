@@ -8,6 +8,11 @@ class SetUser extends Command
         return "SetUser";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $user = $parameter;

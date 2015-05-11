@@ -8,6 +8,11 @@ class DeletePage extends Command
         return "DeletePage";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $page = $parameter;

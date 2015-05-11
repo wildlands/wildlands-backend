@@ -8,6 +8,11 @@ class SetPage extends Command
         return "SetPage";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $page = $parameter;

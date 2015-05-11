@@ -9,6 +9,11 @@ class GetQuestionById extends Command
         return "GetQuestionById";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $questionId = $parameter->id;

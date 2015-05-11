@@ -1,10 +1,10 @@
 // Add a page to the form.
-function addPageFieldToForm() {
+function addPageFieldToForm(sender) {
     var count = $('.pagina').length;
     var editor = 'editor' + (count + 1);
 
     if (count === 3) {
-        $(this).prop('disabled', true);
+        $(sender).prop('disabled', true);
     }
 
     $('.paginas .pagina:last-child').after(generatePageField(count + 1));
@@ -13,11 +13,11 @@ function addPageFieldToForm() {
 }
 
 // Delete a page
-function deletePage() {
-    var tableRow = $(this).closest('tr');
+function deletePage(sender) {
+    var tableRow = $(sender).closest('tr');
 
     var parameter = {
-        "id": $(this).attr('pageid')
+        "id": $(sender).attr('pageid')
     }
 
     api("DeletePage", parameter, function(data) {
@@ -70,7 +70,7 @@ function fillPageRow(page) {
     row += "<td>" + page.title + "</td>";
     row += "<td>" + page.pinpointId + "</td>";
     row += "<td>" + page.text + "</td>";
-    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage();'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pagesTable").append(row);
 }
@@ -106,7 +106,7 @@ function getPages() {
     });
 }
 
-function removePageFieldFromForm() {
+function removePageFieldFromForm(sender) {
     var count = $('.pagina').length;
 
     if (count === 1) {
@@ -114,13 +114,13 @@ function removePageFieldFromForm() {
         return;
     }
 
-    $(this).closest('.form-group').remove();
+    $(sender).closest('.form-group').remove();
 
     $.each($('.form-group'), function (key, value) {
 
-        $(this).find('small').text('Pagina ' + key);
-        $(this).find('textarea').attr('id', 'editor' + key);
-        $(this).find('textarea').attr('name', 'editor' + key);
+        $(sender).find('small').text('Pagina ' + key);
+        $(sender).find('textarea').attr('id', 'editor' + key);
+        $(sender).find('textarea').attr('name', 'editor' + key);
 
     });
 

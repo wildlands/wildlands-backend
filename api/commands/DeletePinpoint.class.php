@@ -12,6 +12,11 @@ class DeletePinpoint extends Command
         return "DeletePinpoint";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $pinpoint = $parameter;

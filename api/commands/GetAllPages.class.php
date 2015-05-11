@@ -7,6 +7,11 @@ class GetAllPages extends Command {
         return "GetAllPages";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $query = "SELECT * FROM page";

@@ -9,6 +9,11 @@ class DeleteUser extends Command
         return "DeleteUser";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $user = $parameter;

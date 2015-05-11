@@ -8,6 +8,11 @@ class GetPageById extends Command
         return "GetPageById";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $page = $parameter;

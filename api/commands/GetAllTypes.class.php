@@ -12,6 +12,11 @@ class GetAllTypes extends Command
         return "GetAllTypes";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $query = "SELECT TypeID, Name, Unit, Image FROM type;";

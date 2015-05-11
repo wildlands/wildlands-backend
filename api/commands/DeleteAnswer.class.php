@@ -7,6 +7,11 @@ class DeleteAnswer extends Command
 	{
 		return "DeleteAnswer";
 	}
+
+	public function isAuthNeeded()
+	{
+		return true;
+	}
 	
 	public function execute($parameter)
 	{

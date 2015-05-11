@@ -39,11 +39,11 @@ function addQuestion() {
 }
 
 // Delete a question.
-function deleteQuestion() {
-    var tableRow = $(this).closest('tr');
+function deleteQuestion(sender) {
+    var tableRow = $(sender).closest('tr');
 
     var parameter = {
-        "id": $(this).attr('questionId')
+        "id": $(sender).attr('questionId')
     }
 
     api("DeleteQuestion", parameter, function(data) {
@@ -140,7 +140,7 @@ function fillQuestionRow(question) {
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
     row += "<td>" + question.text.substr(0,60) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion();'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
 }
@@ -150,7 +150,7 @@ function generateAnswerTextField(id, rightWrong, text) {
     var newAnswer_div = $('<div></div>').addClass('input-group');
     var newAnswer_div_input = $('<input></input>').addClass('form-control').addClass('antwoord').attr('type', 'text').attr('placeholder', 'Antwoord ' + (rightWrong ? '(correct)' : '(fout)')).attr('answer-id', id).attr('answer-rightwrong', rightWrong).val(text);
     var newAnswer_div_div = $('<div></div>').addClass('input-group-addon');
-    var newAnswer_div_div_a = $('<a></a>').attr('onclick', 'javascript: removeAnswerTextField();');
+    var newAnswer_div_div_a = $('<a></a>').attr('onclick', 'javascript: removeAnswerTextField(this);');
     var newAnswer_div_div_a_i = $('<i></i>').addClass('fa').addClass('fa-trash-o');
 
     newAnswer_div.append(newAnswer_div_input);
@@ -194,14 +194,14 @@ function getQuestions() {
 }
 
 // Remove answer text field.
-function removeAnswerTextField() {
+function removeAnswerTextField(sender) {
     var count = $('.antwoord').length;
     if (count === 1) {
         createErrorMessage('Er is minimaal een antwoord verplicht');
         return;
     }
 
-    $(this).closest('.input-group').remove();
+    $(sender).closest('.input-group').remove();
 
     $('.addAnswerToForm').prop('disabled', false);
 }

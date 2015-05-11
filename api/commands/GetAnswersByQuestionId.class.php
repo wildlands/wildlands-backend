@@ -15,6 +15,11 @@ class GetAnswersByQuestionId extends Command
         return "GetAnswersByQuestionId";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $query = "SELECT AnswerID, RightWrong, Text FROM answer WHERE answer.QuestionID = " . $parameter . ";";

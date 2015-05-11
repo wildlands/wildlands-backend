@@ -31,7 +31,8 @@ function __autoload($class_name)
 }
 
 // Return error message if unable to connect to database
-if ($mysqli->connect_errno > 0) {
+if ($mysqli->connect_errno > 0)
+{
     errorMessage("Unable to connect to database.");
 }
 
@@ -39,14 +40,32 @@ if ($mysqli->connect_errno > 0) {
 $commandList = array();
 addAllCommands();
 
+if (isset($_POST['auth']) || isset($_GET['auth']))
+{
+    if(isset($_POST['auth']))
+    {
+        // Set authToken from PHP POST parameter
+        $authToken = $_POST['auth'];
+    }
+    else
+    {
+        // Set authToken from PHP GET parameter
+        $authToken = $_GET['auth'];
+    }
+}
+
 // If 'c' parameter is set it will be assumed that the script is used
 //  from 'outside' (like from an app)
 // Check if 'c' parameter (command) is set
-if (isset($_GET['c']) || isset($_POST['c'])) {
-    if(isset($_POST['c'])) {
+if (isset($_GET['c']) || isset($_POST['c']))
+{
+    if(isset($_POST['c']))
+    {
         // Set command from PHP POST parameter
         $command = $_POST['c'];
-    } else {
+    }
+    else
+    {
         // Set command from PHP GET parameter
         $command = $_GET['c'];
     }
@@ -78,6 +97,11 @@ function executeCommand($command, $parameter)
     // Check if the command exists at all
     if (!isset($commandList[$command])) {
         errorMessage("Command not found.");
+    }
+
+    if ($commandList[$command]->isAuthNeeded() && !isAuthValid())
+    {
+        errorMessage("Forbidden - No authentication!");
     }
 
     // Execute the command and return the 'return' as json
@@ -139,6 +163,27 @@ function returnJson($output)
     } else {
         return $return;
     }
+}
+
+// Function: Check if authToken is valid
+function isAuthValid()
+{
+    session_start();
+
+    // Check if a hash can be found in the session
+    if (isset($_SESSION['hash']))
+    {
+        $hash = $_SESSION['hash'];
+        $query = "SELECT * FROM session WHERE Hash='$hash' LIMIT 1";
+        $result = query($query);
+
+        if ($result->num_rows >= 0)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // Utility function: Run the specified query and the result

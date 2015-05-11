@@ -8,6 +8,11 @@ class GetPagesByPinpointId extends Command
         return "GetPagesByPinpointId";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $pinpoint = $parameter;

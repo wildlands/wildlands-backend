@@ -12,6 +12,11 @@ class SetType extends Command
         return "SetType";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $type = $parameter;

@@ -8,6 +8,11 @@ class DeleteQuestion extends Command
         return "DeleteQuestion";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $question = $parameter;
