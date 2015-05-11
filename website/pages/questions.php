@@ -15,7 +15,6 @@
 		<th>#</th>
 		<th>Vraag</th>
         <th></th>
-        <th></th>
 	</tr>
 
 </table>

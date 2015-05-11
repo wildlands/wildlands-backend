@@ -165,8 +165,7 @@ function fillQuestionRow(question) {
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
     row += "<td>" + question.text.substr(0,60) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
-    row += "<td>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning col-md-offset-3'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
 }

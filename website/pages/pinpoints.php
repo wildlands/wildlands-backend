@@ -15,7 +15,6 @@
 		<th>#</th>
 		<th>Omschrijving</th>
 		<th></th>
-                <th></th>
 	</tr>
 
 </table>
@@ -37,8 +36,6 @@
 		<th>Pin ID</th>
         <th>Tekst</th>
 		<th></th>
-                <th></th>
-                
 	</tr>
 
 </table>
