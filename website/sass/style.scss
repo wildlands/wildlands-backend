@@ -129,7 +129,6 @@ a:hover {
 .container {
 	
 	margin-top: 40px;
-	
 }
 
 #main {
@@ -324,6 +323,15 @@ a:hover {
 		
 	}
 	
+}
+
+table {
+    
+    td {
+        &:hover {
+            cursor:pointer;
+        }
+    }
 }
 
 [data-notify="progressbar"] {

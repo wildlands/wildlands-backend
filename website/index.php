@@ -38,7 +38,9 @@ if (isset($_GET['logout']) && $_GET['logout'])
         
         <script src="http://cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
         
+        <script src="<?php echo BASE_URL; ?>js/bootbox.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/script.js"></script>
+        
 	
 	<style>
 	

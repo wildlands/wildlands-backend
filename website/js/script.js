@@ -92,6 +92,10 @@ $(document).ready(function () {
 
     });
 
+    $('#pinpointsTable').on('click', 'tr', function (e) {
+        redirectTo(base_url + "pinpoints/aanpassen/" + $(this).attr('pinid'));
+    });
+
     $('#pinpoint').click(function (e) {
         e.preventDefault();
         addPinpoint();
@@ -100,11 +104,6 @@ $(document).ready(function () {
     $('.updateUser').click(function (e) {
         e.preventDefault();
         updateUser();
-    });
-    
-    $('.updatePinpoint').click(function (e) {
-        e.preventDefault();
-        updatePinpoint();
     });
 
     $('.updatePage').click(function (e) {
@@ -306,7 +305,7 @@ function fillPinpointRow(pinpoint) {
         var str = "...";
     }
     
-    var row = "<tr id='" + pinpoint.id + "' class='pinpointRow'>";
+    var row = "<tr pinid='" + pinpoint.id + "' class='pinpointRow'>";
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
     row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
@@ -558,47 +557,6 @@ function addUser()
     });
 }
 
-function deletePage(event, sender) {
-
-    event.preventDefault();
-    var jsonData = JSON.stringify({
-        "id": $(sender).attr('pageid')
-    });
-
-    var tableRow = $(sender).closest('tr');
-
-    $.ajax({
-        url: ajax_url + 'api/api.php',
-        method: 'post',
-        data: {
-            c: 'DeletePage',
-            p: jsonData
-        },
-        cache: false
-
-    }).done(function (data) {
-
-        console.log(data);
-
-        if (data.error) {
-            createErrorMessage(data.error);
-        } else {
-            createSuccessMessage(data.success);
-            $(tableRow).animate({
-                backgroundColor: '#FF8585'
-            }, 1000, function () {
-                $(tableRow).fadeOut(1000);
-            });
-        }
-
-    }).fail(function (data) {
-
-        createErrorMessage("API IS KAPOOOT");
-        console.log(data);
-
-    });
-}
-
 function deleteUser(event, sender) {
 
     event.preventDefault();
@@ -638,6 +596,71 @@ function deleteUser(event, sender) {
         console.log(data);
 
     });
+}
+
+function deletePageAjax(jsonData, sender)
+{
+    var tableRow = $(sender).closest('tr');
+
+    $.ajax({
+        url: ajax_url + 'api/api.php',
+        method: 'post',
+        data: {
+            c: 'DeletePage',
+            p: jsonData
+        },
+        cache: false
+
+    }).done(function (data) {
+
+        console.log(data);
+
+        if (data.error) {
+            createErrorMessage(data.error);
+        } else {
+            createSuccessMessage(data.success);
+            $(tableRow).animate({
+                backgroundColor: '#FF8585'
+            }, 1000, function () {
+                $(tableRow).fadeOut(1000);
+            });
+        }
+
+    }).fail(function (data) {
+
+        createErrorMessage("API IS KAPOOOT");
+        console.log(data);
+
+    });
+}
+
+function deletePage(event, sender) {
+
+    event.preventDefault();
+    var jsonData = JSON.stringify({
+        "id": $(sender).attr('pageid')
+    });
+
+    bootbox.dialog({
+        message: "Wilt u deze pinpoint zeker weten verwijderen?",
+        title: "Pinpoint verwijderen",
+        buttons: {
+          success: {
+            label: "Ja",
+            className: "btn-success",
+            callback: function() {
+              deletePinpointAjax(jsonData, sender);
+            }
+          },
+          danger: {
+            label: "Annuleren",
+            className: "btn-danger",
+            callback: function() {
+              del = false;
+            }
+          }
+        }
+      });
 }
 
 function updatePage() {
@@ -735,49 +758,70 @@ function updatePinpoint(pinpointId) {
     });
 }
 
-function deletePinpoint(event, sender) {
+function deletePinpointAjax(jsonData, sender)
+{
+    var tableRow = $(sender).closest('tr');
+    
+    $.ajax({
+            url: ajax_url + 'api/api.php',
+            method: 'post',
+            data: {
+                c: 'DeletePinpoint',
+                p: jsonData
+            },
+            cache: false
 
+        }).done(function (data) {
+
+            console.log(data);
+
+            if (data.error) {
+                createErrorMessage(data.error);
+            } else {
+                createSuccessMessage(data.success);
+                $(tableRow).animate({
+                    backgroundColor: '#FF8585'
+                }, 1000, function () {
+                    $(tableRow).fadeOut(1000);
+
+                });
+            }
+
+        }).fail(function (data) {
+
+            createErrorMessage("API IS KAPOOOT");
+            console.log(data);
+
+        });
+}
+
+function deletePinpoint(event, sender) {
+    var del = false;
     event.preventDefault();
     var jsonData = JSON.stringify({
         "id": $(sender).attr('pinpointid')
     });
 
-    var tableRow = $(sender).closest('tr');
-
-    $.ajax({
-        url: ajax_url + 'api/api.php',
-        method: 'post',
-        data: {
-            c: 'DeletePinpoint',
-            p: jsonData
-        },
-        cache: false
-
-    }).done(function (data) {
-
-        console.log(data);
-
-        if (data.error) {
-            createErrorMessage(data.error);
-        } else {
-            createSuccessMessage(data.success);
-            $(tableRow).animate({
-                backgroundColor: '#FF8585'
-            }, 1000, function () {
-                $(tableRow).fadeOut(1000);
-            });
+    bootbox.dialog({
+        message: "Wilt u deze pinpoint zeker weten verwijderen?",
+        title: "Pinpoint verwijderen",
+        buttons: {
+          success: {
+            label: "Ja",
+            className: "btn-success",
+            callback: function() {
+              deletePinpointAjax(jsonData, sender);
+            }
+          },
+          danger: {
+            label: "Annuleren",
+            className: "btn-danger",
+            callback: function() {
+              del = false;
+            }
+          }
         }
-
-    }).fail(function (data) {
-
-        createErrorMessage("API IS KAPOOOT");
-        console.log(data);
-
-    });
-
-    if (aantal <= 8) {
-        $('.addAnswer').prop('disabled', false);
-    }
+      });
 }
 
 function fillEditQuestionFormWithData(questionId) {

@@ -10,7 +10,7 @@ if ($_GET['action'] == 'show'):
 </div>
 	
 <!--tabel met de bestaande pinpoints-->
-<table class="table table-striped" id="pinpointsTable">
+<table class="table table-striped table-hover" id="pinpointsTable">
 	
 	<tr>
             
@@ -222,7 +222,7 @@ function GetCoordinates(e)
 		
 	</div>
     
-        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
     </form>
 
 <!--Pagina voor het aanpassen van een vraag-->
@@ -277,13 +277,13 @@ if ($_GET['action'] == 'aanpassen'):
 		<select class="form-control" id="pinpointType">
                     
                 </select>
-                <script>loadPinpointType(<?php echo $data['PinID'] ?>);</script>
+                <script>loadPinpointType();</script>
                 
                 <hr>
 		
 	</div>
 	
-        <button class="btn btn-labeled btn-success updatePinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+        <button class="btn btn-labeled btn-success" type="button" onclick="javascript:updatePinpoint(<?php echo $_GET['id']; ?>)"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
     
 <?php endif;
 if ($_GET['action'] == 'verwijder'):
@@ -306,6 +306,6 @@ if ($_GET['action'] == 'verwijder'):
 		
 	</div>
 	
-        <a href="<?php echo BASE_URL; ?>pinpoints/show" onclick="javascript: deletePinpoint(<?php echo $_GET['id'] ?>);" id="pinID" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Verwijderen</a>
+        <a href="<?php echo BASE_URL; ?>pinpoints/show/" onclick="javascript: deletePinpoint(<?php echo $_GET['id'] ?>);" id="pinID" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Verwijderen</a>
         
 <?php endif; ?>
