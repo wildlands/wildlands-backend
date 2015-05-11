@@ -41,8 +41,8 @@ function deletePageAjax(sender)
 function deletePage(sender) {
     
     bootbox.dialog({
-        message: "Wilt u deze pinpoint zeker weten verwijderen?",
-        title: "Pinpoint verwijderen",
+        message: "Wilt u deze page zeker weten verwijderen?",
+        title: "Page verwijderen",
         buttons: {
           success: {
             label: "Ja",
