@@ -147,8 +147,15 @@ function loadPinpointType(typeId) {
 }
 
 function setCoordinates(event) {
-    $('#xPos').text(event.pageX - this.x);
-    $('#yPos').text(event.pageY - this.y);
+    $('#xPos').text((event.pageX - this.x) * $(this).attr('data-scale'));
+    $('#yPos').text((event.pageY - this.y) * $(this).attr('data-scale'));
+
+    $('#spot').css('left', (event.pageX - this.x + this.offsetLeft - 12) + 'px');
+    $('#spot').css('top', (event.pageY - this.y + this.offsetTop - 12) + 'px');
+
+    if ($('#spot').css('display') == "none") {
+        $('#spot').css('display', 'inline');
+    }
 }
 
 function updatePinpoint(pinpointId) {

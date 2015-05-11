@@ -64,7 +64,17 @@
         <br>
 
         <label>Positie pinpoint</label>
-        <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" data-scale="3"/>
+
+        <div>
+            <div>
+                <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" data-scale="3"/>
+            </div>
+            <div id="spot" style="position: absolute; display: none;">
+                <img alt="spot" src="<?php echo BASE_URL; ?>/images/spot.png" width="25" height="25"/>
+            </div>
+        </div>
+
+
 
         <script>$('#myImgId').click(setCoordinates);</script>
 
@@ -134,17 +144,13 @@
 
         <div class="form-group">
 
-		<button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
+	    	<button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
 
-	</div>
-<<<<<<< HEAD
-    
-        <button class="btn btn-labeled btn-success" id="pinpoint"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
-=======
+	    </div>
 
-        <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
->>>>>>> 90b04269fdf118e7c84fa41b8b0b88b9f1b54504
-    </form>
+    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+
+</form>
 
 <!--Pagina voor het aanpassen van een vraag-->
 <?php endif; if ($_GET['action'] == 'edit'): ?>
