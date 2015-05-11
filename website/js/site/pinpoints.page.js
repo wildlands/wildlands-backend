@@ -120,7 +120,8 @@ function fillPinpointRow(pinpoint) {
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
     row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pinpointid='" + pinpoint.id + "' onclick='javascript: deletePinpoint(this);'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
+    row += "<td>" + "<a class='btn btn-danger pull-right' pinpointid='" + pinpoint.id + "' onclick='javascript: deletePinpoint(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
 }
@@ -169,6 +170,7 @@ function updatePinpoint(pinpointId) {
         redirectTo(base_url + "pinpoints/show/");
         createSuccessMessage(data.success);
     }, function(data) {
+        console.log(data);
         createErrorMessage(data.error);
     });
 }

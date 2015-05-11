@@ -21,7 +21,7 @@ class SetPinpoint extends Command
         $pinpoint = $parameter;
 
         if (isset($pinpoint->id)) {
-            $query = "UPDATE pinpoint SET TypeID = '$pinpoint->typeId', Name = '$pinpoint->name', Xpos = '$pinpoint->xPos', Ypos = '$pinpoint->yPos', Description = '$pinpoint->description' WHERE PinID = '$pinpoint->pinID';";
+            $query = "UPDATE pinpoint SET TypeID = '$pinpoint->typeId', Name = '$pinpoint->name', Xpos = '$pinpoint->xPos', Ypos = '$pinpoint->yPos', Description = '$pinpoint->description' WHERE PinID = '$pinpoint->id';";
             $result = query($query);
         } else {
             $query = "INSERT INTO pinpoint (TypeID, Name, Xpos, Ypos, Description) VALUES ('$pinpoint->typeId', '$pinpoint->name', '$pinpoint->xPos', '$pinpoint->yPos', '$pinpoint->description');";

@@ -38,14 +38,14 @@ function addQuestion() {
     });
 }
 
-// Delete a question.
-function deleteQuestion(sender) {
+function deleteQuestionAjax(sender)
+{
     var tableRow = $(sender).closest('tr');
 
     var parameter = {
         "id": $(sender).attr('questionId')
     }
-
+    
     api("DeleteQuestion", parameter, function(data) {
         if (data.error) {
             createErrorMessage(data.error);
@@ -61,6 +61,31 @@ function deleteQuestion(sender) {
     }, function(data) {
         createErrorMessage(data.error);
     });
+}
+
+// Delete a question.
+function deleteQuestion(sender) {
+    
+    bootbox.dialog({
+        message: "Wilt u deze vraag zeker weten verwijderen?",
+        title: "Vraag verwijderen",
+        buttons: {
+          success: {
+            label: "Ja",
+            className: "btn-success",
+            callback: function() {
+              deleteQuestionAjax(sender);
+            }
+          },
+          danger: {
+            label: "Annuleren",
+            className: "btn-danger",
+            callback: function() {
+              del = false;
+            }
+          }
+        }
+      });
 }
 
 // Edit the question with the specified question id.
@@ -140,7 +165,8 @@ function fillQuestionRow(question) {
     var row = "<tr id='" + question.id + "' class='questionRow'>";
     row += "<td>" + question.id + "</td>";
     row += "<td>" + question.text.substr(0,60) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
+    row += "<td>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#questionsTable").append(row);
 }

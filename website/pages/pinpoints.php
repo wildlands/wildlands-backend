@@ -15,6 +15,7 @@
 		<th>#</th>
 		<th>Omschrijving</th>
 		<th></th>
+                <th></th>
 	</tr>
 
 </table>
@@ -36,6 +37,8 @@
 		<th>Pin ID</th>
         <th>Tekst</th>
 		<th></th>
+                <th></th>
+                
 	</tr>
 
 </table>
@@ -185,8 +188,6 @@
         <hr>
 
 	</div>
-	
-        <a href="<?php echo BASE_URL; ?>pinpoints/show/" onclick="javascript: deletePinpoint(<?php echo $_GET['id'] ?>);" id="pinID" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Verwijderen</a>
         
 </form>
 
