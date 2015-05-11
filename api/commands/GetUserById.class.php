@@ -9,6 +9,11 @@ class GetUserById extends Command
         return "GetUserById";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $user = $parameter;

@@ -99,7 +99,7 @@
 
             <h1><small> Pagina 1</small></h1>
 
-            <a onclick="javascript: removePageFieldFromForm();"><i class="fa fa-trash-o"></i></a>
+            <a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a>
 
             <br>
 
@@ -131,7 +131,7 @@
 
         <div class="form-group">
 
-		<button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm();">Pagina toevoegen</button>
+		<button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
 
 	</div>
 <<<<<<< HEAD

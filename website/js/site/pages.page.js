@@ -1,10 +1,10 @@
 // Add a page to the form.
-function addPageFieldToForm() {
+function addPageFieldToForm(sender) {
     var count = $('.pagina').length;
     var editor = 'editor' + (count + 1);
 
     if (count === 3) {
-        $(this).prop('disabled', true);
+        $(sender).prop('disabled', true);
     }
 
     $('.paginas .pagina:last-child').after(generatePageField(count + 1));
@@ -131,7 +131,7 @@ function getPages() {
     });
 }
 
-function removePageFieldFromForm() {
+function removePageFieldFromForm(sender) {
     var count = $('.pagina').length;
 
     if (count === 1) {
@@ -139,13 +139,13 @@ function removePageFieldFromForm() {
         return;
     }
 
-    $(this).closest('.form-group').remove();
+    $(sender).closest('.form-group').remove();
 
     $.each($('.form-group'), function (key, value) {
 
-        $(this).find('small').text('Pagina ' + key);
-        $(this).find('textarea').attr('id', 'editor' + key);
-        $(this).find('textarea').attr('name', 'editor' + key);
+        $(sender).find('small').text('Pagina ' + key);
+        $(sender).find('textarea').attr('id', 'editor' + key);
+        $(sender).find('textarea').attr('name', 'editor' + key);
 
     });
 

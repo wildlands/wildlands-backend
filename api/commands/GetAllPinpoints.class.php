@@ -12,6 +12,11 @@ class GetAllPinpoints extends Command
         return "GetAllPinpoints";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $query = "SELECT * FROM pinpoint;";

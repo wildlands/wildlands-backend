@@ -12,6 +12,11 @@ class SetQuestion extends Command
         return "SetQuestion";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $question = $parameter;

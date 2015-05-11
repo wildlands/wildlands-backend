@@ -125,7 +125,7 @@ if (isLoggedIn())
 		
 	</div>
 	
-	<script src="<?php echo BASE_URL; ?>js/script.js"></script>
+	<script src="<?php echo BASE_URL; ?>js/site/main.js"></script>
 	
 </body>
 

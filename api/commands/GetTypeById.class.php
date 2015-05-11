@@ -8,6 +8,11 @@ class GetTypeById extends Command
         return "GetTypeById";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $type = $parameter;

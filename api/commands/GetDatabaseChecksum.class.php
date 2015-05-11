@@ -11,6 +11,11 @@ class GetDatabaseChecksum extends Command
         return "GetDatabaseChecksum";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $query = "CHECKSUM TABLE answer, pinpoint, question, page;";

@@ -11,6 +11,11 @@ class SetPinpoint extends Command
         return "SetPinpoint";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $pinpoint = $parameter;

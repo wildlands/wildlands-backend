@@ -19,6 +19,9 @@ abstract class Command
     // Function: Return the command name as string
     abstract public function getCommand();
 
+    // Function: Is authentication needed
+    abstract public function isAuthNeeded();
+
     // Function: Execute the command
     abstract public function execute($parameter);
 

@@ -9,6 +9,11 @@ class GetPinpointById extends Command
         return "GetPinpointById";
     }
 
+    public function isAuthNeeded()
+    {
+        return false;
+    }
+
     public function execute($parameter)
     {
         $pinpoint = $parameter;

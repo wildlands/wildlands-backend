@@ -40,21 +40,15 @@ function isLoggedIn()
 	{
 		// Checken of de hash ook in de session table staat
 		$query = $mysqli->query("SELECT `UserID` FROM `session` WHERE Hash='" . $_SESSION['hash'] . "' LIMIT 1");
-		// Hash is niet gevonden...
-		if ($query->num_rows == 0)
-		{
-			return false;
-		}
-		// Hash is gevonden!
-		else
+		// Hash is gevonden...
+		if ($query->num_rows >= 0)
 		{
 			return true;
 		}
 	}
-	else
-	{
-		return false;
-	}
+
+	// Hash is niet gevonden.
+	return false;
 	
 }
 

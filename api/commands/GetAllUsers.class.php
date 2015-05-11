@@ -9,6 +9,11 @@ class GetAllUsers extends Command
         return "GetAllUsers";
     }
 
+    public function isAuthNeeded()
+    {
+        return true;
+    }
+
     public function execute($parameter)
     {
         $query = "SELECT * FROM user;";
