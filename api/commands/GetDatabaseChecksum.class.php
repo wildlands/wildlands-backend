@@ -13,7 +13,7 @@ class GetDatabaseChecksum extends Command
 
     public function isAuthNeeded()
     {
-        return true;
+        return false;
     }
 
     public function execute($parameter)
