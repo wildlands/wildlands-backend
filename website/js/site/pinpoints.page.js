@@ -32,14 +32,8 @@ function addPinpoint()
 
 }
 
-<<<<<<< HEAD
 function deletePinpointAjax(sender)
 {
-=======
-// Delete a pinpoint
-function deletePinpoint(sender) {
-
->>>>>>> ed1eec67419d50fda8897b7548cd7ad2dae55e99
     var tableRow = $(sender).closest('tr');
 
     var parameter = {
