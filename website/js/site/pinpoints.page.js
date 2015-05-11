@@ -32,15 +32,14 @@ function addPinpoint()
 
 }
 
-// Delete a pinpoint
-function deletePinpoint() {
-
-    var tableRow = $(this).closest('tr');
+function deletePinpointAjax(sender)
+{
+    var tableRow = $(sender).closest('tr');
 
     var parameter = {
-        "id": $(this).attr('pinpointid')
+        "id": $(sender).attr('pinpointid')
     }
-
+    
     api("DeletePinpoint", parameter, function(data) {
         if (data.error) {
             createErrorMessage(data.error);
@@ -49,13 +48,38 @@ function deletePinpoint() {
 
         createSuccessMessage(data.success);
         $(tableRow).animate({
-            backgroundColor: 'red'
+            backgroundColor: '#FF8585'
         }, 1000, function () {
             $(tableRow).fadeOut(1000);
         });
     }, function(data) {
         createErrorMessage(data.error);
     });
+}
+
+// Delete a pinpoint
+function deletePinpoint(sender) {
+
+    bootbox.dialog({
+        message: "Wilt u deze pinpoint zeker weten verwijderen?",
+        title: "Pinpoint verwijderen",
+        buttons: {
+          success: {
+            label: "Ja",
+            className: "btn-success",
+            callback: function() {
+              deletePinpointAjax(sender);
+            }
+          },
+          danger: {
+            label: "Annuleren",
+            className: "btn-danger",
+            callback: function() {
+              del = false;
+            }
+          }
+        }
+      });
 }
 
 function fillEditPinpointFormWithData(pinpointId) {
@@ -96,7 +120,7 @@ function fillPinpointRow(pinpoint) {
     row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
     row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pinpointid='" + pinpoint.id + "' onclick='javascript: deletePinpoint();'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pinpointid='" + pinpoint.id + "' onclick='javascript: deletePinpoint(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pinpointsTable").append(row);
 }
