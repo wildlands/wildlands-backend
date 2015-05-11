@@ -12,13 +12,13 @@ function addPageFieldToForm(sender) {
     CKEDITOR.replace(editor);
 }
 
-// Delete a page
-function deletePage(sender) {
+function deletePageAjax(sender)
+{
     var tableRow = $(sender).closest('tr');
-
+    
     var parameter = {
         "id": $(sender).attr('pageid')
-    }
+    };
 
     api("DeletePage", parameter, function(data) {
         if (data.error) {
@@ -35,6 +35,31 @@ function deletePage(sender) {
     }, function(data) {
         createErrorMessage(data.error);
     });
+}
+
+// Delete a page
+function deletePage(sender) {
+    
+    bootbox.dialog({
+        message: "Wilt u deze pinpoint zeker weten verwijderen?",
+        title: "Pinpoint verwijderen",
+        buttons: {
+          success: {
+            label: "Ja",
+            className: "btn-success",
+            callback: function() {
+              deletePageAjax(sender);
+            }
+          },
+          danger: {
+            label: "Annuleren",
+            className: "btn-danger",
+            callback: function() {
+              del = false;
+            }
+          }
+        }
+      });
 }
 
 function fillEditPageFormWithData(pageId) {

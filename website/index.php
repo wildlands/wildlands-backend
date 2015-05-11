@@ -34,11 +34,18 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/jquery.bootstrap.notify.min.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/jquery.easypiechart.min.js"></script>
+
+        <script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
+        
+        <script src="http://cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+        
+        <script src="<?php echo BASE_URL; ?>js/bootbox.min.js"></script>
+        
+        <script src="<?php echo BASE_URL; ?>js/site/main.js"></script>
+        
 	<script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
 
 	<script src="http://cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
-
-	<script src="<?php echo BASE_URL; ?>js/site/main.js"></script>
 	
 	<style>
 	
