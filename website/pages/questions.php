@@ -41,8 +41,17 @@
         <input class="form-control page-image" type="text" id="image1" readonly value=""/>
 		<div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
 	</div>
-    
-    <br />
+
+    <br>
+
+    <label>Type</label>
+    <select class="form-control" id="questionType">
+        <option>Selecteer question type</option>
+    </select>
+
+    <script>loadQuestionType();</script>
+
+    <br>
 
     <div class="fileManagerModal">
         <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
@@ -81,11 +90,16 @@
 		<div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
 	</div>
 
+    <br>
+
+    <label>Type</label>
+    <select class="form-control" id="questionType"></select>
+
     <div class="fileManagerModal">
         <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
     </div>
 
-    <br />
+    <br>
 
     <div class="form-group antwoorden">
         <!-- Answers are added automatically -->
