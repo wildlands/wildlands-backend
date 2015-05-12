@@ -53,10 +53,10 @@
     </div>
 
     <div class="form-group">
-        <button class="btn btn-default addAnswer">Antwoord toevoegen</button>
+        <button class="btn btn-default addAnswerToForm" type="button" onclick="javascript: addAnswerFieldToForm();">Antwoord toevoegen</button>
     </div>
 
-    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addQuestion();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addQuestion();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
 </form>
 
@@ -95,7 +95,7 @@
         <button class="btn btn-default addAnswerToForm" type="button" onclick="javascript: addAnswerFieldToForm();">Antwoord toevoegen</button>
     </div>
 
-    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: editQuestion(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: editQuestion(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
     <script>fillEditQuestionFormWithData( <?php echo $_GET['id'] ?> );</script>
 
