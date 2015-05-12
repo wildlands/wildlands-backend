@@ -46,7 +46,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
 
 	<script src="http://cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
-	
+        
 	<style>
 	
 	body {

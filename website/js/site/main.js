@@ -77,3 +77,8 @@ function redirectTo(pageLink) {
 function responsive_filemanager_callback() {
     $('.modal').modal('hide');
 }
+
+function readjustHeight() {
+    var contentHeight = $('.content').outerHeight();
+    $('.menu').css('min-height', contentHeight+'px');
+}

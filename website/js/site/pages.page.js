@@ -126,6 +126,7 @@ function generatePageField(number) {
 function getPages() {
     api("GetAllPages", function(data) {
         fillPageTable(data);
+        readjustHeight();
     }, function(data) {
         console.log(data);
     });

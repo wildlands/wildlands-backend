@@ -82,6 +82,7 @@ function getUsers() {
         console.log("Success");
         console.log(data);
         fillUserTable(data);
+        readjustHeight();
     }, function(data) {
         console.log("Fail");
         console.log(data);

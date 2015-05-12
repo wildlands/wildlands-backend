@@ -153,7 +153,7 @@ a:hover {
 .menu {
   background-color: #e8e8e8;
   padding: 40px 0;
-  min-height: 500px; }
+  min-height: 500px;}
   .menu ul.nav li a {
     border-radius: 0; }
 
@@ -163,7 +163,7 @@ a:hover {
 .content {
   height: 100%;
   min-height: 500px;
-  padding-bottom: 40px; }
+  padding-bottom: 40px;}
   .content .input-group .form-control.antwoord {
     border-radius: 0px; }
   .content .input-group .input-group-addon {
@@ -176,7 +176,7 @@ a:hover {
     border-bottom-left-radius: 5px; }
   .content .input-group:last-child .input-group-addon {
     border-bottom-right-radius: 5px; }
-
+  
 #footer {
   padding-bottom: 40px; }
   #footer p {
