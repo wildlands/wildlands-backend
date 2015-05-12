@@ -89,9 +89,9 @@ function getUsers() {
 }
 
 // Updates an user.
-function updateUser() {
+function updateUser(userId) {
     var parameter = {
-        "id": $('#userId').val(),
+        "id": userId,
         "name": $('#name').val(),
         "email": $('#email').val(),
         "password": $('#pass').val()
