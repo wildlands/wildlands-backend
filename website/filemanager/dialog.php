@@ -522,7 +522,7 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 		<span class="icon-bar"></span>
 	    </button>
 	    <div class="brand"><?php echo trans('Toolbar'); ?></div>
-	    <div class="nav-collapse collapse">
+	    <div class="nav-collapse in collapse" style="height: auto;">
 		<div class="filters">
 		    <div class="row-fluid">
 			<div class="span4 half">
