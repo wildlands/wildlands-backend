@@ -14,8 +14,33 @@ function addUser()
     });
 }
 
-// Delete an user.
+// Delete an user (confirmation box).
 function deleteUser(sender) {
+
+    bootbox.dialog({
+        message: "Wilt u deze gebruiker zeker weten verwijderen?",
+        title: "Gebruiker verwijderen",
+        buttons: {
+            success: {
+                label: "Ja",
+                className: "btn-success",
+                callback: function() {
+                    deleteUserAjax(sender);
+                }
+            },
+            danger: {
+                label: "Annuleren",
+                className: "btn-danger",
+                callback: function() {
+                    del = false;
+                }
+            }
+        }
+    });
+}
+
+// Delete an user.
+function deleteUserAjax(sender) {
     var tableRow = $(sender).closest('tr');
 
     var parameter = {
