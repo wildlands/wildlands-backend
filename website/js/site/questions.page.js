@@ -217,7 +217,6 @@ function getQuestions() {
     api("GetAllQuestions", function(data) {
         console.log(data);
         fillQuestionTable(data);
-        readjustHeight();
     }, function(data) {
         console.log(data);
     });

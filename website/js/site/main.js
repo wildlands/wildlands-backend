@@ -1,6 +1,14 @@
 $(document).ready(function () {
     var height = $('body').height();
     $('.background-image').height(height + 75);
+
+    new ResizeSensor($('.content'), function() {
+        readjustHeight();
+    });
+
+    setTimeout(function() {
+        readjustHeight();
+    }, 500);
 });
 
 function api(command, parameter, doneCallback, failCallback) {

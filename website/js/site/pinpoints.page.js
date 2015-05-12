@@ -139,7 +139,6 @@ function fillPinpointRow(pinpoint) {
 function getPinpoints() {
     api("GetAllPinpoints", function (data) {
         fillPinpointTable(data);
-        readjustHeight();
     }, function (data) {
         console.log(data);
     });

@@ -42,6 +42,10 @@ if (isset($_GET['logout']) && $_GET['logout'])
         <script src="<?php echo BASE_URL; ?>js/bootbox.min.js"></script>
         
         <script src="<?php echo BASE_URL; ?>js/site/main.js"></script>
+
+		<script src="<?php echo BASE_URL; ?>js/ResizeSensor.js"></script>
+
+		<script src="<?php echo BASE_URL; ?>js/ElementQueries.js"></script>
         
 	<script src="<?php echo BASE_URL; ?>js/jquery.color.js"></script>
 
