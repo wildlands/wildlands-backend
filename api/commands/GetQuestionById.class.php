@@ -27,6 +27,7 @@ class GetQuestionById extends Command
             $question->id = (int) $row['QuestionID'];
             $question->text = $row['Text'];
             $question->image = $row['Image'];
+            $question->type = (new GetTypeById())->execute(new IdObject($row['TypeID']));
 
             $question->answers = (new GetAnswersByQuestionId())->execute($question->id);
         }

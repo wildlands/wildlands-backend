@@ -23,6 +23,7 @@ function addQuestion() {
         "text": $("#question").val(),
         "image": $("#image1").val(),
         "pinpointId": $("#pinpointID").val(),
+        "typeId": $('#questionType').val(),
         "answers": answers
     }
 
@@ -111,6 +112,7 @@ function editQuestion(questionId) {
         "id": questionId,
         "text": $('#question').val(),
         "image": $('#image1').val(),
+        "typeId": $('#questionType').val(),
         "answers": answers
     }
 
@@ -140,6 +142,8 @@ function fillEditQuestionFormWithData(questionId) {
 
         $('#question').val(data.text);
         $('#image').attr("value", data.image);
+
+        loadQuestionType(data.type.id);
 
         // Add answers
         $.each(data.answers, function(key, value) {
@@ -216,6 +220,17 @@ function getQuestions() {
         readjustHeight();
     }, function(data) {
         console.log(data);
+    });
+}
+
+// Load all the types into the dropdown menu when adding a new question
+function loadQuestionType(typeId) {
+    api("GetAllTypes", function(data) {
+        $.each(data, function (key, value) {
+            $('#questionType').append($("<option></option>").attr("value", value["id"]).text(value["name"]));
+        });
+
+        $('#questionType option').eq(typeId - 1).attr('selected', '');
     });
 }
 

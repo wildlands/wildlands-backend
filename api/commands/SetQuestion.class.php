@@ -22,7 +22,7 @@ class SetQuestion extends Command
         $question = $parameter;
 
         if (isset($question->id)) {
-            $query = "UPDATE question SET Text = '$question->text', Image = '$question->image' WHERE QuestionID = '$question->id';";
+            $query = "UPDATE question SET Text = '$question->text', Image = '$question->image', TypeID = '$question->typeId' WHERE QuestionID = '$question->id';";
             $questionUpdateResult = query($query);
             
             $query = "SELECT AnswerID FROM answer WHERE QuestionID = '$question->id';";
@@ -46,7 +46,7 @@ class SetQuestion extends Command
                 }
             }
         } else {
-            $query = "INSERT INTO question (Text, Image) VALUES ('$question->text', '$question->image');";
+            $query = "INSERT INTO question (Text, Image, TypeID) VALUES ('$question->text', '$question->image', '$question->typeId');";
             $questionUpdateResult = query($query);
             $question->id = getInsertId();
         }
