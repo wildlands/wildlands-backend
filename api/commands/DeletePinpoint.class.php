@@ -28,6 +28,8 @@ class DeletePinpoint extends Command
 
         $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->id . "';";
         $result = query($query);
+        $query = "DELETE FROM page WHERE PinID = '" . $pinpoint->id . "';";
+        $result = query($query);
 
         if (!$result) {
             errorMessage("Er is iets fout gegaan.");

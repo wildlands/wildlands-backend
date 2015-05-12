@@ -34,7 +34,15 @@ function addPinpoint()
 
 function deletePinpointAjax(sender)
 {
-    var tableRow = $(sender).closest('tr');
+    var rows = [];
+    
+    $('.pagePinId').each(function(index, element) {
+        if($(element).text() == $(sender).attr('pinpointid')) {
+            rows.push($(element).closest('tr'));
+        }
+    });
+    
+    rows.push($(sender).closest('tr'));
 
     var parameter = {
         "id": $(sender).attr('pinpointid')
@@ -47,11 +55,13 @@ function deletePinpointAjax(sender)
         }
 
         createSuccessMessage(data.success);
-        $(tableRow).animate({
-            backgroundColor: '#FF8585'
-        }, 1000, function () {
-            $(tableRow).fadeOut(1000);
-        });
+        for(var i = 0; i < rows.length; i++) {
+            $(rows[i]).animate({
+                backgroundColor: '#FF8585'
+            }, 1000, function () {
+                $(this).fadeOut(1000);
+            });
+        }
     }, function(data) {
         createErrorMessage(data.error);
     });
@@ -61,7 +71,7 @@ function deletePinpointAjax(sender)
 function deletePinpoint(sender) {
 
     bootbox.dialog({
-        message: "Wilt u deze pinpoint zeker weten verwijderen?",
+        message: "Wilt u deze pinpoint zeker weten verwijderen? Hiermee worden tevens alle bijbehorende pagina's verwijderd.",
         title: "Pinpoint verwijderen",
         buttons: {
           success: {
