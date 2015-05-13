@@ -50,7 +50,7 @@
 
     <hr>
 
-    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addUser();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addUser();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>questions/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
 </form>
 

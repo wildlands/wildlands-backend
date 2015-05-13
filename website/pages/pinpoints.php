@@ -15,6 +15,7 @@
 		<th>#</th>
 		<th>Omschrijving</th>
 		<th></th>
+                <th></th>
 	</tr>
 
 </table>
@@ -36,6 +37,7 @@
 		<th>Pin ID</th>
         <th>Tekst</th>
 		<th></th>
+                <th></th>
 	</tr>
 
 </table>
@@ -56,7 +58,7 @@
 	<div class="form-group">
 
         <label>Naam</label>
-        <input class="form-control" type="text" id="name"/>
+        <input class="form-control" type="text" id="name" name="name"/>
 
         <br>
 
@@ -70,8 +72,6 @@
                 <img alt="spot" src="<?php echo BASE_URL; ?>/images/spot.png" width="25" height="25"/>
             </div>
         </div>
-
-
 
         <script>$('#myImgId').click(setCoordinates);</script>
 
@@ -88,7 +88,7 @@
         <br>
 
         <label>Type</label>
-		<select class="form-control" id="pinpointType">
+		<select class="form-control" id="pinpointType" name="type">
 			<option>Selecteer pinpoint type</option>
 		</select>
 
@@ -145,7 +145,7 @@
 
 	    </div>
 
-    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
 </form>
 

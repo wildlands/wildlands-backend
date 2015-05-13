@@ -95,7 +95,8 @@ function fillPageRow(page) {
     row += "<td>" + page.title + "</td>";
     row += "<td class='pagePinId'>" + page.pinpointId + "</td>";
     row += "<td>" + page.text + "</td>";
-    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning col-md-offset-4'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage(this);'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
+    row += "<td>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#pagesTable").append(row);
 }
