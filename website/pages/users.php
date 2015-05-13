@@ -14,7 +14,8 @@
 		<th>#</th>
 		<th>Gebruikersnaam</th>
 		<th>E-mailadres</th>
-        <th></th>
+                <th></th>
+                <th></th>
 	</tr>
         
 </table>

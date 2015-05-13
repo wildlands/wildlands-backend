@@ -96,7 +96,8 @@ function fillUserRow(user) {
     row += "<td>" + user.id + "</td>";
     row += "<td>" + user.name + "</td>";
     row += "<td>" + user.email + "</td>";
-    row += "<td>" + "<a href='../edit/" + user.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right deleteUser' userId='" + user.id + "' onclick='javascript: deleteUser(this);'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + user.id + "' class='btn btn-warning col-md-offset-12'><i class='fa fa-pencil'></i></a>" + "</td>";
+    row += "<td>" + "<a class='btn btn-danger pull-right deleteUser' userId='" + user.id + "' onclick='javascript: deleteUser(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#usersTable").append(row);
 }
