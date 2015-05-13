@@ -27,8 +27,8 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/animate.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/style.css">
 
-	<script>var ajax_url = <?php echo AJAX_URL; ?></script>
-	<script>var base_url = <?php echo BASE_URL; ?></script>
+	<script>var ajax_url = "<?php echo AJAX_URL; ?>"</script>
+	<script>var base_url = "<?php echo BASE_URL; ?>"</script>
         
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
