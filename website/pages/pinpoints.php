@@ -22,28 +22,6 @@
 
 <script>getPinpoints();</script>
 
-<div class="page-header">
-
-	<h1>Pagina <small>overzicht</small></h1>
-
-</div>
-
-<!-- Table with pages -->
-<table class="table table-striped" id="pagesTable">
-
-	<tr>
-        <th>#</th>
-        <th>Titel</th>
-		<th>Pin ID</th>
-        <th>Tekst</th>
-		<th></th>
-                <th></th>
-	</tr>
-
-</table>
-
-<script>getPages();</script>
-
 <!-- Add pinpoint -->
 <?php endif; if ($_GET['action'] == 'add'): ?>
 
