@@ -25,6 +25,7 @@ class GetQuestionById extends Command
         while ($row = $result->fetch_assoc())
         {
             $question->id = (int) $row['QuestionID'];
+            $question->level = (new GetLevelById())->execute(new IdObject($row['LevelID']));
             $question->text = $row['Text'];
             $question->image = $row['Image'];
             $question->type = (new GetTypeById())->execute(new IdObject($row['TypeID']));
