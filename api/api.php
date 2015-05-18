@@ -112,10 +112,12 @@ function executeCommand($command, $parameter)
 function addAllCommands()
 {
     new DeleteAnswer();
+    new DeleteLevel();
     new DeletePage();
     new DeletePinpoint();
     new DeleteQuestion();
     new DeleteUser();
+    new GetAllLevels();
     new GetAllPages();
     new GetAllPinpoints();
     new GetAllQuestions();
@@ -123,12 +125,14 @@ function addAllCommands()
     new GetAllUsers();
     new GetAnswersByQuestionId();
     new GetDatabaseChecksum();
+    new GetLevelById();
     new GetPageById();
     new GetPagesByPinpointId();
     new GetPinpointById();
     new GetQuestionById();
     new GetTypeById();
     new GetUserById();
+    new SetLevel();
     new SetPage();
     new SetPinpoint();
     new SetQuestion();
