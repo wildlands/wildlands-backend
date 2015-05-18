@@ -133,12 +133,28 @@ function generatePageField(number, numbertabs) {
 
 }
 
+function generateTablist(levels) {
+    var firstElement = true;
+    $.each(levels, function (key, value) {
+        var id = 'level' + value['id'];
+        var element = '<li role="presentation"' + (firstElement ? ' class="active"' : '') + '><a href="#' + id + '" aria-controls="' + id + '" role="tab" data-toggle="tab">' + value['name'] + '</a></li>';
+        $('#tablist').append(element);
+        firstElement = false;
+    });
+}
+
 // Retrieve the pages from the database
 function getPages() {
     api("GetAllPages", function(data) {
         fillPageTable(data);
     }, function(data) {
         console.log(data);
+    });
+}
+
+function loadPageLevel() {
+    api("GetAllLevels", function(data) {
+        generateTablist(data);
     });
 }
 

@@ -85,16 +85,15 @@
     <div role="tabpanel">
 
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#niveau1" aria-controls="niveau1" role="tab" data-toggle="tab">Home</a></li>
-            <li role="presentation"><a href="#niveau2" aria-controls="niveau2" role="tab" data-toggle="tab">Profile</a></li>
-            <li role="presentation"><a href="#niveau3" aria-controls="niveau3" role="tab" data-toggle="tab">Messages</a></li>
-            <li role="presentation"><a href="#niveau4" aria-controls="niveau4" role="tab" data-toggle="tab">Settings</a></li>
+        <ul class="nav nav-tabs" role="tablist" id='tablist'>
+            <!-- Added automatically -->
         </ul>
 
+        <script>loadPageLevel();</script>
+        
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="niveau1">
+            <div role="tabpanel" class="tab-pane active" id="level1">
                 <div class='paginas'>
                     <div class="form-group pagina">
 
@@ -139,7 +138,7 @@
                 </div>
             </div>
             
-            <div role="tabpanel" class="tab-pane" id="niveau2">
+            <div role="tabpanel" class="tab-pane" id="level2">
                 <div class='paginas'>
                     <div class="form-group pagina">
 
@@ -184,7 +183,7 @@
                 </div>
             </div>
             
-            <div role="tabpanel" class="tab-pane" id="niveau3">
+            <div role="tabpanel" class="tab-pane" id="level3">
                 <div class='paginas'>
                     <div class="form-group pagina">
 
@@ -229,7 +228,7 @@
                 </div>
             </div>
             
-            <div role="tabpanel" class="tab-pane" id="niveau4">
+            <div role="tabpanel" class="tab-pane" id="level4">
                 <div class='paginas'>
                     <div class="form-group pagina">
 
