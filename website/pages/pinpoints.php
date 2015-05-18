@@ -81,47 +81,201 @@
 	    <h1>Pagina's <small>toevoegen</small></h1>
 
     </div>
+    
+    <div role="tabpanel">
 
-    <div class='paginas'>
-        <div class="form-group pagina">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#niveau1" aria-controls="niveau1" role="tab" data-toggle="tab">Home</a></li>
+            <li role="presentation"><a href="#niveau2" aria-controls="niveau2" role="tab" data-toggle="tab">Profile</a></li>
+            <li role="presentation"><a href="#niveau3" aria-controls="niveau3" role="tab" data-toggle="tab">Messages</a></li>
+            <li role="presentation"><a href="#niveau4" aria-controls="niveau4" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
 
-            <h1><small> Pagina 1</small></h1>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="niveau1">
+                <div class='paginas'>
+                    <div class="form-group pagina">
 
-            <a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a>
+                        <h1><small> Pagina 1</small></h1>
 
-            <br>
+                        <a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a>
 
-            <label>Titel</label>
-            <input class="form-control page-title" type="text"/>
+                        <br>
 
-            <br>
+                        <label>Titel</label>
+                        <input class="form-control page-title" type="text"/>
 
-            <label>Afbeelding</label>
-            <div class="input-group">
-                <input class="form-control page-image" type="text" id="image1" readonly/>
-                <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
+                        <br>
+
+                        <label>Afbeelding</label>
+                        <div class="input-group">
+                            <input class="form-control page-image" type="text" id="image11" readonly/>
+                            <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal11">Kies afbeelding</a></div>
+                        </div>
+
+                        <div class="fileManagerModal">
+                            <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+                        </div>
+
+                        <br>
+
+                        <label>Tekst</label>
+                        <textarea id="editor11" name="editor11"></textarea>
+                        <script type="text/javascript">CKEDITOR.replace('editor11');</script>
+
+                        <hr>
+
+                    </div>
+                </div>
+
+                <button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
+                
+                <div class="form-group">
+
+                        
+
+                </div>
             </div>
+            
+            <div role="tabpanel" class="tab-pane" id="niveau2">
+                <div class='paginas'>
+                    <div class="form-group pagina">
 
-            <div class="fileManagerModal">
-                <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+                        <h1><small> Pagina 1</small></h1>
+
+                        <a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a>
+
+                        <br>
+
+                        <label>Titel</label>
+                        <input class="form-control page-title" type="text"/>
+
+                        <br>
+
+                        <label>Afbeelding</label>
+                        <div class="input-group">
+                            <input class="form-control page-image" type="text" id="image12" readonly/>
+                            <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal12">Kies afbeelding</a></div>
+                        </div>
+
+                        <div class="fileManagerModal">
+                            <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+                        </div>
+
+                        <br>
+
+                        <label>Tekst</label>
+                        <textarea id="editor12" name="editor12"></textarea>
+                        <script type="text/javascript">CKEDITOR.replace('editor12');</script>
+
+                        <hr>
+
+                        </div>
+                </div>
+                
+                <button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
+
+                <div class="form-group">
+
+                        
+
+                </div>
             </div>
+            
+            <div role="tabpanel" class="tab-pane" id="niveau3">
+                <div class='paginas'>
+                    <div class="form-group pagina">
 
-            <br>
+                        <h1><small> Pagina 1</small></h1>
 
-            <label>Tekst</label>
-            <textarea id="editor1" name="editor1"></textarea>
-            <script type="text/javascript">CKEDITOR.replace('editor1');</script>
+                        <a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a>
 
-            <hr>
+                        <br>
 
-	    </div>
+                        <label>Titel</label>
+                        <input class="form-control page-title" type="text"/>
+
+                        <br>
+
+                        <label>Afbeelding</label>
+                        <div class="input-group">
+                            <input class="form-control page-image" type="text" id="image13" readonly/>
+                            <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal13">Kies afbeelding</a></div>
+                        </div>
+
+                        <div class="fileManagerModal">
+                            <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+                        </div>
+
+                        <br>
+
+                        <label>Tekst</label>
+                        <textarea id="editor13" name="13"></textarea>
+                        <script type="text/javascript">CKEDITOR.replace('editor13');</script>
+
+                        <hr>
+
+                        </div>
+                </div>
+                
+                <button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
+
+                <div class="form-group">
+
+                        
+
+                </div>
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="niveau4">
+                <div class='paginas'>
+                    <div class="form-group pagina">
+
+                        <h1><small> Pagina 1</small></h1>
+
+                        <a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a>
+
+                        <br>
+
+                        <label>Titel</label>
+                        <input class="form-control page-title" type="text"/>
+
+                        <br>
+
+                        <label>Afbeelding</label>
+                        <div class="input-group">
+                            <input class="form-control page-image" type="text" id="image14" readonly/>
+                            <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal14">Kies afbeelding</a></div>
+                        </div>
+
+                        <div class="fileManagerModal">
+                            <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+                        </div>
+
+                        <br>
+
+                        <label>Tekst</label>
+                        <textarea id="editor14" name="editor14"></textarea>
+                        <script type="text/javascript">CKEDITOR.replace('editor14');</script>
+
+                        <hr>
+
+                        </div>
+                </div>
+                
+                <button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
+
+                <div class="form-group">
+
+                        
+
+                </div>
+            </div>
+        </div>
+
     </div>
-
-        <div class="form-group">
-
-	    	<button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
-
-	    </div>
 
     <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
