@@ -82,7 +82,7 @@ function fillEditLevelFormWithData(levelId) {
 // Fill the user table with the specified users.
 function fillLevelTable(levels) {
     for (var i = 0; i < levels.length; i++) {
-        fillUserRow(levels[i]);
+        fillLevelRow(levels[i]);
     }
 }
 
@@ -92,8 +92,7 @@ function fillLevelRow(level) {
     var row = "<tr id='" + level.id + "' class='levelRow'>";
     row += "<td>" + level.id + "</td>";
     row += "<td>" + level.name + "</td>";
-    row += "<td>" + "<a href='../edit/" + level.id + "' class='btn btn-warning col-md-offset-12'><i class='fa fa-pencil'></i></a>" + "</td>";
-    row += "<td>" + "<a class='btn btn-danger pull-right deleteUser' userId='" + level.id + "' onclick='javascript: deleteLevel(this);'><i class='fa fa-times'></i></a>" + "</td>";
+    row += "<td>" + "<a href='../edit/" + level.id + "' class='btn btn-warning col-md-offset-9'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right deleteLevel' levelId='" + level.id + "' onclick='javascript: deleteLevel(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
     $("#levelsTable").append(row);
 }

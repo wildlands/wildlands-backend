@@ -15,7 +15,6 @@
 		<th>#</th>
 		<th>Naam</th>
                 <th></th>
-                <th></th>
 	</tr>
 
 </table>
@@ -34,7 +33,7 @@
 
     <div class="form-group">
         <label>Naam</label>
-        <input class="form-control" type="text" id="question" />
+        <input class="form-control" type="text" id="name" />
     </div>
 
     <br>
@@ -55,13 +54,15 @@
 
     <div class="form-group">
         <label>Naam</label>
-        <input class="form-control" type="text" id="question" />
+        <input class="form-control" type="text" id="name"/>
     </div>
     
     <br>
 
     <button class="btn btn-labeled btn-success" type="button" onclick="javascript: editLevel(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>levels/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
+    <script>fillEditLevelFormWithData( <?php echo $_GET['id'] ?> );</script>
+    
 </form>
 
 <?php endif; ?>
