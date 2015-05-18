@@ -140,7 +140,7 @@ function fillEditQuestionFormWithData(questionId) {
             return;
         }
 
-        loadLevelType(data.level.id);
+        loadQuestionLevel(data.level.id);
 
         $('#question').val(data.text);
         $('#image').attr("value", data.image);
@@ -268,7 +268,7 @@ function getQuestions() {
     });
 }
 
-function loadLevelType(levelId) {
+function loadQuestionLevel(levelId) {
     api("GetAllLevels", function(data) {
         $.each(data, function (key, value) {
             $('#questionLevel').append($("<option></option>").attr("value", value["id"]).text(value["name"]));

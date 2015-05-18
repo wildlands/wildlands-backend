@@ -40,7 +40,7 @@
         <option>Selecteer niveau</option>
     </select>
 
-    <script>loadLevelType();</script>
+    <script>loadQuestionLevel();</script>
 
     <br>
 
