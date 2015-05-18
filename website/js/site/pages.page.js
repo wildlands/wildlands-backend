@@ -1,13 +1,23 @@
 // Add a page to the form.
 function addPageFieldToForm(sender) {
-    var count = $('.pagina').length;
-    var editor = 'editor' + (count + 1);
+    
+    var closestDiv = $(sender).closest('div');
+    var tabIndex;
+    
+    $('.tab-pane').each(function(index) {
+        if($(this).attr('id') == $(closestDiv).attr('id')) {
+            tabIndex = index + 1;
+        }
+    });
+    
+    var count = $('.pagina', closestDiv).length;
+    var editor = 'editor' + (count + 1) + (tabIndex);
 
     if (count === 3) {
         $(sender).prop('disabled', true);
     }
 
-    $('.paginas .pagina:last-child').after(generatePageField(count + 1));
+    $('.paginas .pagina:last-child', closestDiv).after(generatePageField(count + 1, tabIndex));
 
     CKEDITOR.replace(editor);
 }
@@ -101,7 +111,7 @@ function fillPageRow(page) {
     $("#pagesTable").append(row);
 }
 
-function generatePageField(number) {
+function generatePageField(number, numbertabs) {
 
     return '<div class="form-group pagina">' +
         '<h1><small> Pagina '+ number +'</small></h1><a class="removePage"><i class="fa fa-trash-o"></i></a>' +
@@ -110,13 +120,13 @@ function generatePageField(number) {
         '<br>' +
         '<label>Afbeelding</label>' +
         '<div class="input-group">' +
-        '<input class="form-control page-image" type="text" id="image' + number + '" readonly/>' +
+        '<input class="form-control page-image" type="text" id="image' + number + numbertabs + '" readonly/>' +
         '<div class="input-group-addon">' +
-        '<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ number +'">Kies afbeelding</a>' +
+        '<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ number + numbertabs +'">Kies afbeelding</a>' +
         '</div>' +
         '</div>' +
         '<br>' +
-        '<label>Tekst</label><textarea id="editor'+ number +'" name="editor'+ number +'"></textarea>' +
+        '<label>Tekst</label><textarea id="editor'+ number + numbertabs + '" name="editor'+ number + numbertabs +'"></textarea>' +
         '<hr>' +
         createFileManagerModal(number) +
         '</div>';
