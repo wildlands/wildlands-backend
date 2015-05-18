@@ -8,18 +8,22 @@
 
 </div>
 
-<!-- Table with questions -->
-<table class="table table-striped" id="questionsTable">
-	
-	<tr>
-		<th>#</th>
-		<th>Vraag</th>
-        <th></th>
-	</tr>
+<div role="tabpanel">
 
-</table>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="tablist">
+        <!-- Filled automatically -->
+    </ul>
 
-<script>getQuestions();</script>
+    <div class="tab-content" id="tabcontent">
+        <!-- Filled automatically -->
+    </div>
+
+</div>
+
+<script>
+    getQuestions();
+</script>
 
 <!-- Add question -->
 <?php endif; if ($_GET[ 'action']=='add' ): ?>
@@ -30,6 +34,15 @@
 </div>
 
 <form>
+
+    <label>Niveau</label>
+    <select class="form-control" id="questionLevel">
+        <option>Selecteer niveau</option>
+    </select>
+
+    <script>loadLevelType();</script>
+
+    <br>
 
     <div class="form-group">
         <label>Vraag</label>
@@ -79,6 +92,11 @@
 
 <form>
 
+    <label>Niveau</label>
+    <select class="form-control" id="questionLevel"></select>
+
+    <br>
+
     <div class="form-group">
         <label>Vraag</label>
         <input class="form-control" type="text" id="question" />
@@ -86,7 +104,7 @@
 
     <label>Image</label>
     <div class="input-group">
-        <input class="form-control page-image" type="text" id="image1" readonly value=""/>
+        <input class="form-control page-image" type="text" id="image" readonly value=""/>
 		<div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
 	</div>
 

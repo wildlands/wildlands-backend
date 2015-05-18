@@ -140,6 +140,8 @@ function fillEditQuestionFormWithData(questionId) {
             return;
         }
 
+        loadLevelType(data.level.id);
+
         $('#question').val(data.text);
         $('#image').attr("value", data.image);
 
@@ -153,14 +155,48 @@ function fillEditQuestionFormWithData(questionId) {
     });
 }
 
-//the table will be filled with the retrieved questions
-function fillQuestionTable(questions) {
-    for (var i = 0; i < questions.length; i++) {
-        fillQuestionRow(questions[i]);
-    }
+function fillLevelTabWithQuestions(questions) {
+
+    api("GetAllLevels", function(data) {
+        generateTablist(data);
+
+        var firstElement = true;
+        $.each(data, function (key, value) {
+            var id = 'level' + value['id'];
+            var element = generateQuestionTable(value['id'], questions);
+            var tab = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active' : '') + '" id="' + id + '">' + element + '</div>';
+
+            $('#tabcontent').append(tab);
+            firstElement = false;
+        });
+
+
+    }, function(data) {
+        console.log(data);
+    });
 }
 
-function fillQuestionRow(question) {
+//the table will be filled with the retrieved questions
+function generateQuestionTable(levelId, questions) {
+    var table = '<table class="table table-striped">' +
+        '<tr>' +
+        '<th>#</th>' +
+        '<th>Vraag</th>' +
+        '<th></th>' +
+        '</tr>';
+
+    for (var i = 0; i < questions.length; i++) {
+        if (questions[i].level.id == levelId) {
+            table += generateQuestionRow(questions[i]);
+        }
+    }
+
+    table += '</table>';
+
+    return table;
+}
+
+function generateQuestionRow(question) {
     var str = "";
     if(question.text.length > 60 ) {
         var str = "...";
@@ -171,7 +207,7 @@ function fillQuestionRow(question) {
     row += "<td>" + question.text.substr(0,60) + str + "</td>";
     row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning col-md-offset-3'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
-    $("#questionsTable").append(row);
+    return row;
 }
 
 // Generate answer text field and return it.
@@ -212,13 +248,33 @@ function generateNewAnswerTextField() {
     return generateAnswerTextField(undefined, undefined, undefined);
 }
 
+function generateTablist(levels) {
+    var firstElement = true;
+    $.each(levels, function (key, value) {
+        var id = 'level' + value['id'];
+        var element = '<li role="presentation"' + (firstElement ? ' class="active"' : '') + '><a href="#' + id + '" aria-controls="' + id + '" role="tab" data-toggle="tab">' + value['name'] + '</a></li>';
+        $('#tablist').append(element);
+        firstElement = false;
+    });
+}
+
 // Retrieve all questions.
 function getQuestions() {
     api("GetAllQuestions", function(data) {
         console.log(data);
-        fillQuestionTable(data);
+        fillLevelTabWithQuestions(data);
     }, function(data) {
         console.log(data);
+    });
+}
+
+function loadLevelType(levelId) {
+    api("GetAllLevels", function(data) {
+        $.each(data, function (key, value) {
+            $('#questionLevel').append($("<option></option>").attr("value", value["id"]).text(value["name"]));
+        });
+
+        $('#questionLevel option').eq(levelId - 1).attr('selected', '');
     });
 }
 
