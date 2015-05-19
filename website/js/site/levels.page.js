@@ -88,13 +88,9 @@ function fillLevelTable(levels) {
 
 // Generate row filled with user data and append it to '#usersTable'
 function fillLevelRow(level) {
-
-    var row = "<tr id='" + level.id + "' class='levelRow'>";
-    row += "<td>" + level.id + "</td>";
-    row += "<td>" + level.name + "</td>";
-    row += "<td>" + "<a href='../edit/" + level.id + "' class='btn btn-warning col-md-offset-9'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right deleteLevel' levelId='" + level.id + "' onclick='javascript: deleteLevel(this);'><i class='fa fa-times'></i></a>" + "</td>";
-    row += "</tr>";
-    $("#levelsTable").append(row);
+    var template = $('#levelRowTemplate').text();
+    var tableRow = Mark.up(template, level);
+    $("#levelsTable tbody").append(tableRow);
 }
 
 // Retrieve all users.
