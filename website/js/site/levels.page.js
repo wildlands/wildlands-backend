@@ -6,9 +6,13 @@ function addLevel()
     }
 
     api("SetLevel", parameter, function(data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         redirectTo(base_url + "levels/show/");
     }, function(data) {
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 
@@ -76,6 +80,8 @@ function fillEditLevelFormWithData(levelId) {
 
         $('#levelId').val(data.id);
         $('#name').val(data.name);
+    }, function(data) {
+        createErrorMessage(data.error);
     });
 }
 
@@ -96,12 +102,13 @@ function fillLevelRow(level) {
 // Retrieve all users.
 function getLevels() {
     api("GetAllLevels", function(data) {
-        console.log("Success");
-        console.log(data);
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         fillLevelTable(data);
     }, function(data) {
-        console.log("Fail");
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 

@@ -8,9 +8,13 @@ function addUser()
     }
 
     api("SetUser", parameter, function(data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         redirectTo(base_url + "users/show/");
     }, function(data) {
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 
