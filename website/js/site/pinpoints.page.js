@@ -7,6 +7,7 @@ function addPinpoint()
 
     $.each(CKEDITOR.instances, function(index, value){
         var page = {
+            "levelId": $('#' + index).closest('div .tab-pane').attr('id'),
             "title": $('.paginas .page-title').eq(i).val(),
             "pageimage": $('.paginas .page-image').eq(i).val(),
             "text": value.getData()
