@@ -6,9 +6,13 @@ function addLevel()
     }
 
     api("SetLevel", parameter, function(data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         redirectTo(base_url + "levels/show/");
     }, function(data) {
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 
@@ -76,6 +80,8 @@ function fillEditLevelFormWithData(levelId) {
 
         $('#levelId').val(data.id);
         $('#name').val(data.name);
+    }, function(data) {
+        createErrorMessage(data.error);
     });
 }
 
@@ -88,24 +94,21 @@ function fillLevelTable(levels) {
 
 // Generate row filled with user data and append it to '#usersTable'
 function fillLevelRow(level) {
-
-    var row = "<tr id='" + level.id + "' class='levelRow'>";
-    row += "<td>" + level.id + "</td>";
-    row += "<td>" + level.name + "</td>";
-    row += "<td>" + "<a href='../edit/" + level.id + "' class='btn btn-warning col-md-offset-9'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right deleteLevel' levelId='" + level.id + "' onclick='javascript: deleteLevel(this);'><i class='fa fa-times'></i></a>" + "</td>";
-    row += "</tr>";
-    $("#levelsTable").append(row);
+    var template = $('#levelRowTemplate').text();
+    var tableRow = Mark.up(template, level);
+    $("#levelsTable tbody").append(tableRow);
 }
 
 // Retrieve all users.
 function getLevels() {
     api("GetAllLevels", function(data) {
-        console.log("Success");
-        console.log(data);
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         fillLevelTable(data);
     }, function(data) {
-        console.log("Fail");
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 

@@ -10,13 +10,17 @@
 
 <!-- Table with questions -->
 <table class="table table-striped" id="levelsTable">
-	
-	<tr>
-		<th>#</th>
-		<th>Naam</th>
-                <th></th>
-	</tr>
 
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Naam</th>
+            <th></th>
+        </tr>
+    </thead>
+	<tbody>
+
+    </tbody>
 </table>
 
 <script>getLevels();</script>
@@ -66,3 +70,14 @@
 </form>
 
 <?php endif; ?>
+
+<script id="levelRowTemplate" type="text/template">
+    <tr id="{{id}}" class="levelRow">
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>
+            <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-9"><i class="fa fa-pencil"></i></a>
+            <a class='btn btn-danger pull-right deleteLevel' levelId="{{id}}" onclick="javascript: deleteLevel(this);"><i class="fa fa-times"></i></a>
+        </td>
+    </tr>
+</script>
