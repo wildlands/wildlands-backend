@@ -9,15 +9,18 @@
 </div>
 	
 <table class="table table-striped" id="usersTable">
-	
+	<thead>
 	<tr>
 		<th>#</th>
 		<th>Gebruikersnaam</th>
 		<th>E-mailadres</th>
-                <th></th>
-                <th></th>
+        <th></th>
+        <th></th>
 	</tr>
-        
+    </thead>
+    <tbody>
+
+    </tbody>
 </table>
 
 <script>getUsers();</script>
@@ -89,3 +92,13 @@
     <script>fillEditUserFormWithData( <?php echo $_GET['id'] ?> );</script>
 
 <?php endif; ?>
+
+<script id="userRowTemplate" type="text/template">
+    <tr id="{{id}}" class="userRow">
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{email}}</td>
+        <td><a href="../edit/{{id}}" class="btn btn-warning col-md-offset-12"><i class="fa fa-pencil"></i></a></td>
+        <td><a class="btn btn-danger pull-right deleteUser" userId="{{id}}" onclick="javascript: deleteUser(this);"><i class="fa fa-times"></i></a></td>
+    </tr>
+</script>

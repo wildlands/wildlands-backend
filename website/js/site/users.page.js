@@ -91,26 +91,21 @@ function fillUserTable(users) {
 
 // Generate row filled with user data and append it to '#usersTable'
 function fillUserRow(user) {
-
-    var row = "<tr id='" + user.id + "' class='userRow'>";
-    row += "<td>" + user.id + "</td>";
-    row += "<td>" + user.name + "</td>";
-    row += "<td>" + user.email + "</td>";
-    row += "<td>" + "<a href='../edit/" + user.id + "' class='btn btn-warning col-md-offset-12'><i class='fa fa-pencil'></i></a>" + "</td>";
-    row += "<td>" + "<a class='btn btn-danger pull-right deleteUser' userId='" + user.id + "' onclick='javascript: deleteUser(this);'><i class='fa fa-times'></i></a>" + "</td>";
-    row += "</tr>";
-    $("#usersTable").append(row);
+    var template = $('#userRowTemplate').text();
+    var tableRow = Mark.up(template, user);
+    $("#usersTable tbody").append(tableRow);
 }
 
 // Retrieve all users.
 function getUsers() {
     api("GetAllUsers", function(data) {
-        console.log("Success");
-        console.log(data);
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         fillUserTable(data);
     }, function(data) {
-        console.log("Fail");
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 
