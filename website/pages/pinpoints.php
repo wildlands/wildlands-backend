@@ -122,13 +122,25 @@
 
         <br>
 
-		<label>X-Positie pinpoint</label>
-        <input class="form-control" type="text" id="xPos"/>
+        <label>Positie pinpoint</label>
+
+        <div>
+            <div>
+                <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" data-scale="3"/>
+            </div>
+            <div id="spot" style="position: absolute; display: none;">
+                <img alt="spot" src="<?php echo BASE_URL; ?>/images/spot.png" width="25" height="25"/>
+            </div>
+        </div>
+
+        <script>$('#myImgId').click(setCoordinates);</script>
 
         <br>
 
-        <label>Y-Positie pinpoint</label>
-        <input class="form-control" type="text" id="yPos"/>
+        <p><label>X:&nbsp;</label><span id="xPos"></span></p>
+        <p><label>Y:&nbsp;</label><span id="yPos"></span></p>
+
+        <br>
 
         <br>
 
