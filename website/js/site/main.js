@@ -109,3 +109,20 @@ function loadTemplates() {
 
     console.log("Templates loaded.");
 }
+
+function validateForm() {
+    var string = "";
+    
+    $('input, select').each(function(index) {
+        if($(this).val() === "") {
+            $(this).parent('.form-group').addClass('has-error');
+            var name = $(this).parent('.form-group').find('label').text();
+            string += "Veld " + name + " niet ingevuld <br>";
+        }
+    });
+    
+    createErrorMessage(string);
+        
+    return false;
+    
+}
