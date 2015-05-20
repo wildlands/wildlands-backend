@@ -49,23 +49,15 @@ function createErrorMessage(errorMessage) {
 }
 
 // Create file manager modal
-function createFileManagerModal(number) {
+function createFileManagerModal(number, tabNumber) {
+    var content = {
+        id: 'fileManager' + number + '-' + tabNumber,
+        textFieldId: 'image' + number + '-' + tabNumber,
+        base_url: base_url
+    };
 
-    var html = "<div class='modal fade' id='myModal" + number + "' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>";
-    html += "<div class='modal-dialog'>";
-    html += "<div class='modal-content'>";
-    html += "<div class='modal-header'>";
-    html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
-    html += "<h4 class='modal-title' id='myModalLabel'>Media Gallery</h4>";
-    html += "</div>";
-    html += "<div class='modal-body'>";
-    html = html + "<iframe width='580' height='500' src='" + base_url + "filemanager/dialog.php?type=1&field_id=image" + number + "&fldr=' frameborder='0' style='overflow: scroll; overflow-x: hidden; overflow-y: hidden;'></iframe>";
-    html += "</div>";
-    html += "</div>";
-    html += "</div>";
-    html += "</div>";
-
-    return html;
+    var fileManager = Mark.up(templates['FileManager'], content);
+    return fileManager;
 }
 
 // Create success message (bootstrap).

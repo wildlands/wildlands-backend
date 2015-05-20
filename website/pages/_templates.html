@@ -1,8 +1,27 @@
+===== AddPageFormButton
+<button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button>
+<div class="form-group"></div>
+
 ===== AnswerTextField
 <div class="input-group">
     <input class="form-control antwoord" type="text" placeholder="Antwoord ({{if rightWrong}}correct{{else}}fout{{/if}})"{{if id}} answer-id="{{id}}"{{/if}} answer-rightwrong="{{rightWrong}}" style="background-color: {{if rightWrong}}#E8FFE8{{else}}#FFE8E8{{/if}}" value="{{if text}}{{text}}{{/if}}"></input>
     <div class="input-group-addon">
         <a{{if rightWrong|falsy}} onclick="javascript: removeAnswerTextField(this);"{{/if}}><i class="fa fa-trash-o"{{if rightWrong}} style="color: darkred"{{/if}}></i></a>
+    </div>
+</div>
+
+===== FileManager
+<div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="{{id}}_label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="{{id}}_label">Media Gallery</h4>
+            </div>
+            <div>
+                <iframe width="580" height="500" src="{{base_url}}filemanager/dialog.php?type=1&field_id={{textFieldId}}&fldr=" frameborder="0" style="overflow: scroll; overflow-x: hidden; overflow-y: hidden;"></iframe>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -13,6 +32,71 @@
     <td>
         <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-9"><i class="fa fa-pencil"></i></a>
         <a class='btn btn-danger pull-right deleteLevel' levelId="{{id}}" onclick="javascript: deleteLevel(this);"><i class="fa fa-times"></i></a>
+    </td>
+</tr>
+
+===== PageDiv
+<div class="paginas">
+    {{content}}
+</div>
+
+===== PageField
+<div class="form-group pagina">
+    <h1>
+        <small>Pagina {{number}}</small>
+        <a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a>
+    </h1>
+
+    <br>
+
+    <label>Titel</label>
+    <input class="form-control page-title" type="text" />
+
+    <br>
+
+    <div class="input-group">
+        <input class="form-control page-image" type="text" id="{{textFieldId}}" readonly />
+        <div class="input-group-addon">
+            <a data-toggle="modal" data-target="#{{fileManagerId}}">Kies afbeelding</a>
+        </div>
+    </div>
+
+    {{fileManager}}
+
+    <br>
+
+    <label>Tekst</label>
+    <textarea class="editor" id="{{editorId}}" name="{{editorId}}"></textarea>
+
+    <hr>
+
+</div>
+
+===== PageRow
+<tr id="{{id}}" class="pageRow">
+    <td>{{id}}</td>
+    <td>{{title}}</td>
+    <td class="pagePinId">{{pinpointId}}</td>
+    <td>{{text}}</td>
+    <td>
+        <a href="../../page/edit/{{id}}" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i></a>
+    </td>
+    <td>
+        <a class="btn btn-danger pull-right" pageid="{{id}}" onclick="javascript: deletePage(this);"><i class="fa fa-times"></i></a>
+    </td>
+</tr>
+
+===== PinpointRow
+<tr id="{{id}}" class="pinpointRow">
+    <td>{{id}}</td>
+    <td>{{name}}</td>
+    <td>{{type.name}}</td>
+    <td>{{description}}</td>
+    <td>
+        <a href="../edit/{{id}}" class="btn btn-warning pull-right"><i class="fa fa-pencil"></i></a>
+    </td>
+    <td>
+        <a class="btn btn-danger pull-right" pinpointid="{{id}}" onclick="javascript: deletePinpoint(this);"><i class="fa fa-times"></i></a>
     </td>
 </tr>
 
@@ -46,7 +130,7 @@
 </li>
 
 ===== TabPanel
-<div role="tabpanel" class="tab-pane{{if firstElement}} active{{/if}}" id="{{id}}">
+<div role="tabpanel" class="tab-pane{{if firstElement}} active{{/if}}" id="{{id}}" levelId="{{levelId}}">
     {{content}}
 </div>
 

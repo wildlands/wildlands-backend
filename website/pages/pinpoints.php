@@ -92,8 +92,6 @@
 
         <script>loadPageLevel();</script>
         
-        <script>loadPageLevelPane();</script>
-        
         <!-- Tab panes -->
         <div class="tab-content">
             

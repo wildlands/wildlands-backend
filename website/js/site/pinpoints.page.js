@@ -7,9 +7,9 @@ function addPinpoint()
 
     $.each(CKEDITOR.instances, function(index, value){
         var page = {
-            "levelId": $('#' + index).closest('div .tab-pane').attr('id'),
-            "title": $('.paginas .page-title').eq(i).val(),
-            "pageimage": $('.paginas .page-image').eq(i).val(),
+            "levelId": $('#' + index).closest('div .tab-pane').attr('levelId'),
+            "title": $('.page-title', $('#' + index).closest('.pagina')).val(),
+            "pageimage": $('.page-image', $('#' + index).closest('.pagina')).val(),
             "text": value.getData()
         };
         pages.push(page);
@@ -129,19 +129,12 @@ function fillPinpointTable(pinpoints) {
 
 // Generate pinpoint row and append it to '#pinpointsTable'
 function fillPinpointRow(pinpoint) {
-    var str = "";
-    if(pinpoint.description.length > 80 ) {
-        var str = "...";
+    if (pinpoint.description.length > 60) {
+        pinpoint.description = pinpoint.description.substr(0, 60) + "...";
     }
-    var row = "<tr id='" + pinpoint.id + "' class='pinpointRow'>";
-    row += "<td>" + pinpoint.id + "</td>";
-    row += "<td>" + pinpoint.name + "</td>";
-    row += "<td>" + pinpoint.type.name + "</td>";
-    row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
-    row += "<td>" + "<a class='btn btn-danger pull-right' pinpointid='" + pinpoint.id + "' onclick='javascript: deletePinpoint(this);'><i class='fa fa-times'></i></a>" + "</td>";
-    row += "</tr>";
-    $("#pinpointsTable").append(row);
+
+    var tableRow = Mark.up(templates['PinpointRow'], pinpoint);
+    $('#pinpointsTable').append(tableRow);
 }
 
 // Retrieve the pinpoints from the database

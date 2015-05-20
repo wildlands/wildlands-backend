@@ -11,7 +11,7 @@ function addPageFieldToForm(sender) {
     });
     
     var count = $('.pagina', closestDiv).length;
-    var editor = 'editor' + (count + 1) + (tabIndex);
+    var editor = 'editor' + (count + 1) + '-' + (tabIndex);
 
     if (count === 3) {
         $(sender).prop('disabled', true);
@@ -99,55 +99,63 @@ function fillPageTable(pages) {
 
 // Fill page row
 function fillPageRow(page) {
-
-    var row = "<tr id='" + page.id + "' class='pageRow'>";
-    row += "<td>" + page.id + "</td>";
-    row += "<td>" + page.title + "</td>";
-    row += "<td class='pagePinId'>" + page.pinpointId + "</td>";
-    row += "<td>" + page.text + "</td>";
-    row += "<td>" + "<a href='../../page/edit/" + page.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
-    row += "<td>" + "<a class='btn btn-danger pull-right' pageid='" + page.id + "' onclick='javascript: deletePage(this);'><i class='fa fa-times'></i></a>" + "</td>";
-    row += "</tr>";
-    $("#pagesTable").append(row);
+    var tableRow = Mark.up(templates['PageRow'], page);
+    $('#pagesTable').append(tableRow);
 }
 
-function generatePageField(number, numbertabs) {
+function generatePageField(number, tabNumber) {
+    var fileManager = createFileManagerModal(number, tabNumber);
 
-    return '<div class="form-group pagina">' +
-        '<h1><small> Pagina '+ number +'</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1>' +
-        '<br>' +
-        '<label>Titel</label><input class="form-control page-title" type="text"/>' +
-        '<br>' +
-        '<label>Afbeelding</label>' +
-        '<div class="input-group">' +
-        '<input class="form-control page-image" type="text" id="image' + number + numbertabs + '" readonly/>' +
-        '<div class="input-group-addon">' +
-        '<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ number + numbertabs +'">Kies afbeelding</a>' +
-        '</div>' +
-        '</div>' +
-        '<br>' +
-        '<label>Tekst</label><textarea id="editor'+ number + numbertabs + '" name="editor'+ number + numbertabs +'"></textarea>' +
-        '<hr>' +
-        createFileManagerModal(number) +
-        '</div>';
+    var content = {
+        number: number,
+        fileManager: fileManager,
+        fileManagerId: 'fileManager' + number + '-' + tabNumber,
+        textFieldId: 'image' + number + '-' + tabNumber,
+        editorId: 'editor' + number + '-' + tabNumber
+    };
+    var pageField = Mark.up(templates['PageField'], content);
 
+    console.log("Generated PageField");
+
+    return pageField;
 }
 
 function generateTablist(levels) {
     var firstElement = true;
     $.each(levels, function (key, value) {
-        var id = value['id'];
-        var element = '<li role="presentation"' + (firstElement ? ' class="active"' : '') + '><a href="#' + id + '" aria-controls="' + id + '" role="tab" data-toggle="tab">' + value['name'] + '</a></li>';
-        $('#tablist').append(element);
+        var content = {
+            id: 'level' + value['id'],
+            firstElement: firstElement,
+            name: value['name']
+        };
+        var listItem = Mark.up(templates['Tab'], content);
+        $('#tablist').append(listItem);
         firstElement = false;
     });
 }
 
 function generateTabPane(levels) {
     var firstElement = true;
-    $.each(levels, function (key, value) {
-        var element = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active"' : '"') +' id="' + value['id'] + '"><div class="paginas"><div class="form-group pagina"><h1><small> Pagina 1</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="image1' + value['id'] + '" readonly/><div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1' + value['id'] + '">Kies afbeelding</a></div></div><div class="fileManagerModal"><script>$(".fileManagerModal").append(createFileManagerModal(1));</script></div><br><label>Tekst</label><textarea id="editor1' + value['id'] + '" name="editor1' + value['id'] + '"></textarea><script type="text/javascript">CKEDITOR.replace("editor1' + value['id'] + '");</script><hr></div></div><button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button><div class="form-group"></div></div>';
-        $('.tab-content').append(element);
+    $.each(levels, function(key, value) {
+        var tabNumber = value['id'];
+
+        var pageField = generatePageField(1, tabNumber);
+        var addPageFormButton = Mark.up(templates['AddPageFormButton']);
+
+        var pageDivContent = {
+            content: pageField
+        };
+        var pageDiv = Mark.up(templates['PageDiv'], pageDivContent);
+
+        var tabPanelContent = {
+            content: pageDiv + addPageFormButton,
+            firstElement: firstElement,
+            id: 'level' + value['id'],
+            levelId: value['id']
+        };
+        var tabPanel = Mark.up(templates['TabPanel'], tabPanelContent);
+        $('.tab-content').append(tabPanel);
+
         firstElement = false;
     });
 }
@@ -164,12 +172,14 @@ function getPages() {
 function loadPageLevel() {
     api("GetAllLevels", function(data) {
         generateTablist(data);
+        generateTabPane(data);
+        replaceEditors();
     });
 }
 
-function loadPageLevelPane() {
-    api("GetAllLevels", function(data) {
-        generateTabPane(data);
+function replaceEditors() {
+    $('.editor').each(function(element) {
+        CKEDITOR.replace($(this).attr('id'));
     });
 }
 
