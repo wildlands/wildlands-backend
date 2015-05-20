@@ -180,11 +180,13 @@ function fillLevelTabWithQuestions(questions) {
 //the table will be filled with the retrieved questions
 function generateQuestionTable(levelId, questions) {
     var table = '<table class="table table-striped">' +
+        '<thead>' +
         '<tr>' +
         '<th>#</th>' +
         '<th>Vraag</th>' +
         '<th></th>' +
-        '</tr>';
+        '</tr>' +
+        '</thead>';
 
     for (var i = 0; i < questions.length; i++) {
         if (questions[i].level.id == levelId) {

@@ -75,7 +75,7 @@ function deletePage(sender) {
 function fillEditPageFormWithData(pageId) {
     var parameter = {
         "id": pageId
-    }
+    };
 
     api("GetPageById", parameter, function(data) {
         if (data.error) {
@@ -114,7 +114,7 @@ function fillPageRow(page) {
 function generatePageField(number, numbertabs) {
 
     return '<div class="form-group pagina">' +
-        '<h1><small> Pagina '+ number +'</small></h1><a class="removePage"><i class="fa fa-trash-o"></i></a>' +
+        '<h1><small> Pagina '+ number +'</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1>' +
         '<br>' +
         '<label>Titel</label><input class="form-control page-title" type="text"/>' +
         '<br>' +
@@ -146,7 +146,7 @@ function generateTablist(levels) {
 function generateTabPane(levels) {
     var firstElement = true;
     $.each(levels, function (key, value) {
-        var element = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active"' : '"') +' id="' + value['id'] + '"><div class="paginas"><div class="form-group pagina"><h1><small> Pagina 1</small></h1><a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="image11" readonly/><div class="input-group-addon"><a data-toggle="modal" data-target="#myModal11">Kies afbeelding</a></div></div><div class="fileManagerModal"><script>$(".fileManagerModal").append(createFileManagerModal(1));</script></div><br><label>Tekst</label><textarea id="editor1' + value['id'] + '" name="editor1' + value['id'] + '"></textarea><script type="text/javascript">CKEDITOR.replace("editor1' + value['id'] + '");</script><hr></div></div><button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button><div class="form-group"></div></div>';
+        var element = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active"' : '"') +' id="' + value['id'] + '"><div class="paginas"><div class="form-group pagina"><h1><small> Pagina 1</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="image1' + value['id'] + '" readonly/><div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1' + value['id'] + '">Kies afbeelding</a></div></div><div class="fileManagerModal"><script>$(".fileManagerModal").append(createFileManagerModal(1));</script></div><br><label>Tekst</label><textarea id="editor1' + value['id'] + '" name="editor1' + value['id'] + '"></textarea><script type="text/javascript">CKEDITOR.replace("editor1' + value['id'] + '");</script><hr></div></div><button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button><div class="form-group"></div></div>';
         $('.tab-content').append(element);
         firstElement = false;
     });
@@ -174,7 +174,7 @@ function loadPageLevelPane() {
 }
 
 function removePageFieldFromForm(sender) {
-    var count = $('.pagina').length;
+    var count = $('.tab-pane.active .pagina').length;
 
     if (count === 1) {
         createErrorMessage('Er is minimaal een pagina verplicht.');
@@ -183,11 +183,11 @@ function removePageFieldFromForm(sender) {
 
     $(sender).closest('.form-group').remove();
 
-    $.each($('.form-group'), function (key, value) {
-
-        $(sender).find('small').text('Pagina ' + key);
-        $(sender).find('textarea').attr('id', 'editor' + key);
-        $(sender).find('textarea').attr('name', 'editor' + key);
+    $.each($('.tab-pane.active .form-group'), function (key, value) {
+        //var parent = $(sender).parent('.form-group');
+        $(this).find('small').text('Pagina ' + (key + 1));
+        $(this).find('textarea').attr('id', 'editor' + (key + 1));
+        $(this).find('textarea').attr('name', 'editor' + (key + 1));
 
     });
 
@@ -201,7 +201,7 @@ function updatePage(pageId) {
         "title": $('#title').val(),
         "image": $('#image').val(),
         "text": CKEDITOR.instances.editor.getData()
-    }
+    };
 
     api("SetPage", parameter, function(data) {
         if (data.error) {
@@ -213,5 +213,5 @@ function updatePage(pageId) {
         createSuccessMessage(data.success);
     }, function(data) {
         createErrorMessage(data.error);
-    })
+    });
 }

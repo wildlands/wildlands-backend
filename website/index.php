@@ -47,9 +47,11 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	
 	body {
 		
-		background-image: url('<?php echo BASE_URL; ?>images/background.jpg');
+		background-image: url('<?php echo BASE_URL; ?>images/map-large.jpg');
 		background-size: cover;
 		background-position: center center;
+                background-repeat: no-repeat;
+                background-color: #f3f2dd;
 		
 	}	
 	</style>
@@ -89,7 +91,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 									<a class="dropdown-toggle menu-item" data-toggle="dropdown" aria-expanded="false" role="button">Ingelogd als <?php echo getScreenName(); ?> <b class="caret"></b></a>
 									
 									<ul class="dropdown-menu" role="menu">
-										<li><a href="#"><i class="fa fa-user"></i> Profiel</a></li>
+										<li><a href="<?php echo BASE_URL; ?>users/edit/<?php echo getUserIdNoHash(); ?>"><i class="fa fa-user"></i> Profiel</a></li>
 										<li><a href="<?php echo BASE_URL; ?>?logout=true"><i class="fa fa-sign-out"></i> Uitloggen</a></li>
 									</ul>
 							

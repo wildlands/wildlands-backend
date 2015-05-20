@@ -14,7 +14,7 @@
     <ul class="nav nav-tabs" role="tablist" id="tablist">
         <!-- Filled automatically -->
     </ul>
-
+    
     <div class="tab-content" id="tabcontent">
         <!-- Filled automatically -->
     </div>

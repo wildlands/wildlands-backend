@@ -11,11 +11,12 @@
 <!--tabel met de bestaande pinpoints-->
 <table class="table table-striped table-hover" id="pinpointsTable">
 	<tr>
-        <th>Naam</th>
-		<th>#</th>
-		<th>Omschrijving</th>
-		<th></th>
-                <th></th>
+            <th>#</th>
+            <th>Naam</th>
+            <th>Thema</th>
+            <th>Omschrijving</th>
+            <th></th>
+            <th></th>
 	</tr>
 
 </table>

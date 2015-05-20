@@ -23,7 +23,7 @@ function addPinpoint()
         "description": $("#description").val(),
         "typeId": $("#pinpointType").val(),
         "pages": pages
-    }
+    };
 
     api("SetPinpoint", parameter, function(data) {
         redirectTo(base_url + "pinpoints/show/");
@@ -47,7 +47,7 @@ function deletePinpointAjax(sender)
 
     var parameter = {
         "id": $(sender).attr('pinpointid')
-    }
+    };
     
     api("DeletePinpoint", parameter, function(data) {
         if (data.error) {
@@ -96,7 +96,7 @@ function deletePinpoint(sender) {
 function fillEditPinpointFormWithData(pinpointId) {
     var parameter = {
         "id": pinpointId
-    }
+    };
 
     api("GetPinpointById", parameter, function(data) {
         if (data.error) {
@@ -133,11 +133,11 @@ function fillPinpointRow(pinpoint) {
     if(pinpoint.description.length > 80 ) {
         var str = "...";
     }
-
     var row = "<tr id='" + pinpoint.id + "' class='pinpointRow'>";
-    row += "<td>" + pinpoint.name + "</td>";
     row += "<td>" + pinpoint.id + "</td>";
-    row += "<td>" + pinpoint.description.substr(0, 170) + str + "</td>";
+    row += "<td>" + pinpoint.name + "</td>";
+    row += "<td>" + pinpoint.type.name + "</td>";
+    row += "<td>" + pinpoint.description.substr(0, 80) + str + "</td>";
     row += "<td>" + "<a href='../edit/" + pinpoint.id + "' class='btn btn-warning pull-right'><i class='fa fa-pencil'></i></a>" + "</td>";
     row += "<td>" + "<a class='btn btn-danger pull-right' pinpointid='" + pinpoint.id + "' onclick='javascript: deletePinpoint(this);'><i class='fa fa-times'></i></a>" + "</td>";
     row += "</tr>";
@@ -184,7 +184,7 @@ function updatePinpoint(pinpointId) {
         "yPos": $('#yPos').val(),
         "description": $('#description').val(),
         "typeId": $('#pinpointType').val()
-    }
+    };
 
     api("SetPinpoint", parameter, function(data) {
         if (data.error) {

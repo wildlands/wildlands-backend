@@ -70,6 +70,17 @@ function getScreenName()
 	return $fetch['Screenname'];
 }
 
+function getUserIdNoHash()
+{
+	
+	global $mysqli;
+	
+	// UserID ophalen uit de session hash
+	$userID = getUserID($_SESSION['hash']);
+	
+	return $userID;
+}
+
 /**
  * De gebruiker uitloggen
  */
