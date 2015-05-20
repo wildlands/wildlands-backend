@@ -172,10 +172,18 @@ a:hover {
     border-top-left-radius: 5px; }
   .content .input-group:first-child .input-group-addon {
     border-top-right-radius: 5px; }
+  .content .input-group .input-group-addon.pos {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0px; }
   .content .input-group:last-child .form-control.antwoord {
     border-bottom-left-radius: 5px; }
   .content .input-group:last-child .input-group-addon {
     border-bottom-right-radius: 5px; }
+  .content .input-group .input-group-addon.pos{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 0px; }
   
 #footer {
   padding-bottom: 40px; }

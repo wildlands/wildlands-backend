@@ -56,15 +56,13 @@
         </div>
     
         <script>$('#myImgId').click(setCoordinates);</script>
-    </div>
         
         <br>
         
-    <div class="form-group">
         <div class="input-group">
             
-            <span class="input-group-addon">X</span>
-            <input class="form-control" type="text" id="xPos"/>
+            <span class="input-group-addon pos control-label">X</span>
+            <input class="form-control" type="text" id="xPos" name="xPos"/>
             
         </div>
         
@@ -72,8 +70,8 @@
         
         <div class="input-group">
             
-            <span class="input-group-addon">Y</span>
-            <input class="form-control" type="text" id="yPos"/>
+            <span class="input-group-addon pos control-label">Y</span>
+            <input class="form-control" type="text" id="yPos" name="yPos"/>
             
         </div>
     </div>

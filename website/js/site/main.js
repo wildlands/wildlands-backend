@@ -112,17 +112,20 @@ function loadTemplates() {
 
 function validateForm() {
     var string = "";
-    
+    var valid = true;
     $('input, select').each(function(index) {
         if($(this).val() === "") {
-            $(this).parent('.form-group').addClass('has-error');
-            var name = $(this).parent('.form-group').find('label').text();
-            string += "Veld " + name + " niet ingevuld <br>";
+            $(this).closest('.form-group').addClass('has-error');
+            var name = $(this).closest('.form-group').find('label').text();
+            string += name + " niet ingevuld <br>";
+            valid = false;
         }
     });
+    if(!valid) {
+        createErrorMessage(string);
+    }
     
-    createErrorMessage(string);
         
-    return false;
+    return valid;
     
 }

@@ -1,10 +1,10 @@
 ===== AnswerTextField
-<div class="input-group">
-    <input class="form-control antwoord" type="text" placeholder="Antwoord ({{if rightWrong}}correct{{else}}fout{{/if}})"{{if id}} answer-id="{{id}}"{{/if}} answer-rightwrong="{{rightWrong}}" style="background-color: {{if rightWrong}}#E8FFE8{{else}}#FFE8E8{{/if}}" value="{{if text}}{{text}}{{/if}}"></input>
-    <div class="input-group-addon">
-        <a{{if rightWrong|falsy}} onclick="javascript: removeAnswerTextField(this);"{{/if}}><i class="fa fa-trash-o"{{if rightWrong}} style="color: darkred"{{/if}}></i></a>
+    <div class="input-group">
+        <input class="form-control antwoord" type="text" placeholder="Antwoord ({{if rightWrong}}correct{{else}}fout{{/if}})"{{if id}} answer-id="{{id}}"{{/if}} answer-rightwrong="{{rightWrong}}" style="background-color: {{if rightWrong}}#E8FFE8{{else}}#FFE8E8{{/if}}" value="{{if text}}{{text}}{{/if}}"></input>
+        <div class="input-group-addon">
+            <a{{if rightWrong|falsy}} onclick="javascript: removeAnswerTextField(this);"{{/if}}><i class="fa fa-trash-o"{{if rightWrong}} style="color: darkred"{{/if}}></i></a>
+        </div>
     </div>
-</div>
 
 ===== LevelRow
 <tr id="{{id}}" class="levelRow">

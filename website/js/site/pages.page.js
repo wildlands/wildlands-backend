@@ -116,8 +116,11 @@ function generatePageField(number, numbertabs) {
     return '<div class="form-group pagina">' +
         '<h1><small> Pagina '+ number +'</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1>' +
         '<br>' +
+        '<div class="form-group">' +
         '<label>Titel</label><input class="form-control page-title" type="text"/>' +
+        '</div>' +
         '<br>' +
+        '<div class="form-group">' +
         '<label>Afbeelding</label>' +
         '<div class="input-group">' +
         '<input class="form-control page-image" type="text" id="image' + number + numbertabs + '" readonly/>' +
@@ -125,10 +128,13 @@ function generatePageField(number, numbertabs) {
         '<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal'+ number + numbertabs +'">Kies afbeelding</a>' +
         '</div>' +
         '</div>' +
+        '</div>' +
         '<br>' +
+        '<div class="form-group">' +
         '<label>Tekst</label><textarea id="editor'+ number + numbertabs + '" name="editor'+ number + numbertabs +'"></textarea>' +
         '<hr>' +
         createFileManagerModal(number) +
+        '</div>' +
         '</div>';
 
 }
@@ -146,7 +152,7 @@ function generateTablist(levels) {
 function generateTabPane(levels) {
     var firstElement = true;
     $.each(levels, function (key, value) {
-        var element = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active"' : '"') +' id="' + value['id'] + '"><div class="paginas"><div class="form-group pagina"><h1><small> Pagina 1</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="image1' + value['id'] + '" readonly/><div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1' + value['id'] + '">Kies afbeelding</a></div></div><div class="fileManagerModal"><script>$(".fileManagerModal").append(createFileManagerModal(1));</script></div><br><label>Tekst</label><textarea id="editor1' + value['id'] + '" name="editor1' + value['id'] + '"></textarea><script type="text/javascript">CKEDITOR.replace("editor1' + value['id'] + '");</script><hr></div></div><button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button><div class="form-group"></div></div>';
+        var element = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active"' : '"') +' id="' + value['id'] + '"><div class="paginas"><div class="form-group pagina"><h1><small> Pagina 1</small><a onclick="javascript: removePageFieldFromForm(this);" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></a></h1><br><div class="form-group"><label>Titel</label><input class="form-control page-title" type="text"/></div><br><div class="form-group"><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="image1' + value['id'] + '" readonly/><div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1' + value['id'] + '">Kies afbeelding</a></div></div><div class="fileManagerModal"><script>$(".fileManagerModal").append(createFileManagerModal(1));</script></div></div><br><div class="form-group"><label>Tekst</label><textarea id="editor1' + value['id'] + '" name="editor1' + value['id'] + '"></textarea><script type="text/javascript">CKEDITOR.replace("editor1' + value['id'] + '");</script><hr></div></div></div><button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button><div class="form-group"></div></div>';
         $('.tab-content').append(element);
         firstElement = false;
     });

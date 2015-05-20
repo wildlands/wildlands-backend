@@ -9,6 +9,11 @@ function addAnswerFieldToForm() {
 
 // Add a question.
 function addQuestion() {
+    if(!validateForm())
+    {
+        return;
+    }
+    
     var answers = new Array();
 
     $('.antwoord').each(function() {

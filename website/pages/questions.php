@@ -34,35 +34,40 @@
 </div>
 
 <form>
+    <div class="form-group">
+        <label class="control-label">Niveau</label>
+        <select class="form-control" id="questionLevel">
+            <option value="">Selecteer niveau</option>
+        </select>
 
-    <label>Niveau</label>
-    <select class="form-control" id="questionLevel">
-        <option>Selecteer niveau</option>
-    </select>
-
-    <script>loadQuestionLevel();</script>
-
+        <script>loadQuestionLevel();</script>
+    </div>
+    
     <br>
 
     <div class="form-group">
-        <label>Vraag</label>
+        <label class="control-label">Vraag</label>
         <input class="form-control" type="text" id="question" />
     </div>
 
-    <label>Image</label>
-    <div class="input-group">
-        <input class="form-control page-image" type="text" id="image1" readonly value=""/>
-		<div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
-	</div>
-
+    <div class="form-group">
+        <label class="control-label">Image</label>
+        <div class="input-group">
+            <input class="form-control page-image" type="text" id="image1" readonly value=""/>
+                    <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
+            </div>
+    </div>
+    
     <br>
 
-    <label>Type</label>
-    <select class="form-control" id="questionType">
-        <option>Selecteer question type</option>
-    </select>
+    <div class="form-group">
+        <label class="control-label">Type</label>
+        <select class="form-control" id="questionType">
+            <option value="">Selecteer question type</option>
+        </select>
 
-    <script>loadQuestionType();</script>
+        <script>loadQuestionType();</script>
+    </div>
 
     <br>
 
