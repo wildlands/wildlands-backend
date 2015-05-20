@@ -32,17 +32,20 @@
 
 </div>
 
-<form enctype="multipart/form-data">
+<form enctype="multipart/form-data" name="pinForm">
 
-	<div class="form-group">
+    <div class="form-group">
 
-        <label>Naam</label>
+        <label class="control-label">Naam</label>
         <input class="form-control" type="text" id="name" name="name"/>
 
+    </div>
+    
         <br>
 
-        <label>Positie pinpoint</label>
-
+    <div class="form-group">  
+        
+        <label class="control-label">Positie pinpoint</label>
         <div>
             <div>
                 <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" data-scale="3"/>
@@ -51,24 +54,43 @@
                 <img alt="spot" src="<?php echo BASE_URL; ?>/images/spot.png" width="25" height="25"/>
             </div>
         </div>
-
+    
         <script>$('#myImgId').click(setCoordinates);</script>
-
+    </div>
+        
         <br>
-
-        <p><label>X:&nbsp;</label><span id="xPos"></span></p>
-        <p><label>Y:&nbsp;</label><span id="yPos"></span></p>
-
+        
+    <div class="form-group">
+        <div class="input-group">
+            
+            <span class="input-group-addon">X</span>
+            <input class="form-control" type="text" id="xPos"/>
+            
+        </div>
+        
         <br>
-
-        <label>Omschrijving</label>
+        
+        <div class="input-group">
+            
+            <span class="input-group-addon">Y</span>
+            <input class="form-control" type="text" id="yPos"/>
+            
+        </div>
+    </div>
+        
+        <br>
+        
+    <div class="form-group">
+        <label class="control-label">Omschrijving</label>
         <input class="form-control" type="text" id="description"/>
 
         <br>
-
-        <label>Type</label>
+    </div>
+        
+    <div class="form-group">
+        <label class="control-label">Type</label>
 		<select class="form-control" id="pinpointType" name="type">
-			<option>Selecteer pinpoint type</option>
+			<option value="">Selecteer pinpoint type</option>
 		</select>
 
         <script>loadPinpointType();</script>
@@ -98,7 +120,7 @@
         </div>
 
     </div>
-
+    
     <button class="btn btn-labeled btn-success" type="button" onclick="javascript: addPinpoint();"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Opslaan</button> <a href="<?php echo BASE_URL; ?>pinpoints/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
 </form>

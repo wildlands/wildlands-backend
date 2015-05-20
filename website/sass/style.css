@@ -25,7 +25,7 @@ a:hover {
   margin-left: -14px; }
 
 .background-image {
-  background: url("../images/background.jpg") no-repeat center center fixed;
+  background: url("../images/map-large.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

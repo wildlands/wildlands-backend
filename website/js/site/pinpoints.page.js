@@ -1,5 +1,9 @@
 function addPinpoint()
 {
+    if(!validateForm())
+    {
+        return;
+    }
     //arraylist voor pages
     var pages = [];
 
@@ -158,8 +162,8 @@ function loadPinpointType(typeId) {
 }
 
 function setCoordinates(event) {
-    $('#xPos').text((event.pageX - this.x) * $(this).attr('data-scale'));
-    $('#yPos').text((event.pageY - this.y) * $(this).attr('data-scale'));
+    $('#xPos').val((event.pageX - this.x) * $(this).attr('data-scale'));
+    $('#yPos').val((event.pageY - this.y) * $(this).attr('data-scale'));
 
     $('#spot').css('left', (event.pageX - this.x + this.offsetLeft - 12) + 'px');
     $('#spot').css('top', (event.pageY - this.y + this.offsetTop - 12) + 'px');
