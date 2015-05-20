@@ -1,0 +1,60 @@
+===== AnswerTextField
+<div class="input-group">
+    <input class="form-control antwoord" type="text" placeholder="Antwoord ({{if rightWrong}}correct{{else}}fout{{/if}})"{{if id}} answer-id="{{id}}"{{/if}} answer-rightwrong="{{rightWrong}}" style="background-color: {{if rightWrong}}#E8FFE8{{else}}#FFE8E8{{/if}}" value="{{text}}"></input>
+    <div class="input-group-addon">
+        <a{{if rightWrong|falsy}} onclick="javascript: removeAnswerTextField(this);"{{/if}}><i class="fa fa-trash-o"{{if rightWrong}} style="color: darkred"{{/if}}></i></a>
+    </div>
+</div>
+
+===== LevelRow
+<tr id="{{id}}" class="levelRow">
+    <td>{{id}}</td>
+    <td>{{name}}</td>
+    <td>
+        <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-9"><i class="fa fa-pencil"></i></a>
+        <a class='btn btn-danger pull-right deleteLevel' levelId="{{id}}" onclick="javascript: deleteLevel(this);"><i class="fa fa-times"></i></a>
+    </td>
+</tr>
+
+===== QuestionRow
+<tr id="{{id}}" class="questionRow">
+    <td>{{id}}</td>
+    <td>{{text}}</td>
+    <td>
+        <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-3"><i class="fa fa-pencil"></i></a>
+        <a class="btn btn-danger pull-right" questionId="{{id}}" onclick="javascript: deleteQuestion(this);"><i class="fa fa-times"></i></a>
+    </td>
+</tr>
+
+===== QuestionTable
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Vraag</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{rows}}
+    </tbody>
+</table>
+
+===== Tab
+<li role="presentation"{{if firstElement}} class="active"{{/if}}>
+    <a href="#{{id}}" aria-controls="{{id}}" role="tab" data-toggle="tab">{{name}}</a>
+</li>
+
+===== TabPanel
+<div role="tabpanel" class="tab-pane{{if firstElement}} active{{/if}}" id="{{id}}">
+    {{content}}
+</div>
+
+===== UserRow
+<tr id="{{id}}" class="userRow">
+    <td>{{id}}</td>
+    <td>{{name}}</td>
+    <td>{{email}}</td>
+    <td><a href="../edit/{{id}}" class="btn btn-warning col-md-offset-12"><i class="fa fa-pencil"></i></a></td>
+    <td><a class="btn btn-danger pull-right deleteUser" userId="{{id}}" onclick="javascript: deleteUser(this);"><i class="fa fa-times"></i></a></td>
+</tr>

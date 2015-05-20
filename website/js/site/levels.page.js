@@ -94,8 +94,7 @@ function fillLevelTable(levels) {
 
 // Generate row filled with user data and append it to '#usersTable'
 function fillLevelRow(level) {
-    var template = $('#levelRowTemplate').text();
-    var tableRow = Mark.up(template, level);
+    var tableRow = Mark.up(templates['LevelRow'], level);
     $("#levelsTable tbody").append(tableRow);
 }
 

@@ -163,9 +163,13 @@ function fillLevelTabWithQuestions(questions) {
 
         var firstElement = true;
         $.each(data, function (key, value) {
-            var id = 'level' + value['id'];
-            var element = generateQuestionTable(value['id'], questions);
-            var tab = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active' : '') + '" id="' + id + '">' + element + '</div>';
+            var content = {
+                id: 'level' + value['id'],
+                content: generateQuestionTable(value['id'], questions),
+                firstElement: firstElement
+            };
+
+            var tab = Mark.up(templates['TabPanel'], content);
 
             $('#tabcontent').append(tab);
             firstElement = false;
@@ -179,63 +183,36 @@ function fillLevelTabWithQuestions(questions) {
 
 //the table will be filled with the retrieved questions
 function generateQuestionTable(levelId, questions) {
-    var table = '<table class="table table-striped">' +
-        '<thead>' +
-        '<tr>' +
-        '<th>#</th>' +
-        '<th>Vraag</th>' +
-        '<th></th>' +
-        '</tr>' +
-        '</thead>';
+    var tableRows = "";
 
     for (var i = 0; i < questions.length; i++) {
         if (questions[i].level.id == levelId) {
-            table += generateQuestionRow(questions[i]);
+            tableRows += generateQuestionRow(questions[i]);
         }
     }
 
-    table += '</table>';
-
+    var table = Mark.up(templates['QuestionTable'], {rows: tableRows});
     return table;
 }
 
 function generateQuestionRow(question) {
-    var str = "";
-    if(question.text.length > 60 ) {
-        var str = "...";
+    if (question.text.length > 60) {
+        question.text = question.text.substr(0, 60) + "...";
     }
 
-    var row = "<tr id='" + question.id + "' class='questionRow'>";
-    row += "<td>" + question.id + "</td>";
-    row += "<td>" + question.text.substr(0,60) + str + "</td>";
-    row += "<td>" + "<a href='../edit/" + question.id + "' class='btn btn-warning col-md-offset-3'><i class='fa fa-pencil'></i></a>" + "<a class='btn btn-danger pull-right' questionId='" + question.id + "' onclick='javascript: deleteQuestion(this);'><i class='fa fa-times'></i></a>" + "</td>";
-    row += "</tr>";
-    return row;
+    var tableRow = Mark.up(templates['QuestionRow'], question);
+    return tableRow;
 }
 
 // Generate answer text field and return it.
 function generateAnswerTextField(id, rightWrong, text) {
-    var newAnswer_div = $('<div></div>').addClass('input-group');
-    var newAnswer_div_input = $('<input></input>').addClass('form-control').addClass('antwoord').attr('type', 'text').attr('placeholder', 'Antwoord ' + (rightWrong ? '(correct)' : '(fout)')).attr('answer-id', id).attr('answer-rightwrong', rightWrong).val(text);
-    var newAnswer_div_div = $('<div></div>').addClass('input-group-addon');
-    var newAnswer_div_div_a = $('<a></a>').attr('onclick', 'javascript: removeAnswerTextField(this);');
-    var newAnswer_div_div_a_i = $('<i></i>').addClass('fa').addClass('fa-trash-o');
-
-    newAnswer_div.append(newAnswer_div_input);
-    newAnswer_div.append(newAnswer_div_div);
-
-
-    if (rightWrong) {
-        newAnswer_div_input.css('background-color', '#E8FFE8');
-        newAnswer_div_div_a_i.css('color', 'darkred');
-        newAnswer_div_div.append(newAnswer_div_div_a_i);
-    } else {
-        newAnswer_div_input.css('background-color', '#FFE8E8');
-        newAnswer_div_div.append(newAnswer_div_div_a);
-        newAnswer_div_div_a.append(newAnswer_div_div_a_i);
-    }
-
-    return newAnswer_div;
+    var answer = {
+        id: id,
+        rightWrong: rightWrong,
+        text: text
+    };
+    var div = Mark.up(templates['AnswerTextField'], answer);
+    return div;
 }
 
 // Generate four default answer text fields and append them to '.antwoorden'.
@@ -254,9 +231,13 @@ function generateNewAnswerTextField() {
 function generateTablist(levels) {
     var firstElement = true;
     $.each(levels, function (key, value) {
-        var id = 'level' + value['id'];
-        var element = '<li role="presentation"' + (firstElement ? ' class="active"' : '') + '><a href="#' + id + '" aria-controls="' + id + '" role="tab" data-toggle="tab">' + value['name'] + '</a></li>';
-        $('#tablist').append(element);
+        var content = {
+            id: 'level' + value['id'],
+            firstElement: firstElement,
+            name: value['name']
+        };
+        var listItem = Mark.up(templates['Tab'], content);
+        $('#tablist').append(listItem);
         firstElement = false;
     });
 }
@@ -264,10 +245,13 @@ function generateTablist(levels) {
 // Retrieve all questions.
 function getQuestions() {
     api("GetAllQuestions", function(data) {
-        console.log(data);
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
         fillLevelTabWithQuestions(data);
     }, function(data) {
-        console.log(data);
+        createErrorMessage(data.error);
     });
 }
 
