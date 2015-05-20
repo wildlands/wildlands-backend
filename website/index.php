@@ -42,7 +42,9 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<script src="<?php echo BASE_URL; ?>js/markup.min.js"></script>
 
 	<script src="<?php echo BASE_URL; ?>js/site/main.js"></script>
-        
+
+	<script>loadTemplates();</script>
+
 	<style>
 	
 	body {

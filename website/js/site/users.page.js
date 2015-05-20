@@ -95,8 +95,7 @@ function fillUserTable(users) {
 
 // Generate row filled with user data and append it to '#usersTable'
 function fillUserRow(user) {
-    var template = $('#userRowTemplate').text();
-    var tableRow = Mark.up(template, user);
+    var tableRow = Mark.up(templates['UserRow'], user);
     $("#usersTable tbody").append(tableRow);
 }
 

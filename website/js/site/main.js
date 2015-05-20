@@ -1,3 +1,5 @@
+var templates;
+
 $(document).ready(function () {
     var height = $('body').height();
     $('.background-image').height(height + 75);
@@ -89,4 +91,20 @@ function responsive_filemanager_callback() {
 function readjustHeight() {
     var contentHeight = $('.content').outerHeight();
     $('.menu').css('min-height', contentHeight+'px');
+}
+
+function loadTemplates() {
+    templates = {};
+
+    $.get(base_url + "pages/_templates.html", function (text) {
+        var chunks = text.split("=====").splice(1);
+        var i, key;
+
+        chunks.forEach(function (chunk) {
+            i = chunk.indexOf("\n");
+            key = chunk.substr(0, i).trim();
+            templates[key] = chunk.substr(i).trim();
+        });
+
+    }, "html");
 }
