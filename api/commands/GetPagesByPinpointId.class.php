@@ -33,6 +33,7 @@ class GetPagesByPinpointId extends Command
 
             $page->id = (int) $row['PageID'];
             $page->pinpointId = $row['PinID'];
+            $page->level = (new GetLevelById())->execute(new IdObject($row['LevelID']));
             $page->title = $row['Title'];
             $page->image = $row['Image'];
             $page->text = $row['Text'];
