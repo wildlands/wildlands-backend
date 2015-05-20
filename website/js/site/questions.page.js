@@ -20,6 +20,7 @@ function addQuestion() {
     });
 
     var parameter = {
+        "levelId": $("#questionLevel").val(),
         "text": $("#question").val(),
         "image": $("#image1").val(),
         "pinpointId": $("#pinpointID").val(),

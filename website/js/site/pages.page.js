@@ -136,9 +136,18 @@ function generatePageField(number, numbertabs) {
 function generateTablist(levels) {
     var firstElement = true;
     $.each(levels, function (key, value) {
-        var id = 'level' + value['id'];
+        var id = value['id'];
         var element = '<li role="presentation"' + (firstElement ? ' class="active"' : '') + '><a href="#' + id + '" aria-controls="' + id + '" role="tab" data-toggle="tab">' + value['name'] + '</a></li>';
         $('#tablist').append(element);
+        firstElement = false;
+    });
+}
+
+function generateTabPane(levels) {
+    var firstElement = true;
+    $.each(levels, function (key, value) {
+        var element = '<div role="tabpanel" class="tab-pane' + (firstElement ? ' active"' : '"') +' id="' + value['id'] + '"><div class="paginas"><div class="form-group pagina"><h1><small> Pagina 1</small></h1><a onclick="javascript: removePageFieldFromForm(this);"><i class="fa fa-trash-o"></i></a><br><label>Titel</label><input class="form-control page-title" type="text"/><br><label>Afbeelding</label><div class="input-group"><input class="form-control page-image" type="text" id="image11" readonly/><div class="input-group-addon"><a data-toggle="modal" data-target="#myModal11">Kies afbeelding</a></div></div><div class="fileManagerModal"><script>$(".fileManagerModal").append(createFileManagerModal(1));</script></div><br><label>Tekst</label><textarea id="editor1' + value['id'] + '" name="editor1' + value['id'] + '"></textarea><script type="text/javascript">CKEDITOR.replace("editor1' + value['id'] + '");</script><hr></div></div><button class="btn btn-default" type="button" onclick="javascript: addPageFieldToForm(this);">Pagina toevoegen</button><div class="form-group"></div></div>';
+        $('.tab-content').append(element);
         firstElement = false;
     });
 }
@@ -155,6 +164,12 @@ function getPages() {
 function loadPageLevel() {
     api("GetAllLevels", function(data) {
         generateTablist(data);
+    });
+}
+
+function loadPageLevelPane() {
+    api("GetAllLevels", function(data) {
+        generateTabPane(data);
     });
 }
 

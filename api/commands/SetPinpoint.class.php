@@ -31,7 +31,7 @@ class SetPinpoint extends Command
 
             foreach($pinpoint->pages as $page)
             {
-                $query = "INSERT INTO page (PinID, Title, Image, Text) VALUES ('$pinId', '$page->title', '$page->pageimage', '$page->text');";
+                $query = "INSERT INTO page (PinID, LevelID, Title, Image, Text) VALUES ('$pinId', '$page->levelId', '$page->title', '$page->pageimage', '$page->text');";
                 $result = query($query);
             }
         }

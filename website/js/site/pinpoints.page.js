@@ -7,6 +7,7 @@ function addPinpoint()
 
     $.each(CKEDITOR.instances, function(index, value){
         var page = {
+            "levelId": $('#' + index).closest('div .tab-pane').attr('id'),
             "title": $('.paginas .page-title').eq(i).val(),
             "pageimage": $('.paginas .page-image').eq(i).val(),
             "text": value.getData()
@@ -104,10 +105,17 @@ function fillEditPinpointFormWithData(pinpointId) {
         }
 
         $('#name').val(data.name);
-        $('#xPos').val(data.xPos);
-        $('#yPos').val(data.yPos);
+        $('#xPos').text(data.xPos);
+        $('#yPos').text(data.yPos);
         $('#description').val(data.description);
         loadPinpointType(data.type.id);
+
+        $('#spot').css('left', ((data.xPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetLeft - 12) + 'px');
+        $('#spot').css('top', ((data.yPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetTop - 12) + 'px');
+
+        if ($('#spot').css('display') === "none") {
+            $('#spot').css('display', 'inline');
+        }
     });
 }
 
