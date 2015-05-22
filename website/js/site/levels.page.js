@@ -1,6 +1,11 @@
 // Add an user to the database.
 function addLevel()
 {
+    if(!validateForm())
+    {
+        return;
+    }
+    
     var parameter = {
         "name": $("#name").val()
     }

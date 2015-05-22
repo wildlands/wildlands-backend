@@ -49,24 +49,37 @@
 
     <br>
 
-    <label>Titel</label>
-    <input class="form-control page-title" type="text" />
+    <div class="form-group">
+    
+        <label class="control-label">Titel</label>
+        <input class="form-control page-title" type="text" />
 
+    </div>
+        
     <br>
 
-    <div class="input-group">
-        <input class="form-control page-image" type="text" id="{{textFieldId}}" readonly />
-        <div class="input-group-addon">
-            <a data-toggle="modal" data-target="#{{fileManagerId}}">Kies afbeelding</a>
+    <div class="form-group">
+    
+        <label class="control-label">Image</label>
+        <div class="input-group">
+            <input class="form-control page-image" type="text" id="{{textFieldId}}" readonly />
+            <div class="input-group-addon">
+                <a data-toggle="modal" data-target="#{{fileManagerId}}">Kies afbeelding</a>
+            </div>
         </div>
+
+        {{fileManager}}
+        
     </div>
 
-    {{fileManager}}
-
     <br>
 
-    <label>Tekst</label>
-    <textarea class="editor" id="{{editorId}}" name="{{editorId}}"></textarea>
+    <div class="form-group">
+    
+        <label class="control-label">Tekst</label>
+        <textarea class="editor" id="{{editorId}}" name="{{editorId}}"></textarea>
+        
+    </div>
 
     <hr>
 

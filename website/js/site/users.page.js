@@ -1,6 +1,11 @@
 // Add an user to the database.
 function addUser()
 {
+    if(!validateForm())
+    {
+        return;
+    }
+    
     var parameter = {
         "name": $("#name").val(),
         "email": $("#email").val(),
