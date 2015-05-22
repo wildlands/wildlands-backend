@@ -1,3 +1,5 @@
+<script src="<?php echo BASE_URL; ?>js/site/start.page.js"></script>
+
 <div class="page-header">
 	
 	<h1>Dashboard <small>overzicht</small></h1>
@@ -8,46 +10,34 @@
 	
 	<div class="col-md-3">
 		
-		<div class="chart" data-percent="35"><span class="percentage"></span></div>
-		<p class="text-center">Bezoekers</p>
+		<div class="chart" data-percent="0" id="chartPinpoints"><span class="percentage"></span></div>
+		<p class="text-center">Pinpoints</p>
 		
 	</div>
-	
+
 	<div class="col-md-3">
-		
-		<div class="chart" data-percent="95"><span class="percentage"></span></div>
-		
+
+		<div class="chart" data-percent="0" id="chartPages"><span class="percentage"></span></div>
+		<p class="text-center">Pagina's</p>
+
 	</div>
-	
+
 	<div class="col-md-3">
-		
-		<div class="chart" data-percent="23"><span class="percentage"></span></div>
-		
+
+		<div class="chart" data-percent="0" id="chartQuestions"><span class="percentage"></span></div>
+		<p class="text-center">Vragen</p>
+
 	</div>
-	
+
 	<div class="col-md-3">
-		
-		<div class="chart" data-percent="76"><span class="percentage"></span></div>
-		
+
+		<div class="chart" data-percent="0" id="chartLevels"><span class="percentage"></span></div>
+		<p class="text-center">Niveau's</p>
+
 	</div>
 	
 </div>
 
 <script>
-$(document).ready(function() {
-	
-	$('.chart').easyPieChart({
-		
-		animate: 2000,
-		scaleColor: false,
-		barColor: '#007e2b',
-		onStep: function(from, to, percent) {
-			
-			$(this.el).find('.percentage').text(Math.round(percent) + '%');
-			
-		}
-		
-	});
-	
-});
+	loadValues();
 </script>
