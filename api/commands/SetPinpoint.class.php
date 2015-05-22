@@ -38,7 +38,7 @@ class SetPinpoint extends Command
         
         if (!$result)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
         
         successMessage("Pinpoint is gewijzigd.");

@@ -19,7 +19,7 @@ class DeleteQuestion extends Command
 
         if (!isset($question->id))
         {
-            errorMessage("Question ID niet gevonden!");
+            $this->errorMessage("Question ID niet gevonden!");
         }
 
         $query = "DELETE FROM question WHERE QuestionID = '" . $question->id . "';";
@@ -28,7 +28,7 @@ class DeleteQuestion extends Command
         $result &= query($query);
 
         if (!$result) {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         return array("success" => "Vraag is verwijderd.");

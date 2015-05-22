@@ -16,6 +16,10 @@ abstract class Command
         $commandList = array_merge($commandList, $newCommand);
     }
 
+    protected function errorMessage($message) {
+        errorMessage($message, $this->getCommand());
+    }
+
     // Function: Return the command name as string
     abstract public function getCommand();
 

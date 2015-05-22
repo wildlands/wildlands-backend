@@ -143,9 +143,9 @@ function addAllCommands()
 
 // Function: Generate an error message with given message,
 //  return it as json and exit the script
-function errorMessage($message)
+function errorMessage($message, $sender)
 {
-    returnJson(array("error" => $message));
+    returnJson(array("error" => $message . ' (' . $sender . ')'));
     exit;
 }
 

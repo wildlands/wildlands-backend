@@ -19,7 +19,7 @@ class DeletePage extends Command
 
         if (!isset($page->id))
         {
-            errorMessage("Geen PageID gevonden.");
+            $this->errorMessage("Geen PageID gevonden.");
         }
 
         $query = "DELETE FROM page WHERE PageID = '$page->id';";
@@ -27,7 +27,7 @@ class DeletePage extends Command
 
         if (!$result)
         {
-            errorMessage("Er is iets fout gegaan");
+            $this->errorMessage("Er is iets fout gegaan");
         }
 
         successMessage("Pagina is verwijderd.");

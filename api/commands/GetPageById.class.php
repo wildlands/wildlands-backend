@@ -19,7 +19,7 @@ class GetPageById extends Command
 
         if (!isset($page->id))
         {
-            errorMessage("Geen PageID gevonden.");
+            $this->errorMessage("Geen PageID gevonden.");
         }
 
         $query = "SELECT * FROM page WHERE PageID = '$page->id';";
@@ -29,7 +29,7 @@ class GetPageById extends Command
 
         if (!$row)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         $page = new Page();

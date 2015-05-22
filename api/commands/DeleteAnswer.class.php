@@ -19,7 +19,7 @@ class DeleteAnswer extends Command
 		
 		if (!isset($answer->id))
 		{
-			errorMessage("Geen AnswerID gevonden.");
+			$this->errorMessage("Geen AnswerID gevonden.");
 		}
 		
 		$query = "DELETE FROM answer WHERE AnswerID = '$answer->id';";
@@ -27,7 +27,7 @@ class DeleteAnswer extends Command
 		
 		if (!$result)
 		{
-			errorMessage("Er is iets fout gegaan.");
+			$this->errorMessage("Er is iets fout gegaan.");
 		}
 		
 		successMessage("Antwoord is verwijderd.");

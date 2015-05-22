@@ -20,7 +20,7 @@ class GetUserById extends Command
 
         if (!isset($user->id))
         {
-            errorMessage("Geen UserID gevonden.");
+            $this->errorMessage("Geen UserID gevonden.");
         }
 
         $query = "SELECT * FROM user WHERE UserID = '" . $user->id . "';";
@@ -30,7 +30,7 @@ class GetUserById extends Command
 
         if (!$row)
         {
-            errorMessage("Kon geen user met UserID '" . $user->id . "' vinden.");
+            $this->errorMessage("Kon geen user met UserID '" . $user->id . "' vinden.");
         }
 
         $user = new User();
