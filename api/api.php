@@ -124,6 +124,7 @@ function addAllCommands()
     new GetAllTypes();
     new GetAllUsers();
     new GetAnswersByQuestionId();
+    new GetCount();
     new GetDatabaseChecksum();
     new GetLevelById();
     new GetPageById();
