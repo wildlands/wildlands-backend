@@ -170,6 +170,7 @@ function fillLevelTabWithQuestions(questions) {
         $.each(data, function (key, value) {
             var content = {
                 id: 'level' + value['id'],
+                levelId: value['id'],
                 content: generateQuestionTable(value['id'], questions),
                 firstElement: firstElement
             };

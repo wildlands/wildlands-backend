@@ -20,6 +20,7 @@ if (isLoggedIn())
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/animate.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/style.css">
+        <link rel="shortcut icon" href="<?php echo BASE_URL; ?>images/favicon.ico">
 
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

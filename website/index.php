@@ -26,6 +26,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/animate.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>sass/style.css">
+        <link rel="shortcut icon" href="<?php echo BASE_URL; ?>images/favicon.ico">
 
 	<script>var ajax_url = "<?php echo AJAX_URL; ?>"</script>
 	<script>var base_url = "<?php echo BASE_URL; ?>"</script>

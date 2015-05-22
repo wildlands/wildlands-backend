@@ -53,11 +53,11 @@
     <div class="form-group">
         <label class="control-label">Image</label>
         <div class="input-group">
-            <input class="form-control page-image" type="text" id="image1" readonly value=""/>
-                    <div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
+            <input class="form-control page-image" type="text" id="image1-1" readonly value=""/>
+                    <div class="input-group-addon"><a data-toggle="modal" data-target="#fileManager1-1">Kies afbeelding</a></div>
             </div>
     </div>
-    
+
     <br>
 
     <div class="form-group">
@@ -72,7 +72,7 @@
     <br>
 
     <div class="fileManagerModal">
-        <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+        <script>$(".fileManagerModal").append(createFileManagerModal(1, 1));</script>
     </div>
 
     <div class="form-group antwoorden">
@@ -109,8 +109,8 @@
 
     <label>Image</label>
     <div class="input-group">
-        <input class="form-control page-image" type="text" id="image" readonly value=""/>
-		<div class="input-group-addon"><a data-toggle="modal" data-target="#myModal1">Kies afbeelding</a></div>
+        <input class="form-control page-image" type="text" id="image1-1" readonly value=""/>
+		<div class="input-group-addon"><a data-toggle="modal" data-target="#fileManager1-1">Kies afbeelding</a></div>
 	</div>
 
     <br>
@@ -119,7 +119,7 @@
     <select class="form-control" id="questionType"></select>
 
     <div class="fileManagerModal">
-        <script>$(".fileManagerModal").append(createFileManagerModal(1));</script>
+        <script>$(".fileManagerModal").append(createFileManagerModal(1, 1));</script>
     </div>
 
     <br>
