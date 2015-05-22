@@ -36,7 +36,7 @@
 <form>
 
     <div class="form-group">
-        <label>Naam</label>
+        <label class="control-label">Naam</label>
         <input class="form-control" type="text" id="name" />
     </div>
 

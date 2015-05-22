@@ -105,7 +105,7 @@ function loadTemplates() {
 function validateForm() {
     var string = "";
     var valid = true;
-    $('input, select').each(function(index) {
+    $('input, select, textarea').each(function(index) {
         if($(this).val() === "") {
             $(this).closest('.form-group').addClass('has-error');
             var name = $(this).closest('.form-group').find('label').text();

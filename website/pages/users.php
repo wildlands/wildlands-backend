@@ -9,13 +9,13 @@
 </div>
 	
 <table class="table table-striped" id="usersTable">
-	<thead>
+    <thead>
 	<tr>
-		<th>#</th>
-		<th>Gebruikersnaam</th>
-		<th>E-mailadres</th>
-        <th></th>
-        <th></th>
+            <th>#</th>
+            <th>Gebruikersnaam</th>
+            <th>E-mailadres</th>
+            <th></th>
+            <th></th>
 	</tr>
     </thead>
     <tbody>
@@ -37,17 +37,25 @@
 
     <div class="form-group">
 
-        <label>Gebruikersnaam</label>
+        <label class="control-label">Gebruikersnaam</label>
         <input class="form-control" type="text" id="name" />
         
+    </div>
+    
         <br>
         
-        <label>Email</label>
+    <div class="form-group">
+        
+        <label class="control-label">Email</label>
         <input class="form-control" type="email" id="email" />
         
+    </div>
+        
         <br>
         
-        <label>Wachtwoord</label>
+    <div class="form-group">
+        
+        <label class="control-label">Wachtwoord</label>
         <input class="form-control" type="password" id="pass" />
 
     </div>
