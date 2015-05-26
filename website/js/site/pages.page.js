@@ -72,21 +72,25 @@ function deletePage(sender) {
       });
 }
 
-function fillEditPageFormWithData(pageId) {
-    var parameter = {
-        "id": pageId
-    };
-
-    api("GetPageById", parameter, function(data) {
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
+function fillEditPageFormWithData(pages) {
+    counter = [];
+    pages.forEach(function(page) {
+        
+        if (counter['' + page.level.id] === undefined) {
+            counter['' + page.level.id] = 1;
+        } else {
+            addPageFieldToForm($('#level' + page.level.id + '>button'));
         }
-
-        $('#pinId').val(data.pinpointId);
-        $('#title').val(data.title);
-        $('#image').val(data.image);
-        $('#editor').val(data.text);
+        
+        var id = counter['' + page.level.id] + '-' + page.level.id;
+        
+        $('#title' + id).closest('div.pagina').attr('pageId', page.id);
+        
+        $('#title' + id).val(page.title);
+        $('#image' + id).val(page.image);
+        $('#editor' + id).val(page.text);
+        
+        counter['' + page.level.id]++;
     });
 }
 
@@ -111,6 +115,7 @@ function generatePageField(number, tabNumber) {
         fileManager: fileManager,
         fileManagerId: 'fileManager' + number + '-' + tabNumber,
         textFieldId: 'image' + number + '-' + tabNumber,
+        titleId: 'title' + number + '-' + tabNumber,
         editorId: 'editor' + number + '-' + tabNumber
     };
     var pageField = Mark.up(templates['PageField'], content);
