@@ -98,8 +98,10 @@
 
 <form>
 
-    <label>Niveau</label>
-    <select class="form-control" id="questionLevel"></select>
+    <div class="form-group">
+        <label>Niveau</label>
+        <select class="form-control" id="questionLevel"></select>
+    </div>
 
     <br>
 
