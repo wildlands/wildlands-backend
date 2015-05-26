@@ -39,7 +39,7 @@ class SetUser extends Command
 
         if (!$result)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         successMessage($successMessage);

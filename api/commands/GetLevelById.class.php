@@ -19,7 +19,7 @@ class GetLevelById extends Command
 
         if (!isset($level->id))
         {
-            errorMessage("Geen LevelID gevonden.");
+            $this->errorMessage("Geen LevelID gevonden.");
         }
 
         $query = "SELECT * FROM level WHERE LevelID = '$level->id';";
@@ -29,7 +29,7 @@ class GetLevelById extends Command
 
         if (!$row)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         $level = new Level();

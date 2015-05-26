@@ -19,7 +19,7 @@ class DeleteLevel extends Command
 
         if (!isset($level->id))
         {
-            errorMessage("Geen LevelID gevonden.");
+            $this->errorMessage("Geen LevelID gevonden.");
         }
 
         $query = "DELETE FROM level WHERE LevelID = '$level->id';";
@@ -27,7 +27,7 @@ class DeleteLevel extends Command
 
         if (!$result)
         {
-            errorMessage("Er is iets fout gegaan");
+            $this->errorMessage("Er is iets fout gegaan");
         }
 
         successMessage("Niveau is verwijderd.");

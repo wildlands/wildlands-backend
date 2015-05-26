@@ -25,7 +25,7 @@ class GetCount extends Command
 
         if (!$row)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         $count = new Count();

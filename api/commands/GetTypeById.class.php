@@ -19,7 +19,7 @@ class GetTypeById extends Command
 
         if (!isset($type->id))
         {
-            errorMessage("Geen TypeID gevonden.");
+            $this->errorMessage("Geen TypeID gevonden.");
         }
 
         $query = "SELECT * FROM type WHERE TypeID = '$type->id';";
@@ -29,7 +29,7 @@ class GetTypeById extends Command
 
         if (!$row)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         $type = new Type();
@@ -42,5 +42,3 @@ class GetTypeById extends Command
     }
 
 }
-
-?>

@@ -20,7 +20,7 @@ class GetPinpointById extends Command
 
         if (!isset($pinpoint->id))
         {
-            errorMessage("Geen PinpointID gevonden.");
+            $this->errorMessage("Geen PinpointID gevonden.");
         }
 
         $query = "SELECT * FROM pinpoint WHERE PinID = '$pinpoint->id';";
@@ -30,7 +30,7 @@ class GetPinpointById extends Command
 
         if (!$row)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         $pinpoint = new Pinpoint();

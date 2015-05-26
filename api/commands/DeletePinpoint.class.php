@@ -23,7 +23,7 @@ class DeletePinpoint extends Command
 
         if (!isset($pinpoint->id))
         {
-            errorMessage("PinID niet gevonden");
+            $this->errorMessage("PinID niet gevonden");
         }
 
         $query = "DELETE FROM pinpoint WHERE PinID = '" . $pinpoint->id . "';";
@@ -32,7 +32,7 @@ class DeletePinpoint extends Command
         $result = query($query);
 
         if (!$result) {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         successMessage("Pinpoint is verwijderd.");

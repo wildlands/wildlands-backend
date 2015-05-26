@@ -62,7 +62,7 @@ class SetQuestion extends Command
         }
 
         if (!$questionUpdateResult) {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         successMessage("Vraag is veranderd.");

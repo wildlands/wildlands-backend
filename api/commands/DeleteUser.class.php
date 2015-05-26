@@ -20,7 +20,7 @@ class DeleteUser extends Command
 
         if (!isset($user->id))
         {
-            errorMessage("Geen UserID gevonden.");
+            $this->errorMessage("Geen UserID gevonden.");
         }
 
         $query = "DELETE FROM user WHERE UserID = '" . $user->id . "';";
@@ -28,7 +28,7 @@ class DeleteUser extends Command
 
         if (!$result)
         {
-            errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Er is iets fout gegaan.");
         }
 
         successMessage("Gebruiker is verwijderd.");

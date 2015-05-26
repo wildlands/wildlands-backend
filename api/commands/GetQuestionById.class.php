@@ -17,6 +17,12 @@ class GetQuestionById extends Command
     public function execute($parameter)
     {
         $questionId = $parameter->id;
+
+        if (!isset($questionId))
+        {
+            $this->errorMessage("Geen QuestionID gevonden.");
+        }
+
         $query = "SELECT * FROM question WHERE question.QuestionID = " . $questionId . ";";
         $result = query($query);
 

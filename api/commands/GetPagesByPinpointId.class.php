@@ -19,7 +19,7 @@ class GetPagesByPinpointId extends Command
 
         if (!isset($pinpoint->id))
         {
-            errorMessage("Geen PinpointID gevonden.");
+            $this->errorMessage("Geen PinpointID gevonden.");
         }
 
         $query = "SELECT * FROM page WHERE PinID = '$pinpoint->id';";
