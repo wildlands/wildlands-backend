@@ -116,8 +116,9 @@ function editQuestion(questionId) {
 
     var parameter = {
         "id": questionId,
+        "levelId": $('#questionLevel').val(),
         "text": $('#question').val(),
-        "image": $('#image1').val(),
+        "image": $('#image1-1').val(),
         "typeId": $('#questionType').val(),
         "answers": answers
     }
@@ -149,7 +150,7 @@ function fillEditQuestionFormWithData(questionId) {
         loadQuestionLevel(data.level.id);
 
         $('#question').val(data.text);
-        $('#image').attr("value", data.image);
+        $('#image1-1').val(data.image);
 
         loadQuestionType(data.type.id);
 
