@@ -103,26 +103,38 @@ function loadTemplates() {
 }
 
 function validateForm() {
+    var elementsToBeChecked = 'input, select';
+
     var string = "";
     var valid = true;
-    $('input, select').each(function(index) {
-        if($(this).val() === "") {
-            $(this).closest('.form-group').addClass('has-error');
-            var name = $(this).closest('.form-group').find('label').text();
-            var tab = "";
-            if($(this).closest('.paginas'))
-            {
-                var tab = $(this).closest('.tab-pane').attr('id');
-            }
-            string += name + tab + " niet ingevuld <br>";
-            valid = false;
+
+    $(elementsToBeChecked).closest('.input-group, .form-group').removeClass('has-error');
+    $(elementsToBeChecked).each(function(index) {
+        if ($(this).val() !== "") {
+            return;
         }
+        if ($(this).hasClass('antwoord')) {
+            $(this).closest('.input-group').addClass('has-error');
+        } else {
+            $(this).closest('.form-group').addClass('has-error');
+        }
+
+
+        var name = $(this).closest('.form-group').find('label').text();
+        var tab = "";
+        if ($(this).closest('.paginas').length > 0) {
+            var tabId = $(this).closest('.tab-pane').attr('id');
+            var tabName = $('#tablist').find('a[aria-controls|="' + tabId + '"]').text();
+            var tab = " (" + tabName + ")";
+        }
+        string += name + tab + " niet ingevuld <br>";
+
+        valid = false;
     });
+
     if(!valid) {
         createErrorMessage(string);
     }
-    
         
     return valid;
-    
 }

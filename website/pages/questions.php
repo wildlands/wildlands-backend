@@ -76,6 +76,7 @@
     </div>
 
     <div class="form-group antwoorden">
+        <label class="control-label">Antwoord</label>
         <script>generateDefaultAnswerTextFields();</script>
     </div>
 
