@@ -61,7 +61,7 @@
     <br>
 
     <div class="form-group">
-        <label class="control-label">Type</label>
+        <label class="control-label">Thema</label>
         <select class="form-control" id="questionType">
             <option value="">Selecteer question type</option>
         </select>
@@ -118,7 +118,7 @@
 
     <br>
 
-    <label>Type</label>
+    <label>Thema</label>
     <select class="form-control" id="questionType"></select>
 
     <div class="fileManagerModal">

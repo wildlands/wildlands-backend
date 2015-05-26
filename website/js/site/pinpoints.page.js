@@ -7,8 +7,6 @@ function addPinpoint()
     //arraylist voor pages
     var pages = [];
 
-    var i = 0;
-
     $.each(CKEDITOR.instances, function(index, value){
         var page = {
             "levelId": $('#' + index).closest('div .tab-pane').attr('levelId'),
@@ -17,7 +15,6 @@ function addPinpoint()
             "text": value.getData()
         };
         pages.push(page);
-        i++;
     });
 
     var parameter = {
@@ -109,10 +106,12 @@ function fillEditPinpointFormWithData(pinpointId) {
         }
 
         $('#name').val(data.name);
-        $('#xPos').text(data.xPos);
-        $('#yPos').text(data.yPos);
+        $('#xPos').val(data.xPos);
+        $('#yPos').val(data.yPos);
         $('#description').val(data.description);
         loadPinpointType(data.type.id);
+        
+        fillEditPageFormWithData(data.pages);
 
         $('#spot').css('left', ((data.xPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetLeft - 12) + 'px');
         $('#spot').css('top', ((data.yPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetTop - 12) + 'px');
@@ -174,13 +173,32 @@ function setCoordinates(event) {
 }
 
 function updatePinpoint(pinpointId) {
+    if(!validateForm())
+    {
+        return;
+    }
+    
+    var pages = [];
+
+    $.each(CKEDITOR.instances, function(index, value){
+        var page = {
+            "id": $('#' + index).closest('.pagina').attr('pageId'),
+            "levelId": $('#' + index).closest('div .tab-pane').attr('levelId'),
+            "title": $('.page-title', $('#' + index).closest('.pagina')).val(),
+            "pageimage": $('.page-image', $('#' + index).closest('.pagina')).val(),
+            "text": value.getData()
+        };
+        pages.push(page);
+    });
+    
     var parameter = {
         "id": pinpointId,
         "name": $('#name').val(),
         "xPos": $('#xPos').val(),
         "yPos": $('#yPos').val(),
         "description": $('#description').val(),
-        "typeId": $('#pinpointType').val()
+        "typeId": $('#pinpointType').val(),
+        "pages": pages
     };
 
     api("SetPinpoint", parameter, function(data) {
