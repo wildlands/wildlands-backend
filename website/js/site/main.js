@@ -105,11 +105,16 @@ function loadTemplates() {
 function validateForm() {
     var string = "";
     var valid = true;
-    $('input, select, textarea').each(function(index) {
+    $('input, select').each(function(index) {
         if($(this).val() === "") {
             $(this).closest('.form-group').addClass('has-error');
             var name = $(this).closest('.form-group').find('label').text();
-            string += name + " niet ingevuld <br>";
+            var tab = "";
+            if($(this).closest('.paginas'))
+            {
+                var tab = $(this).closest('.tab-pane').attr('id');
+            }
+            string += name + tab + " niet ingevuld <br>";
             valid = false;
         }
     });

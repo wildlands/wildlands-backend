@@ -42,8 +42,8 @@ if (isset($_GET['logout']) && $_GET['logout'])
 	<script src="<?php echo BASE_URL; ?>js/ElementQueries.js"></script>
 	<script src="<?php echo BASE_URL; ?>js/markup.min.js"></script>
         
-        <script src="ckeditor.js"></script>
-        <script src="adapters/jquery.js"></script>
+        <script src="<?php echo BASE_URL; ?>js/ckeditor.js"></script>
+        <script src="<?php echo BASE_URL; ?>js/adapters/jquery.js"></script>
 
 	<script id="templates" type="text/template"><?php include_once "pages/_templates.html"; ?></script>
 
