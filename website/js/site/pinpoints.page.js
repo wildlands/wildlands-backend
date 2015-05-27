@@ -19,8 +19,8 @@ function addPinpoint()
 
     var parameter = {
         "name": $("#name").val(),
-        "xPos": $("#xPos").text(),
-        "yPos": $("#yPos").text(),
+        "xPos": $("#xPos").val(),
+        "yPos": $("#yPos").val(),
         "description": $("#description").val(),
         "typeId": $("#pinpointType").val(),
         "pages": pages
