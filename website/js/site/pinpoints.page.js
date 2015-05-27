@@ -34,6 +34,30 @@ function addPinpoint()
 
 }
 
+// Add a page to the form.
+function addPageFieldToForm(sender) {
+
+    var closestDiv = $(sender).closest('div');
+    var tabIndex;
+
+    $('.tab-pane').each(function(index) {
+        if($(this).attr('id') == $(closestDiv).attr('id')) {
+            tabIndex = index + 1;
+        }
+    });
+
+    var count = $('.pagina', closestDiv).length;
+    var editor = 'editor' + (count + 1) + '_' + (tabIndex);
+
+    if (count === 3) {
+        $(sender).prop('disabled', true);
+    }
+
+    $('.paginas .pagina:last-child', closestDiv).after(generatePageField(count + 1, tabIndex));
+
+    CKEDITOR.replace(editor);
+}
+
 function deletePinpointAjax(sender)
 {
     var rows = [];
@@ -94,12 +118,37 @@ function deletePinpoint(sender) {
       });
 }
 
-function fillEditPinpointFormWithData(pinpointId) {
-    var parameter = {
-        "id": pinpointId
-    };
+function fillEditPageFormWithData(pages) {
+    counter = [];
+    pages.forEach(function(page) {
 
-    loadPageLevel(function() {
+        if (counter['' + page.level.id] === undefined) {
+            counter['' + page.level.id] = 1;
+        } else {
+            addPageFieldToForm($('#level' + page.level.id + '>button'));
+        }
+
+        var id = counter['' + page.level.id] + '_' + page.level.id;
+
+        $('#title' + id).closest('div.pagina').attr('pageId', page.id);
+
+        $('#title' + id).val(page.title);
+        $('#image' + id).val(page.image);
+        $('#editor' + id).val(page.text);
+
+        counter['' + page.level.id]++;
+    });
+}
+
+function fillEditPinpointFormWithData(pinpointId) {
+    api("GetAllLevels", function(levelData) {
+        generateTablist(levelData);
+        generateTabPane(levelData);
+        replaceEditors();
+
+        var parameter = {
+            "id": pinpointId
+        };
         api("GetPinpointById", parameter, function(data) {
             if (data.error) {
                 createErrorMessage(data.error);
@@ -142,6 +191,63 @@ function fillPinpointRow(pinpoint) {
     $('#pinpointsTable').append(tableRow);
 }
 
+function generatePageField(number, tabNumber) {
+    var fileManager = createFileManagerModal(number, tabNumber);
+
+    var content = {
+        number: number,
+        fileManager: fileManager,
+        fileManagerId: 'fileManager' + number + '_' + tabNumber,
+        textFieldId: 'image' + number + '_' + tabNumber,
+        titleId: 'title' + number + '_' + tabNumber,
+        editorId: 'editor' + number + '_' + tabNumber
+    };
+    var pageField = Mark.up(templates['PageField'], content);
+
+    return pageField;
+}
+
+function generateTablist(levels) {
+    var firstElement = true;
+    $.each(levels, function (key, value) {
+        var content = {
+            id: 'level' + value['id'],
+            firstElement: firstElement,
+            name: value['name']
+        };
+        var listItem = Mark.up(templates['Tab'], content);
+        $('#tablist').append(listItem);
+        firstElement = false;
+    });
+}
+
+function generateTabPane(levels) {
+    var firstElement = true;
+
+    $.each(levels, function(key, value) {
+        var tabNumber = value['id'];
+
+        var pageField = generatePageField(1, tabNumber);
+        var addPageFormButton = Mark.up(templates['AddPageFormButton']);
+
+        var pageDivContent = {
+            content: pageField
+        };
+        var pageDiv = Mark.up(templates['PageDiv'], pageDivContent);
+
+        var tabPanelContent = {
+            content: pageDiv + addPageFormButton,
+            firstElement: firstElement,
+            id: 'level' + value['id'],
+            levelId: value['id']
+        };
+        var tabPanel = Mark.up(templates['TabPanel'], tabPanelContent);
+        $('.tab-content').append(tabPanel);
+
+        firstElement = false;
+    });
+}
+
 // Retrieve the pinpoints from the database
 function getPinpoints() {
     api("GetAllPinpoints", function (data) {
@@ -159,6 +265,30 @@ function loadPinpointType(typeId) {
         });
 
         $('#pinpointType option').eq(typeId - 1).attr('selected', '');
+    });
+}
+
+function removePageFieldFromForm(sender) {
+    var count = $('.tab-pane.active .pagina').length;
+
+    if (count === 1) {
+        createErrorMessage('Er is minimaal een pagina verplicht.');
+        return;
+    }
+
+    CKEDITOR.instances[$(sender).closest('.pagina').find('textarea.editor').attr('id')].destroy();
+    $(sender).closest('.form-group').remove();
+
+    $.each($('.tab-pane.active .form-group'), function (key, value) {
+        $(this).find('small').text('Pagina ' + (key + 1));
+    });
+
+    $('.addPage').prop('disabled', false);
+}
+
+function replaceEditors() {
+    $('.editor').each(function(element) {
+        CKEDITOR.replace($(this).attr('id'));
     });
 }
 

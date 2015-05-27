@@ -1,5 +1,4 @@
 <script src="<?php echo BASE_URL; ?>js/site/pinpoints.page.js"></script>
-<script src="<?php echo BASE_URL; ?>js/site/pages.page.js"></script>
 
 <!-- Show pinpoints -->
 <?php if ($_GET['action'] == 'show'): ?>
