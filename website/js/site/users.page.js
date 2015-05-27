@@ -123,6 +123,7 @@ function updateUser(userId) {
         "id": userId,
         "name": $('#name').val(),
         "email": $('#email').val(),
+        "oldpassword": $('#oldpass').val(),
         "password": $('#pass').val()
     }
 

@@ -85,6 +85,11 @@
 
         <label>Email</label>
         <input class="form-control" type="email" id="email"/>
+        
+         <br>
+
+        <label>Oude wachtwoord</label>
+        <input class="form-control" type="password" id="oldpass"/>
 
         <br>
 
