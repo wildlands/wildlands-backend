@@ -23,42 +23,40 @@ class SetUser extends Command
             if (isset($user->password))
             {
                 $querypass = query("SELECT Password FROM user WHERE UserID = '$user->id'");
-                $fetch = $querypass->fetchassoc();
+                $fetch = $querypass->fetch_assoc();
                 $password = $user->oldpassword;
                 
                 if(password_verify($password, $fetch['Password']))
                 {
-                    $querypass = query("SELECT Password FROM user WHERE UserID = '$user->id'");
-                    $fetch = $querypass->fetchassoc();
-                    $password = $user->oldpassword;
-                
                     $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
                     $query .= ", Password = '$hashpass'";
                 } 
                 else
                 {
-                    errorMessage("Oude wachtwoord komt niet overeen!");
+                    $this->errorMessage("Oude wachtwoord komt niet overeen!");
                 }
 
                 $query .= " WHERE UserID = '$user->id';";
                 $successMessage = "Gebruiker is aangepast.";
+                
             }
-            else
-            {
-                $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
-                $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashpass');";
-                $successMessage = "Gebruiker is aangemaakt.";
-            }
-
-            $result = query($query);
-
-            if (!$result)
-            {
-                $this->errorMessage("Er is iets fout gegaan.");
-            }
-
-            successMessage($successMessage);
         }
+        else
+        {
+            $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashpass');";
+            $successMessage="Gebruiker is aangemaakt.";
+        }
+
+        $result = query($query);
+
+        if (!$result)
+        {
+            $this->errorMessage("Er is iets fout gegaan.");
+        }
+
+        successMessage($successMessage);
+       
     }
 }
 
