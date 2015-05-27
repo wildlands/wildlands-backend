@@ -99,26 +99,28 @@ function fillEditPinpointFormWithData(pinpointId) {
         "id": pinpointId
     };
 
-    api("GetPinpointById", parameter, function(data) {
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
+    loadPageLevel(function() {
+        api("GetPinpointById", parameter, function(data) {
+            if (data.error) {
+                createErrorMessage(data.error);
+                return;
+            }
 
-        $('#name').val(data.name);
-        $('#xPos').val(data.xPos);
-        $('#yPos').val(data.yPos);
-        $('#description').val(data.description);
-        loadPinpointType(data.type.id);
-        
-        fillEditPageFormWithData(data.pages);
+            $('#name').val(data.name);
+            $('#xPos').val(data.xPos);
+            $('#yPos').val(data.yPos);
+            $('#description').val(data.description);
+            loadPinpointType(data.type.id);
 
-        $('#spot').css('left', ((data.xPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetLeft - 12) + 'px');
-        $('#spot').css('top', ((data.yPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetTop - 12) + 'px');
+            fillEditPageFormWithData(data.pages);
 
-        if ($('#spot').css('display') === "none") {
-            $('#spot').css('display', 'inline');
-        }
+            $('#spot').css('left', ((data.xPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetLeft - 12) + 'px');
+            $('#spot').css('top', ((data.yPos / $('#myImgId').attr('data-scale')) + $('#myImgId')[0].offsetTop - 12) + 'px');
+
+            if ($('#spot').css('display') === "none") {
+                $('#spot').css('display', 'inline');
+            }
+        });
     });
 }
 

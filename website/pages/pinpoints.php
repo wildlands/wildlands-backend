@@ -214,11 +214,9 @@
                 <!-- Added automatically -->
             </ul>
 
-            <script>loadPageLevel();</script>
-
             <!-- Tab panes -->
             <div class="tab-content">
-
+                <!-- Added automatically -->
             </div>
 
         </div>

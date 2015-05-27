@@ -51,8 +51,8 @@ function createErrorMessage(errorMessage) {
 // Create file manager modal
 function createFileManagerModal(number, tabNumber) {
     var content = {
-        id: 'fileManager' + number + '-' + tabNumber,
-        textFieldId: 'image' + number + '-' + tabNumber,
+        id: 'fileManager' + number + '_' + tabNumber,
+        textFieldId: 'image' + number + '_' + tabNumber,
         base_url: base_url
     };
 

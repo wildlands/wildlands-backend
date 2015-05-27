@@ -11,7 +11,7 @@ function addPageFieldToForm(sender) {
     });
     
     var count = $('.pagina', closestDiv).length;
-    var editor = 'editor' + (count + 1) + '-' + (tabIndex);
+    var editor = 'editor' + (count + 1) + '_' + (tabIndex);
 
     if (count === 3) {
         $(sender).prop('disabled', true);
@@ -82,7 +82,7 @@ function fillEditPageFormWithData(pages) {
             addPageFieldToForm($('#level' + page.level.id + '>button'));
         }
         
-        var id = counter['' + page.level.id] + '-' + page.level.id;
+        var id = counter['' + page.level.id] + '_' + page.level.id;
         
         $('#title' + id).closest('div.pagina').attr('pageId', page.id);
         
@@ -113,10 +113,10 @@ function generatePageField(number, tabNumber) {
     var content = {
         number: number,
         fileManager: fileManager,
-        fileManagerId: 'fileManager' + number + '-' + tabNumber,
-        textFieldId: 'image' + number + '-' + tabNumber,
-        titleId: 'title' + number + '-' + tabNumber,
-        editorId: 'editor' + number + '-' + tabNumber
+        fileManagerId: 'fileManager' + number + '_' + tabNumber,
+        textFieldId: 'image' + number + '_' + tabNumber,
+        titleId: 'title' + number + '_' + tabNumber,
+        editorId: 'editor' + number + '_' + tabNumber
     };
     var pageField = Mark.up(templates['PageField'], content);
 
@@ -173,11 +173,12 @@ function getPages() {
     });
 }
 
-function loadPageLevel() {
+function loadPageLevel(doneCallback) {
     api("GetAllLevels", function(data) {
         generateTablist(data);
         generateTabPane(data);
         replaceEditors();
+        doneCallback();
     });
 }
 
@@ -195,14 +196,11 @@ function removePageFieldFromForm(sender) {
         return;
     }
 
+    CKEDITOR.instances[$(sender).closest('.pagina').find('textarea.editor').attr('id')].destroy();
     $(sender).closest('.form-group').remove();
 
     $.each($('.tab-pane.active .form-group'), function (key, value) {
-        //var parent = $(sender).parent('.form-group');
         $(this).find('small').text('Pagina ' + (key + 1));
-        $(this).find('textarea').attr('id', 'editor' + (key + 1));
-        $(this).find('textarea').attr('name', 'editor' + (key + 1));
-
     });
 
     $('.addPage').prop('disabled', false);
