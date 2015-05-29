@@ -61,7 +61,7 @@
         <div class="input-group">
             
             <span class="input-group-addon pos control-label">X</span>
-            <input class="form-control" type="text" id="xPos" name="xPos"/>
+            <input class="form-control" type="text" id="xPos" name="xPos" readonly/>
             
         </div>
         
@@ -70,7 +70,7 @@
         <div class="input-group">
             
             <span class="input-group-addon pos control-label">Y</span>
-            <input class="form-control" type="text" id="yPos" name="yPos"/>
+            <input class="form-control" type="text" id="yPos" name="yPos" readonly/>
             
         </div>
     </div>
@@ -162,7 +162,7 @@
             <div class="input-group">
             
                 <span class="input-group-addon pos control-label">X</span>
-                <input class="form-control" type="text" id="xPos" name="xPos"/>
+                <input class="form-control" type="text" id="xPos" name="xPos" readonly/>
 
             </div>
 
@@ -171,7 +171,7 @@
             <div class="input-group">
 
                 <span class="input-group-addon pos control-label">Y</span>
-                <input class="form-control" type="text" id="yPos" name="yPos"/>
+                <input class="form-control" type="text" id="yPos" name="yPos" readonly/>
 
             </div>
 
