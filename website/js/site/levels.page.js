@@ -71,6 +71,26 @@ function deleteLevelAjax(sender) {
     });
 }
 
+// Updates an user.
+function editLevel(levelId) {
+    var parameter = {
+        "id": levelId,
+        "name": $('#name').val()
+    }
+
+    api("SetLevel", parameter, function(data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
+
+        redirectTo(base_url + "levels/show/");
+        createSuccessMessage(data.success);
+    }, function(data) {
+        createErrorMessage(data.error);
+    });
+}
+
 // Fill the 'Edit user' form with data specified by the user id.
 function fillEditLevelFormWithData(levelId) {
     var parameter = {
@@ -111,26 +131,6 @@ function getLevels() {
             return;
         }
         fillLevelTable(data);
-    }, function(data) {
-        createErrorMessage(data.error);
-    });
-}
-
-// Updates an user.
-function updateLevel(levelId) {
-    var parameter = {
-        "id": levelId,
-        "name": $('#name').val()
-    }
-
-    api("SetLevel", parameter, function(data) {
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        redirectTo(base_url + "levels/show/");
-        createSuccessMessage(data.success);
     }, function(data) {
         createErrorMessage(data.error);
     });
