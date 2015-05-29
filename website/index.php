@@ -128,7 +128,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 					<li><a href="<?php echo BASE_URL; ?>"><i class="fa fa-tachometer"></i> Dashboard</a></li>
 					<li><a href="<?php echo BASE_URL; ?>pinpoints/show/"><i class="fa fa-map-marker"></i> Pinpoints</a></li>
                                         <li><a href="<?php echo BASE_URL; ?>questions/show/"><i class="fa fa-question"></i> Vragen</a></li>
-                                        <li><a href="<?php echo BASE_URL; ?>levels/show/"><i class="fa fa-lightbulb-o"></i> Niveau's</a></li>
+                                        <li><a href="<?php echo BASE_URL; ?>levels/show/"><i class="fa fa-lightbulb-o"></i> Niveaus</a></li>
                                         <li><a href="<?php echo BASE_URL; ?>media/show/"><i class="fa fa-file-image-o"></i> Media Gallery</a></li>
 					<li><a href="<?php echo BASE_URL; ?>users/show/"><i class="fa fa-users"></i> Gebruikers</a></li>
 					
