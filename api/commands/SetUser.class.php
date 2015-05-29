@@ -20,31 +20,35 @@ class SetUser extends Command
         if (isset($user->id))
         {
             $query = "UPDATE user SET Screenname = '$user->name', Email = '$user->email'";
-            if (isset($user->password))
+            if (isset($user->oldPassword))
             {
-                $querypass = query("SELECT Password FROM user WHERE UserID = '$user->id'");
-                $fetch = $querypass->fetch_assoc();
-                $password = $user->oldpassword;
+                $checkPasswordQuery = "SELECT Password FROM user WHERE UserID = '$user->id'";
+                $result = query($checkPasswordQuery);
                 
-                if(password_verify($password, $fetch['Password']))
+                if(password_verify($user->oldPassword, $result->fetch_assoc()['Password']))
                 {
-                    $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
-                    $query .= ", Password = '$hashpass'";
+                    if (isset($user->password) && $user->password != "")
+                    {
+                        $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
+                        $query .= ", Password = '$hashedPassword'";
+                    }
+                    $query .= " WHERE UserID = '$user->id';";
+                    $successMessage = "Gebruiker is aangepast.";
                 } 
                 else
                 {
                     $this->errorMessage("Oude wachtwoord komt niet overeen!");
                 }
-
-                $query .= " WHERE UserID = '$user->id';";
-                $successMessage = "Gebruiker is aangepast.";
-                
+            }
+            else
+            {
+                $this->errorMessage("Oude wachtwoord komt niet overeen!");
             }
         }
         else
         {
-            $hashpass = password_hash($user->password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashpass');";
+            $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashedPassword');";
             $successMessage="Gebruiker is aangemaakt.";
         }
 

@@ -79,13 +79,14 @@ function editUser(userId) {
         "id": userId,
         "name": $('#name').val(),
         "email": $('#email').val(),
-        "oldpassword": $('#oldpass').val(),
-        "password": $('#pass').val()
+        "oldPassword": $('#oldpassword').val(),
+        "password": $('#password').val()
     }
 
     api("SetUser", parameter, function(data) {
         if (data.error) {
             createErrorMessage(data.error);
+            console.log(data);
             return;
         }
 
@@ -93,6 +94,7 @@ function editUser(userId) {
         createSuccessMessage(data.success);
     }, function(data) {
         createErrorMessage(data.error);
+        console.log(data);
     });
 }
 

@@ -89,12 +89,12 @@
          <br>
 
         <label>Oude wachtwoord</label>
-        <input class="form-control" type="password" id="oldpass"/>
+        <input class="form-control" type="password" id="oldpassword"/>
 
         <br>
 
         <label>Wachtwoord</label>
-        <input class="form-control" type="password" id="pass"/>
+        <input class="form-control" type="password" id="password" placeholder="Leeg laten als het wachtwoord niet zal worden veranderd."/>
 
         <hr>
 		
