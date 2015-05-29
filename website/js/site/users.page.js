@@ -73,6 +73,29 @@ function deleteUserAjax(sender) {
     });
 }
 
+// Updates an user.
+function editUser(userId) {
+    var parameter = {
+        "id": userId,
+        "name": $('#name').val(),
+        "email": $('#email').val(),
+        "oldpassword": $('#oldpass').val(),
+        "password": $('#pass').val()
+    }
+
+    api("SetUser", parameter, function(data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
+
+        redirectTo(base_url + "users/show/");
+        createSuccessMessage(data.success);
+    }, function(data) {
+        createErrorMessage(data.error);
+    });
+}
+
 // Fill the 'Edit user' form with data specified by the user id.
 function fillEditUserFormWithData(userId) {
     var parameter = {
@@ -112,29 +135,6 @@ function getUsers() {
             return;
         }
         fillUserTable(data);
-    }, function(data) {
-        createErrorMessage(data.error);
-    });
-}
-
-// Updates an user.
-function updateUser(userId) {
-    var parameter = {
-        "id": userId,
-        "name": $('#name').val(),
-        "email": $('#email').val(),
-        "oldpassword": $('#oldpass').val(),
-        "password": $('#pass').val()
-    }
-
-    api("SetUser", parameter, function(data) {
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        redirectTo(base_url + "users/show/");
-        createSuccessMessage(data.success);
     }, function(data) {
         createErrorMessage(data.error);
     });

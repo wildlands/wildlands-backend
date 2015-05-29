@@ -100,7 +100,7 @@
 		
 	</div>
 	
-    <button class="btn btn-labeled btn-success updateUser" type="button" onclick="javascript: updateUser(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>users/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
+    <button class="btn btn-labeled btn-success updateUser" type="button" onclick="javascript: editUser(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>users/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
     <script>fillEditUserFormWithData( <?php echo $_GET['id'] ?> );</script>
 
