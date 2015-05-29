@@ -27,7 +27,7 @@ function addQuestion() {
     var parameter = {
         "levelId": $("#questionLevel").val(),
         "text": $("#question").val(),
-        "image": $("#image1").val(),
+        "image": $("#image1_1").val(),
         "pinpointId": $("#pinpointID").val(),
         "typeId": $('#questionType').val(),
         "answers": answers
@@ -36,12 +36,14 @@ function addQuestion() {
     api("SetQuestion", parameter, function(data) {
         if(data.error) {
             createErrorMessage(data.error);
-        } else {
-            redirectTo(base_url + "questions/show/");
-            createSuccessMessage(data.success);
+            console.log(data);
+            return;
         }
+        redirectTo(base_url + "questions/show/");
+        createSuccessMessage(data.success);
     }, function(data) {
         createErrorMessage(data.error);
+        console.log(data);
     });
 }
 

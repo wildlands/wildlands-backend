@@ -53,8 +53,8 @@
     <div class="form-group">
         <label class="control-label">Image</label>
         <div class="input-group">
-            <input class="form-control page-image" type="text" id="image1-1" readonly value=""/>
-                    <div class="input-group-addon"><a data-toggle="modal" data-target="#fileManager1-1">Kies afbeelding</a></div>
+            <input class="form-control page-image" type="text" id="image1_1" readonly value=""/>
+                    <div class="input-group-addon"><a data-toggle="modal" data-target="#fileManager1_1">Kies afbeelding</a></div>
             </div>
     </div>
 
@@ -112,8 +112,8 @@
 
     <label>Image</label>
     <div class="input-group">
-        <input class="form-control page-image" type="text" id="image1-1" readonly value=""/>
-		<div class="input-group-addon"><a data-toggle="modal" data-target="#fileManager1-1">Kies afbeelding</a></div>
+        <input class="form-control page-image" type="text" id="image1_1" readonly value=""/>
+		<div class="input-group-addon"><a data-toggle="modal" data-target="#fileManager1_1">Kies afbeelding</a></div>
 	</div>
 
     <br>
