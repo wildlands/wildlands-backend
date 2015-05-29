@@ -106,10 +106,10 @@ function editQuestion(questionId) {
         if ($(this).attr('answer-id')) {
             answer.id = $(this).attr('answer-id');
         }
-        if ($(this).attr('answer-rightwrong')) {
-            answer.rightWrong = $(this).attr('answer-rightwrong');
+        if ($(this).attr('answer-rightwrong') && $(this).attr('answer-rightwrong') == "true") {
+            answer.rightWrong = true;
         } else {
-            answer.rightWrong = "false";
+            answer.rightWrong = false;
         }
 
         answer.text = $(this).val();
