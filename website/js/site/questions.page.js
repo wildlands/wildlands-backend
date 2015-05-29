@@ -120,7 +120,7 @@ function editQuestion(questionId) {
         "id": questionId,
         "levelId": $('#questionLevel').val(),
         "text": $('#question').val(),
-        "image": $('#image1-1').val(),
+        "image": $('#image1_1').val(),
         "typeId": $('#questionType').val(),
         "answers": answers
     }
