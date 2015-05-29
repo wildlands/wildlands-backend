@@ -257,6 +257,14 @@ function getPinpoints() {
     });
 }
 
+function loadPageLevel() {
+    api("GetAllLevels", function(levelData) {
+        generateTablist(levelData);
+        generateTabPane(levelData);
+        replaceEditors();
+    });
+}
+
 // Load all the types into the dropdown menu when adding a new pinpoint
 function loadPinpointType(typeId) {
     api("GetAllTypes", function(data) {
