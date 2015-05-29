@@ -22,6 +22,22 @@ class DeleteLevel extends Command
             $this->errorMessage("Geen LevelID gevonden.");
         }
 
+        $query = "DELETE FROM page WHERE LevelID = '$level->id';";
+        query($query);
+
+        $query = "SELECT QuestionID FROM question WHERE LevelID = '$level->id';";
+        $result = query($query);
+
+        while ($row = $result->fetch_assoc()) {
+            $questionId = $row['QuestionID'];
+
+            $query = "DELETE FROM answer WHERE QuestionID = '$questionId';";
+            query($query);
+        }
+
+        $query = "DELETE FROM question WHERE LevelID = '$level->id';";
+        query($query);
+
         $query = "DELETE FROM level WHERE LevelID = '$level->id';";
         $result = query($query);
 

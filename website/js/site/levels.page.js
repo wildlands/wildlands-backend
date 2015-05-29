@@ -25,7 +25,7 @@ function addLevel()
 function deleteLevel(sender) {
 
     bootbox.dialog({
-        message: "Wilt u dit niveau zeker weten verwijderen?",
+        message: "Wilt u dit niveau zeker weten verwijderen? Hiermee worden tevens alle bijbehorende pagina's en vragen verwijderd.",
         title: "Niveau verwijderen",
         buttons: {
             success: {
