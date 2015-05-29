@@ -152,7 +152,7 @@ function fillEditQuestionFormWithData(questionId) {
         loadQuestionLevel(data.level.id);
 
         $('#question').val(data.text);
-        $('#image1-1').val(data.image);
+        $('#image1_1').val(data.image);
 
         loadQuestionType(data.type.id);
 
