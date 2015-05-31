@@ -47,7 +47,7 @@
         <label class="control-label">Positie pinpoint</label>
         <div>
             <div>
-                <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" data-scale="3"/>
+                <img id="myImgId" alt="Plattegrond van Wildlands" src="<?php echo BASE_URL; ?>/images/kaart.jpg" width="833" height="797" data-scale="3" />
             </div>
             <div id="spot" style="position: absolute; display: none;">
                 <img alt="spot" src="<?php echo BASE_URL; ?>/images/spot.png" width="25" height="25"/>
@@ -148,7 +148,7 @@
 
             <div>
                 <div>
-                    <img id="myImgId" alt="" src="<?php echo BASE_URL; ?>/images/tempkaart.png" width="817" height="447" data-scale="3"/>
+                    <img id="myImgId" alt="Plattegrond van Wildlands" src="<?php echo BASE_URL; ?>/images/kaart.jpg" width="833" height="797" data-scale="3" />
                 </div>
                 <div id="spot" style="position: absolute; display: none;">
                     <img alt="spot" src="<?php echo BASE_URL; ?>/images/spot.png" width="25" height="25"/>
