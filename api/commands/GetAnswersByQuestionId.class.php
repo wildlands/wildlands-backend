@@ -36,9 +36,6 @@ class GetAnswersByQuestionId extends Command
             array_push($answers, $answer);
         }
 
-        // Randomize answers
-        //shuffle($answers);
-
         return $answers;
     }
 }

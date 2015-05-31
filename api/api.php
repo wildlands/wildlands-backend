@@ -40,20 +40,6 @@ if ($mysqli->connect_errno > 0)
 $commandList = array();
 addAllCommands();
 
-if (isset($_POST['auth']) || isset($_GET['auth']))
-{
-    if(isset($_POST['auth']))
-    {
-        // Set authToken from PHP POST parameter
-        $authToken = $_POST['auth'];
-    }
-    else
-    {
-        // Set authToken from PHP GET parameter
-        $authToken = $_GET['auth'];
-    }
-}
-
 // If 'c' parameter is set it will be assumed that the script is used
 //  from 'outside' (like from an app)
 // Check if 'c' parameter (command) is set
