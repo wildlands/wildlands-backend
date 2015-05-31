@@ -118,6 +118,50 @@ function deletePinpoint(sender) {
       });
 }
 
+// Edit a pinpoint with the data specified in the form
+function editPinpoint(pinpointId) {
+    if(!validateForm())
+    {
+        return;
+    }
+
+    var pages = [];
+
+    $.each(CKEDITOR.instances, function(index, value){
+        var page = {
+            "id": $('#' + index).closest('.pagina').attr('pageId'),
+            "levelId": $('#' + index).closest('div .tab-pane').attr('levelId'),
+            "title": $('.page-title', $('#' + index).closest('.pagina')).val(),
+            "pageimage": $('.page-image', $('#' + index).closest('.pagina')).val(),
+            "text": value.getData()
+        };
+        pages.push(page);
+    });
+
+    var parameter = {
+        "id": pinpointId,
+        "name": $('#name').val(),
+        "xPos": $('#xPos').val(),
+        "yPos": $('#yPos').val(),
+        "description": $('#description').val(),
+        "typeId": $('#pinpointType').val(),
+        "pages": pages
+    };
+
+    api("SetPinpoint", parameter, function(data) {
+        if (data.error) {
+            createErrorMessage(data.error);
+            return;
+        }
+
+        redirectTo(base_url + "pinpoints/show/");
+        createSuccessMessage(data.success);
+    }, function(data) {
+        console.log(data);
+        createErrorMessage(data.error);
+    });
+}
+
 function fillEditPageFormWithData(pages) {
     counter = [];
     pages.forEach(function(page) {
@@ -310,47 +354,4 @@ function setCoordinates(event) {
     if ($('#spot').css('display') == "none") {
         $('#spot').css('display', 'inline');
     }
-}
-
-function updatePinpoint(pinpointId) {
-    if(!validateForm())
-    {
-        return;
-    }
-    
-    var pages = [];
-
-    $.each(CKEDITOR.instances, function(index, value){
-        var page = {
-            "id": $('#' + index).closest('.pagina').attr('pageId'),
-            "levelId": $('#' + index).closest('div .tab-pane').attr('levelId'),
-            "title": $('.page-title', $('#' + index).closest('.pagina')).val(),
-            "pageimage": $('.page-image', $('#' + index).closest('.pagina')).val(),
-            "text": value.getData()
-        };
-        pages.push(page);
-    });
-    
-    var parameter = {
-        "id": pinpointId,
-        "name": $('#name').val(),
-        "xPos": $('#xPos').val(),
-        "yPos": $('#yPos').val(),
-        "description": $('#description').val(),
-        "typeId": $('#pinpointType').val(),
-        "pages": pages
-    };
-
-    api("SetPinpoint", parameter, function(data) {
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        redirectTo(base_url + "pinpoints/show/");
-        createSuccessMessage(data.success);
-    }, function(data) {
-        console.log(data);
-        createErrorMessage(data.error);
-    });
 }
