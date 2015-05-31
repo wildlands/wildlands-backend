@@ -1,7 +1,16 @@
 <?php
 /**
- * Author: INF2A
- * Date: 17.03.2015
+ * Project: Wildlands Education App
+ * Author: INF2A (02/2015 - 06/2015)- Stenden University of Applied Sciences
+ *
+ * Project members:
+ *  Jan Doornbos
+ *  Stefan Koopman
+ *  Martin Schoonbeek
+ *  Arwin Strating
+ *  Jahdah Thelen
+ *  Maaike Veurink
+ *  Maximilian Wiedemann
  */
 
 require_once('../database.php');

@@ -1,9 +1,26 @@
+/**
+ * Project: Wildlands Education App
+ * Author: INF2A (02/2015 - 06/2015)- Stenden University of Applied Sciences
+ *
+ * Project members:
+ *  Jan Doornbos
+ *  Stefan Koopman
+ *  Martin Schoonbeek
+ *  Arwin Strating
+ *  Jahdah Thelen
+ *  Maaike Veurink
+ *  Maximilian Wiedemann
+ */
+
+// Global variables
 var templates;
 
+// Event handler for jQuery event 'Document.ready'
 $(document).ready(function () {
     var height = $('body').height();
     $('.background-image').height(height + 75);
 
+    // Set events for adjusting the sidebar height
     new ResizeSensor($('.content'), function() {
         readjustHeight();
     });
@@ -13,11 +30,15 @@ $(document).ready(function () {
     }, 500);
 });
 
+// Call the api with the specified command and parameter
 function api(command, parameter, doneCallback, failCallback) {
+    // Set the command
     var data = {
         c: command
     }
 
+    // If there is no 'parameter' parameter given, then shift
+    // the parameters
     if (typeof parameter == "function") {
         failCallback = doneCallback;
         doneCallback = parameter;
@@ -26,6 +47,7 @@ function api(command, parameter, doneCallback, failCallback) {
         data.p = JSON.stringify(parameter);
     }
 
+    // Send the ajax call with the specified data
     $.ajax({
         url: ajax_url + 'api/api.php',
         method: 'post',
@@ -80,11 +102,13 @@ function responsive_filemanager_callback() {
     $('.modal').modal('hide');
 }
 
+// Readjust the height of the sidebar according to the content height.
 function readjustHeight() {
     var contentHeight = $('.content').outerHeight();
     $('.menu').css('min-height', contentHeight+'px');
 }
 
+// Load all templates for Markup.js
 function loadTemplates() {
     templates = {};
 
@@ -102,24 +126,33 @@ function loadTemplates() {
     console.log("Templates loaded.");
 }
 
+// Validate the form
 function validateForm() {
+    // Specify the elements that are going to checked on validity
     var elementsToBeChecked = 'input, select';
 
-    var string = "";
+    var errorMessage = "";
     var valid = true;
 
+    // Remove all 'has-error' classes to reset the site error state
     $(elementsToBeChecked).closest('.input-group, .form-group').removeClass('has-error');
+
+    // Check every element
     $(elementsToBeChecked).each(function(index) {
+        // If the element is empty, do nothing but return
         if ($(this).val() !== "") {
             return;
         }
+
+        // If the class is 'antwoord' (answer), add the 'has-error'
+        // class to the input-group, otherwise to the form-group
         if ($(this).hasClass('antwoord')) {
             $(this).closest('.input-group').addClass('has-error');
         } else {
             $(this).closest('.form-group').addClass('has-error');
         }
 
-
+        // Get the label of the invalid element
         var name = $(this).closest('.form-group').find('label').text();
         var tab = "";
         if ($(this).closest('.paginas').length > 0) {
@@ -127,14 +160,17 @@ function validateForm() {
             var tabName = $('#tablist').find('a[aria-controls|="' + tabId + '"]').text();
             var tab = " (" + tabName + ")";
         }
-        string += name + tab + " niet ingevuld <br>";
+        errorMessage += name + tab + " niet ingevuld <br>";
 
+        // Set validity variable to false
         valid = false;
     });
 
+    // If the form isn't valid, then create and display an error message
     if(!valid) {
-        createErrorMessage(string);
+        createErrorMessage(errorMessage);
     }
-        
+
+    // Return the result
     return valid;
 }

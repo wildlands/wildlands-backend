@@ -1,31 +1,38 @@
-// Add an user to the database.
+// Add an user to the database
 function addUser()
 {
+    // Validate the form and return if it isn't valid
     if(!validateForm())
     {
         return;
     }
-    
+
+    // Set the name, email and password as the parameter
     var parameter = {
         "name": $("#name").val(),
         "email": $("#email").val(),
         "password": $("#pass").val()
     }
 
+    // Send a request to the api using the 'SetUser' command
     api("SetUser", parameter, function(data) {
+        // If there was an error, show it and abort
         if (data.error) {
             createErrorMessage(data.error);
             return;
         }
+
+        // Otherwise redirect to the users overview
         redirectTo(base_url + "users/show/");
     }, function(data) {
+        // If the ajax call fails, show the error
         createErrorMessage(data.error);
     });
 }
 
-// Delete an user (confirmation box).
+// Delete an user (confirmation box)
 function deleteUser(sender) {
-
+    // Show a confirmation box for deleting an user
     bootbox.dialog({
         message: "Wilt u deze gebruiker zeker weten verwijderen?",
         title: "Gebruiker verwijderen",
@@ -48,20 +55,25 @@ function deleteUser(sender) {
     });
 }
 
-// Delete an user.
+// Delete an user with ajax
 function deleteUserAjax(sender) {
+    // Get the tableRow for the user specified by the sender
     var tableRow = $(sender).closest('tr');
 
+    // Set the id as the parameter
     var parameter = {
         "id": $(sender).attr('userId')
     }
 
+    // Send a request to the api using the 'DeleteUser' command
     api("DeleteUser", parameter, function(data) {
         if (data.error) {
             createErrorMessage(data.error);
             return;
         }
 
+        // Show success message and fade out the table row corresponding
+        // to the specified user
         createSuccessMessage(data.success);
         $(tableRow).animate({
             backgroundColor: '#FF8585'
@@ -69,12 +81,14 @@ function deleteUserAjax(sender) {
             $(tableRow).fadeOut(1000);
         });
     }, function(data) {
+        // If the ajax call fails, show the error
         createErrorMessage(data.error);
     });
 }
 
-// Updates an user.
+// Edit an user
 function editUser(userId) {
+    // Set the data as the parameter
     var parameter = {
         "id": userId,
         "name": $('#name').val(),
@@ -83,33 +97,38 @@ function editUser(userId) {
         "password": $('#password').val()
     }
 
+    // Send a request to the api using the 'SetUser' command
     api("SetUser", parameter, function(data) {
+        // If there was an error, show it and abort
         if (data.error) {
             createErrorMessage(data.error);
-            console.log(data);
             return;
         }
 
+        // Otherwise redirect to the users overview
         redirectTo(base_url + "users/show/");
-        createSuccessMessage(data.success);
     }, function(data) {
+        // If the ajax call fails, show the error
         createErrorMessage(data.error);
-        console.log(data);
     });
 }
 
-// Fill the 'Edit user' form with data specified by the user id.
+// Fill the 'Edit user' form with data specified by the user id
 function fillEditUserFormWithData(userId) {
+    // Set the id as the parameter
     var parameter = {
         "id": userId
     }
 
+    // Send a request to the api using the 'GetUserById' command
     api("GetUserById", parameter, function(data) {
+        // If there was an error, show it and abort
         if (data.error) {
             createErrorMessage(data.error);
             return;
         }
 
+        // Set the data
         $('#userId').val(data.id);
         $('#name').val(data.name);
         $('#email').val(data.email);
@@ -118,6 +137,7 @@ function fillEditUserFormWithData(userId) {
 
 // Fill the user table with the specified users.
 function fillUserTable(users) {
+    // Generate and fill each user row
     for (var i = 0; i < users.length; i++) {
         fillUserRow(users[i]);
     }
@@ -125,19 +145,27 @@ function fillUserTable(users) {
 
 // Generate row filled with user data and append it to '#usersTable'
 function fillUserRow(user) {
+    // Fill the template with the specified user data
     var tableRow = Mark.up(templates['UserRow'], user);
+
+    // Append the table row to the table
     $("#usersTable tbody").append(tableRow);
 }
 
 // Retrieve all users.
 function getUsers() {
+    // Send a request to the api using the 'GetAllUsers' command
     api("GetAllUsers", function(data) {
+        // If there was an error, show it and abort
         if (data.error) {
             createErrorMessage(data.error);
             return;
         }
+
+        // Fill the user table with the received users
         fillUserTable(data);
     }, function(data) {
+        // If the ajax call fails, show the error
         createErrorMessage(data.error);
     });
 }
