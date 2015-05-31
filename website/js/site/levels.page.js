@@ -39,7 +39,7 @@ function deleteLevel(sender) {
                 label: "Annuleren",
                 className: "btn-danger",
                 callback: function() {
-                    del = false;
+                    var del = false;
                 }
             }
         }
