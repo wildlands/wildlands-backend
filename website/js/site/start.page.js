@@ -14,12 +14,6 @@ function animatePieCharts() {
 function loadValues() {
     // Send a request to the api using the 'GetCount' command
     api("GetCount", function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Set the received data
         $('#chartPinpoints').attr('data-percent', data.pinpoint);
         $('#chartPages').attr('data-percent', data.page);

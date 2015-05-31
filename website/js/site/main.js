@@ -31,7 +31,7 @@ $(document).ready(function () {
 });
 
 // Call the api with the specified command and parameter
-function api(command, parameter, doneCallback, failCallback) {
+function api(command, parameter, doneCallback) {
     // Set the command
     var data = {
         c: command
@@ -40,7 +40,6 @@ function api(command, parameter, doneCallback, failCallback) {
     // If there is no 'parameter' parameter given, then shift
     // the parameters
     if (typeof parameter == "function") {
-        failCallback = doneCallback;
         doneCallback = parameter;
         parameter = null;
     } else {
@@ -54,9 +53,23 @@ function api(command, parameter, doneCallback, failCallback) {
         data: data,
         cache: false
     }).done(function (data) {
+        // If there was an error, show it and log the whole
+        // object to the console. Then abort.
+        if (data.error) {
+            createErrorMessage('API: ' + data.error);
+            console.error('The api had an error.\nReceived object:');
+            console.log(data);
+            return;
+        }
+        // Otherwise call the callback function
         doneCallback(data);
     }).fail(function (data) {
-        failCallback(data);
+        // Show a generic error message
+        createErrorMessage('Er is iets fout gegaan met de API php script.');
+        // Log everything to console
+        console.error('There was an error while calling the api.\n' +
+                    'Received object:');
+        console.log(data);
     });
 }
 

@@ -12,18 +12,9 @@ function addLevel() {
     }
 
     // Send a request to the api using the 'SetLevel' command
-    api("SetLevel", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to levels overview
+    api("SetLevel", parameter, function() {
+        // Redirect to the levels overview
         redirectTo(base_url + "levels/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -64,22 +55,13 @@ function deleteLevelAjax(sender) {
 
     // Send a request to the api using the 'DeleteLevel' command
     api("DeleteLevel", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise show a success message and fade out the table row
+        // Show success message and fade out the corresponding table row
         createSuccessMessage(data.success);
         $(tableRow).animate({
             backgroundColor: '#FF8585'
         }, 1000, function () {
             $(tableRow).fadeOut(1000);
         });
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -93,17 +75,8 @@ function editLevel(levelId) {
 
     // Send a request to the api using the 'SetLevel' command
     api("SetLevel", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to levels overview
+        // Redirect to the levels overview
         redirectTo(base_url + "levels/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -116,18 +89,9 @@ function fillEditLevelFormWithData(levelId) {
 
     // Send a request to the api using the 'SetLevel' command
     api("GetLevelById", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Set both fields with the received data
         $('#levelId').val(data.id);
         $('#name').val(data.name);
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -151,16 +115,7 @@ function fillLevelRow(level) {
 function getLevels() {
     // Send a request to the api using the 'GetAllLevels' command
     api("GetAllLevels", function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise fill the table with the received data
+        // Fill the table with the received data
         fillLevelTable(data);
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }

@@ -32,18 +32,8 @@ function addPinpoint() {
 
     // Send a request to the api using the 'SetLevel' command
     api("SetPinpoint", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to pinpoints overview
+        // Redirect to pinpoints overview
         redirectTo(base_url + "pinpoints/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error)
-        console.log(data);
     });
 
 }
@@ -91,22 +81,13 @@ function deletePinpointAjax(sender)
 
     // Send a request to the api using the 'DeletePinpoint' command
     api("DeletePinpoint", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise show a success message and fade out the table row
+        // Show a success message and fade out the table row
         createSuccessMessage(data.success);
         $(tableRow).animate({
             backgroundColor: '#FF8585'
         }, 1000, function () {
             $(this).fadeOut(1000);
         });
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -171,17 +152,8 @@ function editPinpoint(pinpointId) {
 
     // Send a request to the api using the 'SetPinpoint' command
     api("SetPinpoint", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to pinpoints overview
+        // Redirect to pinpoints overview
         redirectTo(base_url + "pinpoints/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -231,12 +203,6 @@ function fillEditPinpointFormWithData(pinpointId) {
 
         // Send a request to the api using the 'GetPinpointById' command
         api("GetPinpointById", parameter, function(data) {
-            // If there was an error, show it and abort
-            if (data.error) {
-                createErrorMessage(data.error);
-                return;
-            }
-
             // Set the data
             $('#name').val(data.name);
             $('#xPos').val(data.xPos);
@@ -365,18 +331,8 @@ function generateTabPane(levels) {
 function getPinpoints() {
     // Send a request to the api using the 'GetAllPinpoints' command
     api("GetAllPinpoints", function (data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Fill the pinpoint table with the received data
         fillPinpointTable(data);
-    }, function (data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
-        console.log(data);
     });
 }
 

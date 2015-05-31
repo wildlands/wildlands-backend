@@ -16,17 +16,8 @@ function addUser()
 
     // Send a request to the api using the 'SetUser' command
     api("SetUser", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to the users overview
+        // Redirect to the users overview
         redirectTo(base_url + "users/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -67,11 +58,6 @@ function deleteUserAjax(sender) {
 
     // Send a request to the api using the 'DeleteUser' command
     api("DeleteUser", parameter, function(data) {
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Show success message and fade out the table row corresponding
         // to the specified user
         createSuccessMessage(data.success);
@@ -80,9 +66,6 @@ function deleteUserAjax(sender) {
         }, 1000, function () {
             $(tableRow).fadeOut(1000);
         });
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -99,17 +82,8 @@ function editUser(userId) {
 
     // Send a request to the api using the 'SetUser' command
     api("SetUser", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to the users overview
+        // Redirect to the users overview
         redirectTo(base_url + "users/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -122,12 +96,6 @@ function fillEditUserFormWithData(userId) {
 
     // Send a request to the api using the 'GetUserById' command
     api("GetUserById", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Set the data
         $('#userId').val(data.id);
         $('#name').val(data.name);
@@ -156,16 +124,7 @@ function fillUserRow(user) {
 function getUsers() {
     // Send a request to the api using the 'GetAllUsers' command
     api("GetAllUsers", function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Fill the user table with the received users
         fillUserTable(data);
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }

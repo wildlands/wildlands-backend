@@ -44,17 +44,8 @@ function addQuestion() {
 
     // Send a request to the api using the 'SetQuestion' command
     api("SetQuestion", parameter, function(data) {
-        // If there was an error, show it and abort
-        if(data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to questions overview
+        // Redirect to questions overview
         redirectTo(base_url + "questions/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -71,22 +62,13 @@ function deleteQuestionAjax(sender)
 
     // Send a request to the api using the 'DeleteQuestion' command
     api("DeleteQuestion", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise show success message and fade out the corresponding table row
+        // Show success message and fade out the corresponding table row
         createSuccessMessage(data.success);
         $(tableRow).animate({
             backgroundColor: 'red'
         }, 1000, function () {
             $(tableRow).fadeOut(1000)
         });
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -148,17 +130,8 @@ function editQuestion(questionId) {
 
     // Send a request to the api using the 'SetQuestion' command
     api("SetQuestion", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise redirect to the questions overview
+        // Redirect to the questions overview
         redirectTo(base_url + "questions/show/");
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -171,12 +144,6 @@ function fillEditQuestionFormWithData(questionId) {
 
     // Send a request to the api using the 'GetQuestionById' command
     api("GetQuestionById", parameter, function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
         // Set the received data
         loadQuestionLevel(data.level.id);
 
@@ -220,9 +187,6 @@ function fillLevelTabWithQuestions(questions) {
             // Set the value to false, so that only the first time it is true
             firstElement = false;
         });
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
@@ -317,17 +281,8 @@ function generateTablist(levels) {
 function getQuestions() {
     // Send a request to the api using the 'GetAllQuestions' command
     api("GetAllQuestions", function(data) {
-        // If there was an error, show it and abort
-        if (data.error) {
-            createErrorMessage(data.error);
-            return;
-        }
-
-        // Otherwise fill the tab panels with the received questions
+        // Fill the tab panels with the received questions
         fillLevelTabWithQuestions(data);
-    }, function(data) {
-        // If the ajax call fails, show the error
-        createErrorMessage(data.error);
     });
 }
 
