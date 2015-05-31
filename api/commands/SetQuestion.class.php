@@ -3,7 +3,7 @@
 // Class: SetQuestion
 //  Set a new question or edit an existing one
 //
-// Parameter: Json array with 'Question' objects
+// Parameter: Question object (with or without a set id)
 class SetQuestion extends Command
 {
 
@@ -69,5 +69,3 @@ class SetQuestion extends Command
     }
 
 }
-
-?>

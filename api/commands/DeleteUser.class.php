@@ -1,6 +1,9 @@
 <?php
 
-// TODO Write summary comment
+// Class: DeleteUser
+//  Delete a user
+//
+// Parameter: User object with a set id
 class DeleteUser extends Command
 {
 
@@ -34,5 +37,3 @@ class DeleteUser extends Command
         successMessage("Gebruiker is verwijderd.");
     }
 }
-
-?>

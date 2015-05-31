@@ -1,12 +1,12 @@
 <?php
 
 // Class: GetAnswersByQuestionId
-//  Return all answers (randomized order) from the database that belong to
+//  Return all answers from the database that are associated with
 //  the specified question id
 //
 // Parameter: questionId (Int)
 //
-//  Return: Json array with 'Answer' objects
+//  Return: Array with 'Answer' objects
 class GetAnswersByQuestionId extends Command
 {
 
@@ -39,5 +39,3 @@ class GetAnswersByQuestionId extends Command
         return $answers;
     }
 }
-
-?>

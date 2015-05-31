@@ -3,7 +3,6 @@
 // Model: Pinpoint
 class Pinpoint
 {
-
     public $id;
     public $name;
     public $description;
@@ -11,7 +10,4 @@ class Pinpoint
     public $yPos;
     public $type;
     public $pages;
-
 }
-
-?>

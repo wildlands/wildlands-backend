@@ -1,5 +1,12 @@
 <?php
 
+// Class: GetPagesByPinpointId
+//  Return all pages from the database that are associated with
+//  the specified pinpoint id
+//
+// Parameter: pinpointId (Int)
+//
+//  Return: Array of Page objects
 class GetPagesByPinpointId extends Command
 {
 

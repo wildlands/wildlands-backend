@@ -3,7 +3,7 @@
 // Class: GetAllPinpoints
 //  Return all pinpoints from the database
 //
-//  Return: Json array with 'Pinpoint' objects
+//  Return: Array with 'Pinpoint' objects
 class GetAllPinpoints extends Command
 {
 
@@ -34,5 +34,3 @@ class GetAllPinpoints extends Command
     }
 
 }
-
-?>

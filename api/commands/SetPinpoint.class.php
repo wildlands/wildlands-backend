@@ -3,7 +3,7 @@
 // Class: SetPinpoint
 //  Set a new pinpoint or edit an existing one
 //
-// Parameter: Json array with 'Pinpoint' objects
+// Parameter: Pinpoint object (with or without a set id)
 class SetPinpoint extends Command
 {
     public function getCommand()
@@ -74,5 +74,3 @@ class SetPinpoint extends Command
         successMessage("Pinpoint is gewijzigd.");
     }
 }
-
-?>

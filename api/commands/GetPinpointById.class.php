@@ -1,6 +1,12 @@
 <?php
 
-// TODO Write summary comment
+// Class: GetPinpointById
+//  Return a pinpoint from the database that is associated with
+//  the specified id
+//
+// Parameter: pinpointId (Int)
+//
+//  Return: Pinpoint object
 class GetPinpointById extends Command
 {
 
@@ -47,5 +53,3 @@ class GetPinpointById extends Command
     }
 
 }
-
-?>

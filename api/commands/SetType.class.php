@@ -3,7 +3,7 @@
 // Class: SetType
 //  Set a new type or edit an existing one
 //
-// Parameter: Json array with 'Type' objects
+// Parameter: Type object (with or without a set id)
 class SetType extends Command
 {
 
@@ -32,5 +32,3 @@ class SetType extends Command
         return $result;
     }
 }
-
-?>

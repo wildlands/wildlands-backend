@@ -1,5 +1,9 @@
 <?php
 
+// Class: DeletePage
+//  Delete a page
+//
+// Parameter: Page object with a set id
 class DeletePage extends Command
 {
 
@@ -34,5 +38,3 @@ class DeletePage extends Command
     }
 
 }
-
-?>

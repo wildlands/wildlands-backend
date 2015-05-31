@@ -3,7 +3,7 @@
 // Class: GetAllTypes
 //  Return all types from the database
 //
-// Return: Json array with 'Type' objects
+// Return: Array with 'Type' objects
 class GetAllTypes extends Command
 {
 
@@ -34,5 +34,3 @@ class GetAllTypes extends Command
         return $types;
     }
 }
-
-?>

@@ -1,5 +1,9 @@
 <?php
 
+// Class: GetAllLevels
+//  Return all levels from the database
+//
+//  Return: Array with 'Level' objects
 class GetAllLevels extends Command {
 
     public function getCommand()
@@ -30,5 +34,3 @@ class GetAllLevels extends Command {
     }
 
 }
-
-?>

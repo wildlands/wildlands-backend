@@ -1,5 +1,9 @@
 <?php
 
+// Class: SetLevel
+//  Set a new level or edit an existing one
+//
+// Parameter: Level object (with or without a set id)
 class SetLevel extends Command
 {
 
@@ -39,5 +43,3 @@ class SetLevel extends Command
     }
 
 }
-
-?>

@@ -1,5 +1,9 @@
 <?php
 
+// Class: DeleteLevel
+//  Delete a level
+//
+// Parameter: Level object with a set id
 class DeleteLevel extends Command
 {
 
@@ -50,5 +54,3 @@ class DeleteLevel extends Command
     }
 
 }
-
-?>

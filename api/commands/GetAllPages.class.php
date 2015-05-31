@@ -1,5 +1,9 @@
 <?php
 
+// Class: GetAllPages
+//  Return all pages from the database
+//
+//  Return: Array with 'Page' objects
 class GetAllPages extends Command {
 
     public function getCommand()
@@ -30,5 +34,3 @@ class GetAllPages extends Command {
     }
 
 }
-
-?>

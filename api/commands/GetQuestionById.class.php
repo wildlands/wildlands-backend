@@ -1,6 +1,12 @@
 <?php
 
-// TODO Write summary comment
+// Class: GetQuestionById
+//  Return a question from the database that is associated with
+//  the specified id
+//
+// Parameter: questionId (Int)
+//
+//  Return: Question object
 class GetQuestionById extends Command
 {
 
@@ -43,5 +49,3 @@ class GetQuestionById extends Command
     }
 
 }
-
-?>

@@ -1,5 +1,12 @@
 <?php
 
+// Class: GetTypeById
+//  Return a type from the database that is associated with
+//  the specified id
+//
+// Parameter: typeId (Int)
+//
+//  Return: Type object
 class GetTypeById extends Command
 {
 

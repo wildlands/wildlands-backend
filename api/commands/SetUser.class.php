@@ -1,5 +1,9 @@
 <?php
 
+// Class: SetUser
+//  Set a new user or edit an existing one
+//
+// Parameter: User object (with or without a set id)
 class SetUser extends Command
 {
 
@@ -63,5 +67,3 @@ class SetUser extends Command
        
     }
 }
-
-?>

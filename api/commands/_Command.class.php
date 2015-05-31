@@ -16,6 +16,7 @@ abstract class Command
         $commandList = array_merge($commandList, $newCommand);
     }
 
+    // Calls the global errorMessage function with a sender attached
     protected function errorMessage($message) {
         errorMessage($message, $this->getCommand());
     }
@@ -30,5 +31,3 @@ abstract class Command
     abstract public function execute($parameter);
 
 }
-
-?>

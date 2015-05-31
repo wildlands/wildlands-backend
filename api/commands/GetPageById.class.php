@@ -1,5 +1,12 @@
 <?php
 
+// Class: GetPageById
+//  Return a page from the database that is associated with
+//  the specified id
+//
+// Parameter: pageId (Int)
+//
+//  Return: Page object
 class GetPageById extends Command
 {
 
@@ -44,5 +51,3 @@ class GetPageById extends Command
     }
 
 }
-
-?>

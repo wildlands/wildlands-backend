@@ -1,5 +1,12 @@
 <?php
 
+// Class: GetLevelById
+//  Return a level from the database that is associated with
+//  the specified id
+//
+// Parameter: levelId (Int)
+//
+//  Return: Level object
 class GetLevelById extends Command
 {
 

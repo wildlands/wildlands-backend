@@ -1,9 +1,9 @@
 <?php
 
-// Class: GetDatabaseChecksum
-//  Return checksum from database
+// Class: GetCount
+//  Return count of objects from each table from database
 //
-// Return: Json 'Database' object
+// Return: Count object
 class GetCount extends Command
 {
     public function getCommand()

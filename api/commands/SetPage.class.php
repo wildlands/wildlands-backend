@@ -1,5 +1,9 @@
 <?php
 
+// Class: SetPage
+//  Set a new page or edit an existing one
+//
+// Parameter: Page object (with or without a set id)
 class SetPage extends Command
 {
 
@@ -39,5 +43,3 @@ class SetPage extends Command
     }
 
 }
-
-?>

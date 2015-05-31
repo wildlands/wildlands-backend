@@ -30,5 +30,3 @@ class GetDatabaseChecksum extends Command
         return $database;
     }
 }
-
-?>

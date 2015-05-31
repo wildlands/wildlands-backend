@@ -1,5 +1,9 @@
 <?php
 
+// Class: DeleteAnswer
+//  Delete an answer
+//
+// Parameter: Answer object with a set id
 class DeleteAnswer extends Command
 {
 	
@@ -34,5 +38,3 @@ class DeleteAnswer extends Command
 	}
 	
 }
-	
-?>

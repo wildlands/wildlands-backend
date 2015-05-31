@@ -3,7 +3,7 @@
 // Class: DeletePinpoint
 //  Delete a pinpoint
 //
-// Parameter: Json array with 'Pinpoint' objects
+// Parameter: Pinpoint object with a set id
 class DeletePinpoint extends Command
 {
 
@@ -38,5 +38,3 @@ class DeletePinpoint extends Command
         successMessage("Pinpoint is verwijderd.");
     }
 }
-
-?>

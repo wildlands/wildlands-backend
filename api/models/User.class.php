@@ -8,5 +8,3 @@ class User
     public $password;
     public $oldPassword;
 }
-
-?>

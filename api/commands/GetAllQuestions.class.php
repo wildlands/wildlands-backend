@@ -3,7 +3,7 @@
 // Class: GetAllQuestions
 //  Return all questions from the database
 //
-//  Return: Json array with 'Question' objects
+//  Return: Array with 'Question' objects
 class GetAllQuestions extends Command
 {
 
@@ -33,5 +33,3 @@ class GetAllQuestions extends Command
         return $questions;
     }
 }
-
-?>

@@ -1,6 +1,12 @@
 <?php
 
-// TODO Write summary comment
+// Class: GetUserById
+//  Return a user from the database that is associated with
+//  the specified id
+//
+// Parameter: userId (Int)
+//
+//  Return: User object
 class GetUserById extends Command
 {
 
@@ -41,5 +47,3 @@ class GetUserById extends Command
         return $user;
     }
 }
-
-?>

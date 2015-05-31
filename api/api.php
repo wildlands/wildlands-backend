@@ -184,6 +184,7 @@ function query($query)
     return $mysqli->query($query);
 }
 
+// Utility function: Get the id of the last added row
 function getInsertId()
 {
     global $mysqli;

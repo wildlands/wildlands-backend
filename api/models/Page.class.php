@@ -10,5 +10,3 @@ class Page
     public $image;
     public $text;
 }
-
-?>

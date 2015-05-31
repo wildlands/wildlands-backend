@@ -1,6 +1,9 @@
 <?php
 
-// TODO Write summary comment
+// Class: DeleteQuestion
+//  Delete a question
+//
+// Parameter: Question object with a set id
 class DeleteQuestion extends Command
 {
     public function getCommand()
@@ -34,5 +37,3 @@ class DeleteQuestion extends Command
         return array("success" => "Vraag is verwijderd.");
     }
 }
-
-?>

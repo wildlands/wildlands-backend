@@ -1,6 +1,9 @@
 <?php
 
-// TODO Write summary comment
+// Class: GetAllUsers
+//  Return all users from the database
+//
+//  Return: Array with 'Users' objects
 class GetAllUsers extends Command
 {
 
@@ -31,5 +34,3 @@ class GetAllUsers extends Command
         return $users;
     }
 }
-
-?>
