@@ -33,6 +33,11 @@ class SetPassword extends Command
         }
         else
         {
+            //verwijderen van eerdere hash entry
+            $query = "DELETE FROM pass_recovery WHERE Email = '$pass->email'";
+            
+            $result = query($query);
+            
             $successMessage = "Paswoord is aangepast.";
         }
 
