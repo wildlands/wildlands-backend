@@ -71,6 +71,38 @@ if (isLoggedIn())
                         });
 			
 		});
+                $('#change_button').click(function(event) {
+			
+			event.preventDefault();
+                        
+                        var parameter = {
+                            "email": $("#email").val()
+                        };
+			
+			$.ajax({
+				
+				url : '<?php echo BASE_URL; ?>ajax/passEmail.php',
+				type : 'post',
+				cache: false,
+				data : parameter
+				
+			}).done(function(data) {
+				console.log(data);
+				if (data.code == 0)
+				{
+					createErrorMessage(data.message);
+				}
+				else
+				{
+					createSuccessMessage("Email verstuurd met een link");
+				}
+				
+			}).fail(function(data) {
+                        console.log(data);
+                        
+                        });
+			
+		});
 		
 	});
 		
@@ -117,13 +149,40 @@ if (isLoggedIn())
 				<label>
 					<input type="checkbox"> Onthoudt mij
 				</label>
-				
+                            
 			</div>
-			
-			<button type="submit" class="btn btn-labeled btn-success" id="login_button"><span class="btn-label"><i class="fa fa-check"></i></span> Inloggen</button>
-			
+                    
+                        <div>
+                            
+                            <button type="submit" class="btn btn-labeled btn-success" id="login_button"><span class="btn-label"><i class="fa fa-check"></i></span> Inloggen</button>
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal"> Wachtwoord vergeten</button>
+                            
+                        </div>    
 		</form>
-		
+                
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content animated">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Wachtwoord vergeten?</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="change-form">
+                                <label>Email</label>
+                                <input type="text" class="form-control" id="email">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-success" data-dismiss="modal" id="change_button">Verstuur</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
 	</div>
 	
 	<script src="<?php echo BASE_URL; ?>js/site/main.js"></script>

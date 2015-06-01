@@ -5,7 +5,8 @@ html {
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: black;
-  height: 100%; }
+  height: 100%;
+  overflow-y: hidden; }
 
 a {
   color: #007e2b; }
