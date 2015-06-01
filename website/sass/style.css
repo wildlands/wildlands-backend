@@ -8,7 +8,7 @@ body {
   height: 100%; }
 
 #login-body {
-  overflow-y: hidden; }
+  overflow-y: auto; }
 
 a {
   color: #007e2b; }
