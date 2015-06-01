@@ -21,7 +21,7 @@ else
 	$email = $mysqli->real_escape_string($_POST['email']);
 	
 	// Gegevens van de gebruikersnaam ophalen
-	$query = $mysqli->query("SELECT `Email` FROM `user` WHERE Email='" . $email . "' LIMIT 1");
+	$query = $mysqli->query("SELECT `Email`, `Screenname` FROM `user` WHERE Email='" . $email . "' LIMIT 1");
 	$fetch = $query->fetch_assoc();
 	
 	// Checken of er een gebruiker is gevonden
@@ -43,7 +43,7 @@ else
             
             $emailTo = $fetch['Email'];
             $subject = 'Wachtwoord vergeten';
-            $body = "Geachte " . $fetch['Screenname'] . ",\n " . BASE_URL . "changePass.php?e=". $fetch['Email'] ."&h=" . $hash . "\n" . "Door middel van deze link kunt u uw wachtwoord opnieuw instellen.";
+            $body = "Geachte " . $fetch['Screenname'] . ",\n" . BASE_URL . "changePass.php?e=". $fetch['Email'] ."&h=" . $hash . "\n" . "Door middel van deze link kunt u uw wachtwoord opnieuw instellen.";
 
             mail($emailTo, $subject, $body);
 	}
