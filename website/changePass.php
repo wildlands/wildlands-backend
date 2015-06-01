@@ -56,7 +56,8 @@ if (!isHashRight())
 			
                         var parameter = {
                             "email": $.urlParam('e'),
-                            "password": $('#pass').val()
+                            "password": $('#pass').val(),
+                            "passwordrepeat": $('#pass-repeat').val()
                         };
                         
                         api("SetPassword", parameter, function(data) {
@@ -105,7 +106,7 @@ if (!isHashRight())
 				<div class="input-group">
 					
 					<span class="input-group-addon"><i class="fa fa-key"></i></span>
-					<input type="password" class="form-control" placeholder="Herhaal wachtwoord" name="repeat_password">
+					<input type="password" class="form-control" placeholder="Herhaal wachtwoord" name="repeat_password" id="pass-repeat">
 					
 				</div>
 				

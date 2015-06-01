@@ -194,9 +194,6 @@ a:hover {
   #footer p {
     color: black; }
 
-table td:hover {
-  cursor: pointer; }
-
 [data-notify="progressbar"] {
   display: none; }
 

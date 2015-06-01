@@ -23,25 +23,31 @@ class SetPassword extends Command
         
         $hashedPassword = password_hash($pass->password, PASSWORD_DEFAULT);
 
-        $query = "UPDATE user SET Password = '$hashedPassword' WHERE Email = '$pass->email'";
-
-        $result = query($query);
-
-        if (!$result)
+        if($pass->password == $pass->passwordrepeat)
         {
-            $this->errorMessage("Er is iets fout gegaan.");
-        }
-        else
-        {
-            //verwijderen van eerdere hash entry
-            $query = "DELETE FROM pass_recovery WHERE Email = '$pass->email'";
-            
+            $query = "UPDATE user SET Password = '$hashedPassword' WHERE Email = '$pass->email'";
+
             $result = query($query);
-            
-            $successMessage = "Paswoord is aangepast.";
-        }
+
+            if (!$result)
+            {
+                $this->errorMessage("Er is iets fout gegaan.");
+            }
+            else
+            {
+                //verwijderen van eerdere hash entry
+                $query = "DELETE FROM pass_recovery WHERE Email = '$pass->email'";
+
+                $result = query($query);
+
+                $successMessage = "Paswoord is aangepast.";
+            }
 
         successMessage($successMessage);
-       
+        }
+        else 
+        {
+           $this->errorMessage("Wachtwoorden komt niet overeen!");
+        }
     }
 }
