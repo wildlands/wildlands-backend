@@ -110,7 +110,7 @@ if (isLoggedIn())
 	
 </head>
 
-<body>
+<body id="login-body">
 	
 	<div class="background-image animated fadeIn"></div>
 	
