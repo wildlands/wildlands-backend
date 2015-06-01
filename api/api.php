@@ -130,6 +130,7 @@ function addAllCommands()
     new GetUserById();
     new SetLevel();
     new SetPage();
+    new SetPassword();
     new SetPinpoint();
     new SetQuestion();
     new SetType();

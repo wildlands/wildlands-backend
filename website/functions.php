@@ -27,6 +27,25 @@ function getUserID($hash)
 }
 
 /**
+ * Checken of de paswoord verander hash overeenkomt.
+ *
+ * @return boolean			True als gebruiker hash bestaat
+ */
+function isHashRight()
+{
+	global $mysqli;
+	
+        // Checken of de hash ook in de session table staat
+        $query = $mysqli->query("SELECT `Random_Hash` FROM `pass_recovery` WHERE Random_Hash='" . $_GET['h'] . "' LIMIT 1");
+        // Hash is gevonden...
+        if ($query->num_rows > 0)
+        {
+                return true;
+        }
+	
+}
+
+/**
  * Checken of een gebruiker is ingelogd.
  *
  * @return boolean			True als gebruiker is ingelogd
