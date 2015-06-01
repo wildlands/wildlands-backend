@@ -43,7 +43,7 @@ else
             
             $emailTo = $fetch['Email'];
             $subject = 'Wachtwoord vergeten';
-            $body = "localhost/wildlands_backend/website/changePass.php&e='". $fetch['Email'] ."'h=$hash";
+            $body = "Geachte " . $fetch['Screenname'] . ",\n " . BASE_URL . "changePass.php?e=". $fetch['Email'] ."&h=" . $hash . "\n" . "Door middel van deze link kunt u uw wachtwoord opnieuw instellen.";
 
             mail($emailTo, $subject, $body);
 	}
