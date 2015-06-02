@@ -139,7 +139,17 @@
     <td>{{name}}</td>
     <td>{{email}}</td>
     <td>
-        <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-6"><i class="fa fa-pencil"></i></a>&nbsp;
+        <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-4"><i class="fa fa-pencil"></i></a>
         <a class="btn btn-danger pull-right deleteUser" userId="{{id}}" onclick="javascript: deleteUser(this);"><i class="fa fa-times"></i></a>
+    </td>
+</tr>
+
+===== LayerRow
+<tr id="{{id}}" class="layerRow">
+    <td>{{id}}</td>
+    <td>{{typeId}}</td>
+    <td>{{image}}</td>
+    <td>
+        <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-4"><i class="fa fa-pencil"></i></a>
     </td>
 </tr>

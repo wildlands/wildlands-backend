@@ -112,6 +112,7 @@ function addAllCommands()
     new DeletePinpoint();
     new DeleteQuestion();
     new DeleteUser();
+    new GetAllLayers();
     new GetAllLevels();
     new GetAllPages();
     new GetAllPinpoints();
@@ -121,6 +122,7 @@ function addAllCommands()
     new GetAnswersByQuestionId();
     new GetCount();
     new GetDatabaseChecksum();
+    new GetLayerById();
     new GetLevelById();
     new GetPageById();
     new GetPagesByPinpointId();
@@ -128,6 +130,7 @@ function addAllCommands()
     new GetQuestionById();
     new GetTypeById();
     new GetUserById();
+    new SetLayer();
     new SetLevel();
     new SetPage();
     new SetPassword();
