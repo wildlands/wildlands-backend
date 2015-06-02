@@ -15,7 +15,6 @@
             <th>Gebruikersnaam</th>
             <th>E-mailadres</th>
             <th></th>
-            <th></th>
 	</tr>
     </thead>
     <tbody>

@@ -143,14 +143,6 @@ if (isLoggedIn())
 				</div>
 				
 			</div>
-			
-			<div class="checkbox">
-				
-				<label>
-					<input type="checkbox"> Onthoudt mij
-				</label>
-                            
-			</div>
                     
                         <div>
                             
