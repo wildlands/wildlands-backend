@@ -27,8 +27,8 @@ function addQuestion() {
     $('.antwoord').each(function() {
         var answer = {
             "text": $(this).val(),
-            "rightWrong": $(this).attr("answer-rightwrong") == 'true' ? 1 : 0
-        }
+            "rightWrong": $(this).attr("answer-rightwrong") === 'true' ? 1 : 0
+        };
         answers.push(answer);
     });
 
@@ -40,7 +40,7 @@ function addQuestion() {
         "pinpointId": $("#pinpointID").val(),
         "typeId": $('#questionType').val(),
         "answers": answers
-    }
+    };
 
     // Send a request to the api using the 'SetQuestion' command
     api("SetQuestion", parameter, function(data) {
@@ -58,7 +58,7 @@ function deleteQuestionAjax(sender)
     // Set the id as the parameter
     var parameter = {
         "id": $(sender).attr('questionId')
-    }
+    };
 
     // Send a request to the api using the 'DeleteQuestion' command
     api("DeleteQuestion", parameter, function(data) {
@@ -67,7 +67,7 @@ function deleteQuestionAjax(sender)
         $(tableRow).animate({
             backgroundColor: 'red'
         }, 1000, function () {
-            $(tableRow).fadeOut(1000)
+            $(tableRow).fadeOut(1000);
         });
     });
 }
@@ -99,16 +99,21 @@ function deleteQuestion(sender) {
 
 // Edit the question with the specified question id.
 function editQuestion(questionId) {
+    // Validate the form and return if it isn't valid
+    if(!validateForm())
+    {
+        return;
+    }
     // Create an array for all answers
     var answers = new Array();
 
     // Add data from each answer to the array
     $('.antwoord').each(function(key, value) {
-        var answer = {}
+        var answer = {};
         if ($(this).attr('answer-id')) {
             answer.id = $(this).attr('answer-id');
         }
-        if ($(this).attr('answer-rightwrong') && $(this).attr('answer-rightwrong') == "true") {
+        if ($(this).attr('answer-rightwrong') && $(this).attr('answer-rightwrong') === "true") {
             answer.rightWrong = true;
         } else {
             answer.rightWrong = false;
@@ -126,7 +131,7 @@ function editQuestion(questionId) {
         "image": $('#image1_1').val(),
         "typeId": $('#questionType').val(),
         "answers": answers
-    }
+    };
 
     // Send a request to the api using the 'SetQuestion' command
     api("SetQuestion", parameter, function(data) {
@@ -140,7 +145,7 @@ function fillEditQuestionFormWithData(questionId) {
     // Set the id as the parameter
     var parameter = {
         "id": questionId
-    }
+    };
 
     // Send a request to the api using the 'GetQuestionById' command
     api("GetQuestionById", parameter, function(data) {
@@ -197,7 +202,7 @@ function generateQuestionTable(levelId, questions) {
 
     // Generate a question row for every question
     for (var i = 0; i < questions.length; i++) {
-        if (questions[i].level.id == levelId) {
+        if (questions[i].level.id === levelId) {
             tableRows += generateQuestionRow(questions[i]);
         }
     }

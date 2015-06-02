@@ -12,7 +12,7 @@ function addUser()
         "name": $("#name").val(),
         "email": $("#email").val(),
         "password": $("#pass").val()
-    }
+    };
 
     // Send a request to the api using the 'SetUser' command
     api("SetUser", parameter, function(data) {
@@ -54,7 +54,7 @@ function deleteUserAjax(sender) {
     // Set the id as the parameter
     var parameter = {
         "id": $(sender).attr('userId')
-    }
+    };
 
     // Send a request to the api using the 'DeleteUser' command
     api("DeleteUser", parameter, function(data) {
@@ -71,6 +71,11 @@ function deleteUserAjax(sender) {
 
 // Edit an user
 function editUser(userId) {
+    // Validate the form and return if it isn't valid
+    if(!validateForm())
+    {
+        return;
+    }
     // Set the data as the parameter
     var parameter = {
         "id": userId,
@@ -78,7 +83,7 @@ function editUser(userId) {
         "email": $('#email').val(),
         "oldPassword": $('#oldpassword').val(),
         "password": $('#password').val()
-    }
+    };
 
     // Send a request to the api using the 'SetUser' command
     api("SetUser", parameter, function(data) {
@@ -92,7 +97,7 @@ function fillEditUserFormWithData(userId) {
     // Set the id as the parameter
     var parameter = {
         "id": userId
-    }
+    };
 
     // Send a request to the api using the 'GetUserById' command
     api("GetUserById", parameter, function(data) {

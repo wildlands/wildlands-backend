@@ -9,7 +9,7 @@ function addLevel() {
     // Get the name specified in the form
     var parameter = {
         "name": $("#name").val()
-    }
+    };
 
     // Send a request to the api using the 'SetLevel' command
     api("SetLevel", parameter, function() {
@@ -51,7 +51,7 @@ function deleteLevelAjax(sender) {
     // Set the id as the parameter
     var parameter = {
         "id": $(sender).attr('levelId')
-    }
+    };
 
     // Send a request to the api using the 'DeleteLevel' command
     api("DeleteLevel", parameter, function(data) {
@@ -67,11 +67,16 @@ function deleteLevelAjax(sender) {
 
 // Edit a level.
 function editLevel(levelId) {
+    // Validate the form and return if it isn't valid
+    if(!validateForm())
+    {
+        return;
+    }
     // Set the id and the name of the level as the parameter
     var parameter = {
         "id": levelId,
         "name": $('#name').val()
-    }
+    };
 
     // Send a request to the api using the 'SetLevel' command
     api("SetLevel", parameter, function(data) {
@@ -85,7 +90,7 @@ function fillEditLevelFormWithData(levelId) {
     // Set the id as the parameter
     var parameter = {
         "id": levelId
-    }
+    };
 
     // Send a request to the api using the 'SetLevel' command
     api("GetLevelById", parameter, function(data) {
