@@ -37,7 +37,6 @@ class GetLayerById extends Command
         while ($row = $result->fetch_assoc())
         {
             $layer->id = (int) $row['LayerID'];
-            $layer->typeId = (int) $row['TypeID'];
             $layer->type = (new GetTypeById())->execute(new IdObject($row['TypeID']));
             $layer->image = $row['Image'];
         }

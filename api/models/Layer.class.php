@@ -4,6 +4,6 @@
 class Layer
 {
     public $id;
-    public $typeId;
+    public $type;
     public $image;
 }
