@@ -150,10 +150,14 @@ function fillEditQuestionFormWithData(questionId) {
     // Send a request to the api using the 'GetQuestionById' command
     api("GetQuestionById", parameter, function(data) {
         // Set the received data
+        var image = '<img src="' + data.image + '" style="width:200px;height:200px;">';
+        
         loadQuestionLevel(data.level.id);
 
         $('#question').val(data.text);
         $('#image1_1').val(data.image);
+        
+        $('#image1_1').popover({placement: 'top', content: image, html: true});
 
         loadQuestionType(data.type.id);
 

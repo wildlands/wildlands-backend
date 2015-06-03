@@ -171,6 +171,7 @@ function fillEditPageFormWithData(pages) {
             // Otherwise add a new pageField
             addPageFieldToForm($('#level' + page.level.id + '>button'));
         }
+        var image = '<img src="' + page.image + '" style="width:200px;height:200px;">';
 
         // Get the pageId
         var id = counter['' + page.level.id] + '_' + page.level.id;
@@ -182,6 +183,7 @@ function fillEditPageFormWithData(pages) {
         $('#title' + id).val(page.title);
         $('#image' + id).val(page.image);
         $('#editor' + id).val(page.text);
+        $('#image' + id).popover({placement: 'top', content: image, html: true});
 
         // Increase the counter of pages in the specified level
         counter['' + page.level.id]++;
