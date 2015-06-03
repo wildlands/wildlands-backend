@@ -19,9 +19,10 @@ class SetUser extends Command
     
     public function isEmailInDatabase($email)
     {
-        $query = mysql_query("SELECT Email FROM user WHERE Email = $email");
-
-        if($query)
+        $query = query("SELECT Email FROM user WHERE Email = '" . $email . "'");
+        $result = $query->fetch_assoc();
+        
+        if($query->num_rows > 0)
         {
             //if there's a match
             return true;
@@ -67,11 +68,18 @@ class SetUser extends Command
         }
         else
         {
-            if(isEmailInDatabase($user->email))
+            if(!$this->isEmailInDatabase($user->email))
             {
                 $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
                 $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashedPassword');";
                 $successMessage="Gebruiker is aangemaakt.";
+                
+                $result = query($query);
+
+                if (!$result)
+                {
+                    $this->errorMessage("Er is iets fout gegaan.");
+                }
             }
             else
             {
@@ -79,12 +87,7 @@ class SetUser extends Command
             }
         }
 
-        $result = query($query);
-
-        if (!$result)
-        {
-            $this->errorMessage("Er is iets fout gegaan.");
-        }
+        
 
         successMessage($successMessage);
        

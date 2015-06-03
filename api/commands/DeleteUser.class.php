@@ -20,20 +20,32 @@ class DeleteUser extends Command
     public function execute($parameter)
     {
         $user = $parameter;
+        
+        $pass = $user->password;
+        
+        $checkPasswordQuery = "SELECT Password FROM user WHERE UserID = '$user->id'";
+        $result = query($checkPasswordQuery);
 
-        if (!isset($user->id))
+        if(password_verify($pass, $result->fetch_assoc()['Password']))
         {
-            $this->errorMessage("Geen UserID gevonden.");
+            if (!isset($user->id))
+            {
+                $this->errorMessage("Geen UserID gevonden.");
+            }
+
+            $query = "DELETE FROM user WHERE UserID = '" . $user->id . "';";
+            $result = query($query);
+
+            if (!$result)
+            {
+                $this->errorMessage("Er is iets fout gegaan.");
+            }
+
+            successMessage("Gebruiker is verwijderd.");
         }
-
-        $query = "DELETE FROM user WHERE UserID = '" . $user->id . "';";
-        $result = query($query);
-
-        if (!$result)
+        else
         {
-            $this->errorMessage("Er is iets fout gegaan.");
+            $this->errorMessage("Fout paswoord.");
         }
-
-        successMessage("Gebruiker is verwijderd.");
     }
 }

@@ -25,8 +25,16 @@ function addUser()
 function deleteUser(sender) {
     // Show a confirmation box for deleting an user
     bootbox.dialog({
-        message: "Wilt u deze gebruiker zeker weten verwijderen?",
-        title: "Gebruiker verwijderen",
+        title: "Gebruiker verwijderen?",
+        message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Wachtwoord</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input id="password" name="password" type="text" class="form-control input-md"> ' +
+                    '</div> ' +
+                    '</form>',
         buttons: {
             success: {
                 label: "Ja",
@@ -53,7 +61,8 @@ function deleteUserAjax(sender) {
 
     // Set the id as the parameter
     var parameter = {
-        "id": $(sender).attr('userId')
+        "id": $(sender).attr('userId'),
+        "password": $("#password").val()
     };
 
     // Send a request to the api using the 'DeleteUser' command
