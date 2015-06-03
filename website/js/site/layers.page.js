@@ -25,7 +25,7 @@ function fillEditLayerFormWithData(layerId) {
     api("GetLayerById", parameter, function(data) {
         // Set both fields with the received data
         $('#layerId').val(data.id);
-        $('#typeId').val(data.typeId);
+        $('#typeId').val(data.type.id);
         $('#image').val(data.image);
     });
 }
