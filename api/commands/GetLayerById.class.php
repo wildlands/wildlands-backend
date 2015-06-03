@@ -29,7 +29,7 @@ class GetLayerById extends Command
             $this->errorMessage("Geen LayerID gevonden.");
         }
 
-        $query = "SELECT * FROM layer WHERE LayerID = '$layer->id';";
+        $query = "SELECT layer.Image, layer.LayerID, type.Name FROM layer, type WHERE LayerID = '$layer->id' AND layer.LayerID = type.TypeID;";
         $result = query($query);
 
         $row = $result->fetch_assoc();
@@ -41,7 +41,7 @@ class GetLayerById extends Command
 
         $layer = new Layer();
         $layer->id = (int) $row['LayerID'];
-        $layer->typeId = $row['TypeID'];
+        $layer->typeId = $row['Name'];
         $layer->image = $row['Image'];
 
         return $layer;

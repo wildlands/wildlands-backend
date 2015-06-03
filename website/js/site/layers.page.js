@@ -3,7 +3,7 @@ function editLayer(layerId) {
     // Set the id and the name of the level as the parameter
     var parameter = {
         "id": layerId,
-        "typeId": $('#layerType').val(),
+        "typeId": $('#typeId').val(),
         "image": $('#image').val()
     };
 

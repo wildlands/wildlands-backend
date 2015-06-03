@@ -16,11 +16,27 @@ class SetUser extends Command
     {
         return true;
     }
+    
+    public function isEmailInDatabase($email)
+    {
+        $query = mysql_query("SELECT Email FROM user WHERE Email = $email");
+
+        if($query)
+        {
+            //if there's a match
+            return true;
+        }
+        else
+        {
+            //no match
+            return false;
+        }
+    }
 
     public function execute($parameter)
     {
         $user = $parameter;
-
+        
         if (isset($user->id))
         {
             $query = "UPDATE user SET Screenname = '$user->name', Email = '$user->email'";
@@ -28,7 +44,7 @@ class SetUser extends Command
             {
                 $checkPasswordQuery = "SELECT Password FROM user WHERE UserID = '$user->id'";
                 $result = query($checkPasswordQuery);
-                
+
                 if(password_verify($user->oldPassword, $result->fetch_assoc()['Password']))
                 {
                     if (isset($user->password) && $user->password != "")
@@ -51,9 +67,16 @@ class SetUser extends Command
         }
         else
         {
-            $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashedPassword');";
-            $successMessage="Gebruiker is aangemaakt.";
+            if(isEmailInDatabase($user->email))
+            {
+                $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
+                $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashedPassword');";
+                $successMessage="Gebruiker is aangemaakt.";
+            }
+            else
+            {
+                $this->errorMessage("Email bestaat al!");
+            }
         }
 
         $result = query($query);

@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Type</th>
+            <th>Thema</th>
             <th>Afbeelding</th>
             <th></th>
         </tr>
@@ -83,8 +83,8 @@
 <script id="layerRowTemplate" type="text/template">
     <tr id="{{id}}" class="layerRow">
         <td>{{id}}</td>
-        <td>>{{type}}</td>
-        <td>>{{image}}</td>
+        <td>{{typeId}}</td>
+        <td>{{image}}</td>
         <td>
             <a href="../edit/{{id}}" class="btn btn-warning col-md-offset-9"><i class="fa fa-pencil"></i></a>
         </td>
