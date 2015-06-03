@@ -18,7 +18,7 @@ class GetAllLayers extends Command {
 
     public function execute($parameter)
     {
-        $query = "SELECT * FROM layer";
+        $query = "SELECT LayerID FROM layer";
         $result = query($query);
 
         $layers = array();

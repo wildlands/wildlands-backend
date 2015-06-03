@@ -22,27 +22,25 @@ class GetLayerById extends Command
 
     public function execute($parameter)
     {
-        $layer = $parameter;
+        $layerId = $parameter->id;
 
-        if (!isset($layer->id))
+        if (!isset($layerId))
         {
             $this->errorMessage("Geen LayerID gevonden.");
         }
 
-        $query = "SELECT layer.Image, layer.LayerID, type.Name FROM layer, type WHERE LayerID = '$layer->id' AND layer.LayerID = type.TypeID;";
+        $query = "SELECT * FROM layer WHERE layer.LayerID = " . $layerId . ";";
         $result = query($query);
-
-        $row = $result->fetch_assoc();
-
-        if (!$row)
-        {
-            $this->errorMessage("Er is iets fout gegaan.");
-        }
-
+        
         $layer = new Layer();
-        $layer->id = (int) $row['LayerID'];
-        $layer->typeId = $row['Name'];
-        $layer->image = $row['Image'];
+        
+        while ($row = $result->fetch_assoc())
+        {
+            $layer->id = (int) $row['LayerID'];
+            $layer->typeId = (int) $row['TypeID'];
+            $layer->type = (new GetTypeById())->execute(new IdObject($row['TypeID']));
+            $layer->image = $row['Image'];
+        }
 
         return $layer;
     }
