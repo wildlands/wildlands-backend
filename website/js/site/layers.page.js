@@ -24,7 +24,7 @@ function fillEditLayerFormWithData(layerId) {
     // Send a request to the api using the 'SetLevel' command
     api("GetLayerById", parameter, function(data) {
         // Set both fields with the received data
-        var image = '<img src="' + data.image + '" style="width:200px;height:200px;">';
+        var image = '<img src="' + data.image + '" style="margin-left:auto;margin-right:auto;max-width:200px;max-height:250px;">';
         
         $('#layerId').val(data.id);
         $('#typeId').val(data.type.id);

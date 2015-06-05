@@ -150,7 +150,7 @@ function fillEditQuestionFormWithData(questionId) {
     // Send a request to the api using the 'GetQuestionById' command
     api("GetQuestionById", parameter, function(data) {
         // Set the received data
-        var image = '<img src="' + data.image + '" style="width:200px;height:200px;">';
+        var image = '<img src="' + data.image + '" style="margin-left:auto;margin-right:auto;max-width:200px;max-height:250px;">';
         
         loadQuestionLevel(data.level.id);
 
