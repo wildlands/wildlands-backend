@@ -86,7 +86,7 @@ if (isset($_GET['logout']) && $_GET['logout'])
 					
 					<div class="col-md-4">
 			
-						<h3 class="header-title">Dashboard</h3>
+						<h3 class="header-title">Wildlands Eco App CMS</h3>
 						
 					</div>
 					
