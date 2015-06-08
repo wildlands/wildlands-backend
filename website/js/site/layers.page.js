@@ -27,7 +27,7 @@ function fillEditLayerFormWithData(layerId) {
         var image = '<img src="' + data.image + '" style="margin-left:auto;margin-right:auto;max-width:200px;max-height:250px;">';
         
         $('#layerId').val(data.id);
-        $('#typeId').val(data.type.id);
+        $('#typeId').val(data.type.name);
         $('#image').val(data.image);
         $('#image').popover({placement: 'top', content: image, html: true});
     });
