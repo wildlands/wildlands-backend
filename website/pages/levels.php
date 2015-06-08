@@ -37,7 +37,7 @@
 
     <div class="form-group">
         <label class="control-label">Naam</label>
-        <input class="form-control" type="text" id="name" />
+        <input class="form-control" type="text" name="name" id="name" />
     </div>
 
     <br>

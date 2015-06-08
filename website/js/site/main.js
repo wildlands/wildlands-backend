@@ -152,8 +152,9 @@ function validateForm() {
 
     // Check every element
     $(elementsToBeChecked).each(function(index) {
-        // If the element is empty, do nothing but return
-        if ($(this).val() !== "") {
+        var field = $(this).val()
+        // If the element is empty or attempt to inject tags, do nothing but return
+        if (field !== "" && !(field.indexOf("<") > -1)) {
             return;
         }
 
