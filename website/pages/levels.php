@@ -4,7 +4,7 @@
 <?php if ($_GET[ 'action']=='show' ): ?>
 <div class="page-header">
 
-    <h1>Niveau <small>overzicht</small><a href="<?php echo BASE_URL; ?>levels/add/" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
+    <h1>Niveaus <small>overzicht</small><a href="<?php echo BASE_URL; ?>levels/add/" class="btn btn-success pull-right"><i class="fa fa-plus"></i></a></h1>
 
 </div>
 
