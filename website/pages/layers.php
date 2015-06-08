@@ -4,7 +4,7 @@
 <?php if ($_GET[ 'action']=='show' ): ?>
 <div class="page-header">
 
-    <h1>Layers <small>overzicht</small></h1>
+    <h1>Leidingen <small>overzicht</small></h1>
 
 </div>
 
@@ -30,7 +30,7 @@
 <?php endif; if ($_GET[ 'action']=='edit' ): ?>
 <div class="page-header">
 
-    <h1>Layer <small>aanpassen</small></h1>
+    <h1>Leiding <small>aanpassen</small></h1>
 
 </div>
 
