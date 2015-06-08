@@ -32,7 +32,7 @@
 	<div class="col-md-3">
 
 		<div class="chart" data-percent="0" id="chartLevels"><span class="percentage"></span></div>
-		<p class="text-center">Niveau's</p>
+		<p class="text-center">Niveaus</p>
 
 	</div>
 	
