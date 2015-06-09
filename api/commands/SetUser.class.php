@@ -17,20 +17,38 @@ class SetUser extends Command
         return true;
     }
     
-    public function isEmailInDatabase($email)
+    public function isEmailInDatabase($email, $userId)
     {
-        $query = query("SELECT Email FROM user WHERE Email = '" . $email . "'");
-        $result = $query->fetch_assoc();
-        
-        if($query->num_rows > 0)
+        if (isset($userId))
         {
-            //if there's a match
-            return true;
+            $query = query("SELECT Email FROM user WHERE Email = '" . $email . "' AND UserID = '" . $userId . "'");
+            $result = $query->fetch_assoc();
+            if($query->num_rows > 0)
+            {
+                //if there's a match
+                return false;
+            }
+            else
+            {
+                //no match
+                return true;
+            }
         }
         else
         {
-            //no match
-            return false;
+            $query = query("SELECT Email FROM user WHERE Email = '" . $email . "'");
+            $result = $query->fetch_assoc();
+            
+            if($query->num_rows > 0)
+            {
+                //if there's a match
+                return true;
+            }
+            else
+            {
+                //no match
+                return false;
+            }
         }
     }
 
@@ -40,22 +58,31 @@ class SetUser extends Command
         
         if (isset($user->id))
         {
-            $query = "UPDATE user SET Screenname = '$user->name', Email = '$user->email'";
-            if (isset($user->oldPassword))
+            if(!$this->isEmailInDatabase($user->email, $user->id))
             {
-                $checkPasswordQuery = "SELECT Password FROM user WHERE UserID = '$user->id'";
-                $result = query($checkPasswordQuery);
-
-                if(password_verify($user->oldPassword, $result->fetch_assoc()['Password']))
+                $query = "UPDATE user SET Screenname = '$user->name', Email = '$user->email'";
+                if (isset($user->oldPassword))
                 {
-                    if (isset($user->password) && $user->password != "")
+                    $checkPasswordQuery = "SELECT Password FROM user WHERE UserID = '$user->id'";
+                    $result = query($checkPasswordQuery);
+
+                    if(password_verify($user->oldPassword, $result->fetch_assoc()['Password']))
                     {
-                        $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
-                        $query .= ", Password = '$hashedPassword'";
+                        if (isset($user->password) && $user->password != "")
+                        {
+                            $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
+                            $query .= ", Password = '$hashedPassword'";
+                            $result = query($query);
+                        }
+                        $query .= " WHERE UserID = '$user->id';";
+                        $successMessage = "Gebruiker is aangepast.";
+                        $result = query($query);
+                    } 
+                    else
+                    {
+                        $this->errorMessage("Oude wachtwoord komt niet overeen!");
                     }
-                    $query .= " WHERE UserID = '$user->id';";
-                    $successMessage = "Gebruiker is aangepast.";
-                } 
+                }
                 else
                 {
                     $this->errorMessage("Oude wachtwoord komt niet overeen!");
@@ -63,12 +90,12 @@ class SetUser extends Command
             }
             else
             {
-                $this->errorMessage("Oude wachtwoord komt niet overeen!");
+                $this->errorMessage("Email bestaat al!");
             }
         }
         else
         {
-            if(!$this->isEmailInDatabase($user->email))
+            if(!$this->isEmailInDatabase($user->email, null))
             {
                 $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
                 $query = "INSERT INTO user (Screenname, Email, Password) VALUES ('$user->name', '$user->email', '$hashedPassword');";
@@ -86,9 +113,7 @@ class SetUser extends Command
                 $this->errorMessage("Email bestaat al!");
             }
         }
-
         
-
         successMessage($successMessage);
        
     }

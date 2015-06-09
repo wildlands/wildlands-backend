@@ -142,7 +142,7 @@ function loadTemplates() {
 // Validate the form
 function validateForm() {
     // Specify the elements that are going to checked on validity
-    var elementsToBeChecked = 'input, select';
+    var elementsToBeChecked = 'input:not(.optional), select';
 
     var errorMessage = "";
     var valid = true;

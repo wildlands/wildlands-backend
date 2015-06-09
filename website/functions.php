@@ -20,7 +20,7 @@ function getUserID($hash)
 {
 	global $mysqli;
 	
-	$query = $mysqli->query("SELECT `UserID` FROM `session` WHERE Hash='" . $hash . "' LIMIT 1");
+	$query = $mysqli->query("SELECT `UserID` FROM `session` WHERE Hash='$hash' LIMIT 1");
 	$fetch = $query->fetch_assoc();
 	
 	return $fetch['UserID'];
@@ -80,10 +80,12 @@ function getScreenName()
 {
 	
 	global $mysqli;
-	
+        
+	$sessionHash = $_SESSION['hash'];
+        
 	// UserID ophalen uit de session hash
-	$userID = getUserID($_SESSION['hash']);
-	$query = $mysqli->query("SELECT `Screenname` FROM `user` WHERE UserID=" . $userID . " LIMIT 1");
+	$userID = getUserID($sessionHash);
+	$query = $mysqli->query("SELECT `Screenname` FROM `user` WHERE UserID='$userID' LIMIT 1");
 	$fetch = $query->fetch_assoc();
 	
 	return $fetch['Screenname'];

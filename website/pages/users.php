@@ -77,27 +77,36 @@
 	
 	<div class="form-group">
                 
-        <label>Naam</label>
-        <input class="form-control" type="text" id="name"/>
+            <label>Naam</label>
+            <input class="form-control" type="text" id="name"/>
 
-        <br>
-
-        <label>Email</label>
-        <input class="form-control" type="email" id="email"/>
+        </div>
         
-         <br>
+        <br>
+        
+        <div class="form-group">
 
-        <label>Oude wachtwoord</label>
-        <input class="form-control" type="password" id="oldpassword"/>
-
+            <label>Email</label>
+            <input class="form-control" type="email" id="email"/>
+        
+        </div>
+        
         <br>
 
+        <div class="form-group">
+        
+            <label>Oude wachtwoord</label>
+            <input class="form-control" type="password" id="oldpassword"/>
+
+        </div>
+        
+        <br>
+        
+        
         <label>Wachtwoord</label>
-        <input class="form-control" type="password" id="password" placeholder="Leeg laten als het wachtwoord niet zal worden veranderd."/>
+        <input class="form-control optional" type="password" id="password" placeholder="Leeg laten als het wachtwoord niet zal worden veranderd."/>
 
         <hr>
-		
-	</div>
 	
     <button class="btn btn-labeled btn-success updateUser" type="button" onclick="javascript: editUser(<?php echo $_GET['id'] ?>);"><span class="btn-label"><i class="fa fa-floppy-o"></i></span> Aanpassen</button> <a href="<?php echo BASE_URL; ?>users/show/" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-times"></i></span> Annuleren</a>
 
