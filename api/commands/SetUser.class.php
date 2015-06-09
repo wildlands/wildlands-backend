@@ -60,7 +60,6 @@ class SetUser extends Command
         {
             if(!$this->isEmailInDatabase($user->email, $user->id))
             {
-                $query = "UPDATE user SET Screenname = '$user->name', Email = '$user->email'";
                 if (isset($user->oldPassword))
                 {
                     $checkPasswordQuery = "SELECT Password FROM user WHERE UserID = '$user->id'";
@@ -71,12 +70,11 @@ class SetUser extends Command
                         if (isset($user->password) && $user->password != "")
                         {
                             $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
-                            $query .= ", Password = '$hashedPassword'";
+                            $query = "UPDATE user SET Password = '$hashedPassword'";
                             $result = query($query);
                         }
                         $query .= " WHERE UserID = '$user->id';";
                         $successMessage = "Gebruiker is aangepast.";
-                        $result = query($query);
                     } 
                     else
                     {
