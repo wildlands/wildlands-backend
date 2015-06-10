@@ -27,7 +27,8 @@ function fillEditLayerFormWithData(layerId) {
         var image = '<img src="' + data.image + '" style="margin-left:auto;margin-right:auto;max-width:200px;max-height:250px;">';
         
         $('#layerId').val(data.id);
-        $('#typeId').val(data.type.name);
+        $('#typeId').val(data.type.id);
+        loadLayerType(data.type.id);
         $('#image').val(data.image);
         $('#image').popover({placement: 'top', content: image, html: true});
     });
@@ -55,5 +56,17 @@ function getLayers() {
     api("GetAllLayers", function(data) {
         // Fill the table with the received data
         fillLayerTable(data);
+    });
+}
+
+// Load all the type name for edit layer
+function loadLayerType(typeId) {
+    var parameter = {
+      "id": typeId  
+    };
+    // Send a request to the api using the 'GetTypeById' command
+    api("GetTypeById", parameter, function(data) {
+        // Pre-select the specified element
+        $('#typeName').val(data.name);
     });
 }

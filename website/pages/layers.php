@@ -38,7 +38,8 @@
 
     <div class="form-group">
         <label class="control-label">Type</label>
-        <input type="text" class="form-control" id="typeId" readonly/>
+        <input type="text" class="form-control" id="typeName" readonly/>
+        <input type="hidden" id="typeId"/>
 
         <hr>
         
