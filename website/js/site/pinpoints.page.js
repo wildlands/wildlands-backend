@@ -396,16 +396,34 @@ function replaceEditors() {
 
 // Set coordinates
 function setCoordinates(event) {
-    // Set the xPos and yPos text fields to the new values
-    $('#xPos').val((event.pageX - this.x) * $(this).attr('data-scale'));
-    $('#yPos').val((event.pageY - this.y) * $(this).attr('data-scale'));
 
-    // Set the spot to the position the user clicked on
-    $('#spot').css('left', (event.pageX - this.x + this.offsetLeft - 12) + 'px');
-    $('#spot').css('top', (event.pageY - this.y + this.offsetTop - 12) + 'px');
+    if (msieversion()) {
 
-    // If the spot was hidden, display it
-    if ($('#spot').css('display') == "none") {
-        $('#spot').css('display', 'inline');
+        // Set the xPos and yPos text fields to the new values
+        $('#xPos').val(Math.round(event.offsetX * $(this).attr('data-scale')));
+        $('#yPos').val(Math.round(event.offsetY * $(this).attr('data-scale')));
+
+        // Set the spot to the position the user clicked on
+        $('#spot').css('left', (event.offsetX + this.offsetLeft - 12) + 'px');
+        $('#spot').css('top', (event.offsetY + this.offsetTop - 12) + 'px');
+
+        // If the spot was hidden, display it
+        if ($('#spot').css('display') == "none") {
+            $('#spot').css('display', 'inline');
+        }
+
+    } else {
+        // Set the xPos and yPos text fields to the new values
+        $('#xPos').val((event.pageX - this.x) * $(this).attr('data-scale'));
+        $('#yPos').val((event.pageY - this.y) * $(this).attr('data-scale'));
+
+        // Set the spot to the position the user clicked on
+        $('#spot').css('left', (event.pageX - this.x + this.offsetLeft - 12) + 'px');
+        $('#spot').css('top', (event.pageY - this.y + this.offsetTop - 12) + 'px');
+
+        // If the spot was hidden, display it
+        if ($('#spot').css('display') == "none") {
+            $('#spot').css('display', 'inline');
+        }
     }
 }

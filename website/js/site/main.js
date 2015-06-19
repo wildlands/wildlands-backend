@@ -188,3 +188,12 @@ function validateForm() {
     // Return the result
     return valid;
 }
+
+// Check if browser is Internet Explorer.
+function msieversion() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer, return version number
+            return true;
+   return false;
+}
